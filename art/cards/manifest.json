@@ -1,0 +1,450 @@
+[
+  {
+    "id": "court-wands-queen",
+    "source": "static/art/v2/court-wands-queen.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-wands-queen.webp"
+  },
+  {
+    "id": "dantalion",
+    "source": "static/art/v2/dantalion.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/dantalion.webp"
+  },
+  {
+    "id": "playing-frame",
+    "source": "static/art/v2/playing-frame.png",
+    "width": 992,
+    "height": 1586,
+    "hasAlpha": true,
+    "output": "/art/cards/playing-frame.webp"
+  },
+  {
+    "id": "court-pentacles-king",
+    "source": "static/art/v2/court-pentacles-king.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-pentacles-king.webp"
+  },
+  {
+    "id": "seere",
+    "source": "static/art/v2/seere.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/seere.webp"
+  },
+  {
+    "id": "court-wands-king",
+    "source": "static/art/v2/court-wands-king.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-wands-king.webp"
+  },
+  {
+    "id": "court-wands-knight",
+    "source": "static/art/v2/court-wands-knight.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-wands-knight.webp"
+  },
+  {
+    "id": "suit-pentacles",
+    "source": "static/art/v2/suit-pentacles.png",
+    "width": 1254,
+    "height": 1254,
+    "hasAlpha": true,
+    "output": "/art/cards/suit-pentacles.webp"
+  },
+  {
+    "id": "andromalius",
+    "source": "static/art/v2/andromalius.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/andromalius.webp"
+  },
+  {
+    "id": "arcana-12",
+    "source": "static/art/v2/arcana-12.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-12.webp"
+  },
+  {
+    "id": "court-pentacles-knight",
+    "source": "static/art/v2/court-pentacles-knight.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-pentacles-knight.webp"
+  },
+  {
+    "id": "court-cups-king",
+    "source": "static/art/v2/court-cups-king.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-cups-king.webp"
+  },
+  {
+    "id": "arcana-5",
+    "source": "static/art/v2/arcana-5.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-5.webp"
+  },
+  {
+    "id": "arcana-4",
+    "source": "static/art/v2/arcana-4.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-4.webp"
+  },
+  {
+    "id": "arcana-13",
+    "source": "static/art/v2/arcana-13.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-13.webp"
+  },
+  {
+    "id": "arcana-11",
+    "source": "static/art/v2/arcana-11.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-11.webp"
+  },
+  {
+    "id": "arcana-6",
+    "source": "static/art/v2/arcana-6.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-6.webp"
+  },
+  {
+    "id": "court-swords-king",
+    "source": "static/art/v2/court-swords-king.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-swords-king.webp"
+  },
+  {
+    "id": "arcana-7",
+    "source": "static/art/v2/arcana-7.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-7.webp"
+  },
+  {
+    "id": "arcana-10",
+    "source": "static/art/v2/arcana-10.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-10.webp"
+  },
+  {
+    "id": "arcana-14",
+    "source": "static/art/v2/arcana-14.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-14.webp"
+  },
+  {
+    "id": "arcana-3",
+    "source": "static/art/v2/arcana-3.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-3.webp"
+  },
+  {
+    "id": "valefor",
+    "source": "static/art/v2/valefor.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/valefor.webp"
+  },
+  {
+    "id": "arcana-2",
+    "source": "static/art/v2/arcana-2.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-2.webp"
+  },
+  {
+    "id": "arcana-15",
+    "source": "static/art/v2/arcana-15.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-15.webp"
+  },
+  {
+    "id": "arcana-17",
+    "source": "static/art/v2/arcana-17.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-17.webp"
+  },
+  {
+    "id": "arcana-0",
+    "source": "static/art/v2/arcana-0.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-0.webp"
+  },
+  {
+    "id": "shax",
+    "source": "static/art/v2/shax.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/shax.webp"
+  },
+  {
+    "id": "card-back",
+    "source": "static/art/v2/card-back.png",
+    "width": 992,
+    "height": 1586,
+    "hasAlpha": false,
+    "output": "/art/cards/card-back.webp"
+  },
+  {
+    "id": "arcana-1",
+    "source": "static/art/v2/arcana-1.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-1.webp"
+  },
+  {
+    "id": "arcana-16",
+    "source": "static/art/v2/arcana-16.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-16.webp"
+  },
+  {
+    "id": "court-cups-page",
+    "source": "static/art/v2/court-cups-page.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-cups-page.webp"
+  },
+  {
+    "id": "bael",
+    "source": "static/art/v2/bael.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/bael.webp"
+  },
+  {
+    "id": "arcana-18",
+    "source": "static/art/v2/arcana-18.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-18.webp"
+  },
+  {
+    "id": "court-swords-page",
+    "source": "static/art/v2/court-swords-page.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-swords-page.webp"
+  },
+  {
+    "id": "arcana-19",
+    "source": "static/art/v2/arcana-19.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-19.webp"
+  },
+  {
+    "id": "court-cups-knight",
+    "source": "static/art/v2/court-cups-knight.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-cups-knight.webp"
+  },
+  {
+    "id": "arcana-21",
+    "source": "static/art/v2/arcana-21.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-21.webp"
+  },
+  {
+    "id": "suit-wands",
+    "source": "static/art/v2/suit-wands.png",
+    "width": 1254,
+    "height": 1254,
+    "hasAlpha": true,
+    "output": "/art/cards/suit-wands.webp"
+  },
+  {
+    "id": "court-swords-knight",
+    "source": "static/art/v2/court-swords-knight.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-swords-knight.webp"
+  },
+  {
+    "id": "arcana-20",
+    "source": "static/art/v2/arcana-20.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-20.webp"
+  },
+  {
+    "id": "arcana-9",
+    "source": "static/art/v2/arcana-9.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-9.webp"
+  },
+  {
+    "id": "power-token",
+    "source": "static/art/v2/power-token.png",
+    "width": 1254,
+    "height": 1254,
+    "hasAlpha": true,
+    "output": "/art/cards/power-token.webp"
+  },
+  {
+    "id": "amdusias",
+    "source": "static/art/v2/amdusias.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/amdusias.webp"
+  },
+  {
+    "id": "balam",
+    "source": "static/art/v2/balam.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/balam.webp"
+  },
+  {
+    "id": "arcana-8",
+    "source": "static/art/v2/arcana-8.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/arcana-8.webp"
+  },
+  {
+    "id": "frame",
+    "source": "static/art/v2/frame.png",
+    "width": 992,
+    "height": 1586,
+    "hasAlpha": true,
+    "output": "/art/cards/frame.webp"
+  },
+  {
+    "id": "court-cups-queen",
+    "source": "static/art/v2/court-cups-queen.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-cups-queen.webp"
+  },
+  {
+    "id": "furfur",
+    "source": "static/art/v2/furfur.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/furfur.webp"
+  },
+  {
+    "id": "court-swords-queen",
+    "source": "static/art/v2/court-swords-queen.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-swords-queen.webp"
+  },
+  {
+    "id": "court-pentacles-page",
+    "source": "static/art/v2/court-pentacles-page.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-pentacles-page.webp"
+  },
+  {
+    "id": "court-pentacles-queen",
+    "source": "static/art/v2/court-pentacles-queen.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-pentacles-queen.webp"
+  },
+  {
+    "id": "court-wands-page",
+    "source": "static/art/v2/court-wands-page.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/court-wands-page.webp"
+  },
+  {
+    "id": "suit-swords",
+    "source": "static/art/v2/suit-swords.png",
+    "width": 1254,
+    "height": 1254,
+    "hasAlpha": true,
+    "output": "/art/cards/suit-swords.webp"
+  },
+  {
+    "id": "suit-cups",
+    "source": "static/art/v2/suit-cups.png",
+    "width": 1254,
+    "height": 1254,
+    "hasAlpha": true,
+    "output": "/art/cards/suit-cups.webp"
+  },
+  {
+    "id": "agares",
+    "source": "static/art/v2/agares.png",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "output": "/art/cards/agares.webp"
+  }
+]
