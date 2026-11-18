@@ -1,0 +1,28 @@
+<script lang="ts">
+ import {arcana} from '$lib/data/game';
+ import type {State} from '$lib/engine/types';
+ import ReadySeal from './ReadySeal.svelte';
+ let {game,uid,labReady=null,labReadyPlayer=null}:{game:State;uid:string;labReady?:number|null;labReadyPlayer?:string|null}=$props();
+ const players=$derived([...game.players].sort((a,b)=>a.score-b.score));
+ const rounds=$derived(game.history);
+</script>
+<section class="score-ledger history-ledger" aria-label="Round-by-round scores" style:--rounds={rounds.length}>
+ <table>
+ <caption><span>WON / BID</span><span>+ PENALTY <i>− RECOVERY</i></span></caption>
+ <thead><tr><th scope="col" class="player-column">Imp</th>{#each rounds as round}<th scope="col" class:current={round.round===game.round} title={arcana[round.arcana].name}>Round {round.round}</th>{/each}<th scope="col">Total</th><th scope="col"><span class="sr-only">Ready</span></th></tr></thead>
+ <tbody>{#each players as p (p.id)}<tr data-score-player={p.id} class:you={p.id===uid}>
+ <th scope="row" class="player-name">{p.name}</th>
+ {#each rounds as round}{@const penalty=round.penalties[p.id]??0}{@const recovery=round.recoveries[p.id]??0}
+ <td data-round={round.round} class="round-result" class:current={round.round===game.round} aria-label={`Round ${round.round}, ${arcana[round.arcana].name}: won ${round.won[p.id]} of bid ${round.bids[p.id]}, penalty ${penalty}, recovery ${recovery}, total ${round.scores[p.id]}`} title={`${arcana[round.arcana].name} · Total after round ${round.round}: ${round.scores[p.id]}`}>
+ <span class="round-label" aria-hidden="true">R{round.round}</span><span class="contract"><strong>{round.won[p.id]}</strong><span class="slash">/</span>{round.bids[p.id]}</span><span class="round-change" class:exact={round.won[p.id]===round.bids[p.id]}>+{penalty}{#if recovery>0}<span class="recovery"> −{recovery}</span>{/if}</span>
+ </td>{/each}
+ <td class="player-total"><strong>{p.score}</strong><span class="points-label">POINTS</span></td>
+ <td class="player-ready"><div class="ready-slot">{#if game.phase==='round-end'&&p.done}<ReadySeal name={p.name} progress={labReadyPlayer===p.id?labReady:null}/>{/if}</div></td>
+ </tr>{/each}</tbody>
+ </table>
+</section>
+<style>
+.history-ledger{container-type:inline-size;color:#ddcba6;font-variant-numeric:tabular-nums}.history-ledger table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:.72rem}.history-ledger caption{caption-side:bottom;text-align:center;padding-top:12px;font-size:.55rem;letter-spacing:.055em;color:#ac9871}.history-ledger caption>span+span{margin-left:18px}.history-ledger caption i{font-style:normal;color:#a6c8aa}.history-ledger th,.history-ledger td{text-align:center;padding:8px 3px;border-bottom:1px solid #b59a5b35;font-weight:400}.history-ledger thead th{padding:6px 3px;color:#bba477;font-size:.55rem;letter-spacing:.04em;white-space:nowrap}.history-ledger .player-column{width:19%;text-align:left}.history-ledger thead th:last-child{width:40px}.history-ledger tbody .player-name{text-align:left;font:600 1.05rem 'Cormorant Garamond',serif;overflow-wrap:anywhere}.history-ledger .you .player-name{color:#ffdf9c}.history-ledger .current{background:#b7974c10;border-inline:1px solid #b7974c45}.history-ledger thead .current{color:#ffe0a0}.contract{display:flex;justify-content:center;align-items:baseline;gap:3px;white-space:nowrap}.contract strong{font-weight:600;color:#f2deb4}.slash{color:#89754f;font-size:.65rem}.round-change{display:block;font-size:.6rem;color:#d5a38c;margin-top:4px;white-space:nowrap}.round-change.exact{color:#bba77e}.recovery{color:#a6c8aa}.player-total strong{font:600 1.8rem/1 'Cormorant Garamond',serif;color:#f5d48e}.points-label,.round-label{display:none}.player-ready{padding-right:0!important}.history-ledger .ready-slot{width:40px;height:40px;display:grid;place-items:center}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@container(max-width:400px){.history-ledger table,.history-ledger tbody{display:block}.history-ledger thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.history-ledger tbody tr{position:relative;display:grid;grid-template-columns:repeat(var(--rounds),minmax(0,1fr));padding:1px 0;border-bottom:1px solid #b59a5b55;row-gap:0}.history-ledger th,.history-ledger td{padding:0 1px;border-bottom:0}.history-ledger tbody .player-name{grid-column:1/-1;min-height:18px;line-height:18px;padding-right:56px;font-size:.8rem}.history-ledger .player-total{position:absolute;right:26px;top:1px;line-height:18px}.player-total strong{font-size:1.15rem}.history-ledger .player-ready{position:absolute;right:0;top:0}.history-ledger .ready-slot{width:20px;height:20px}.history-ledger :global(.ready-seal){width:20px;height:20px}.history-ledger :global(.ready-seal span){font-size:13px}.round-label{display:block;font-size:6px;line-height:7px;color:#af9871;margin-bottom:1px}.contract{font-size:9px;gap:2px;line-height:10px}.slash{font-size:.5rem}.round-change{font-size:7px;margin-top:1px;line-height:8px}.history-ledger caption{display:flex;justify-content:center;gap:10px;font-size:6px;line-height:9px;padding-top:6px;letter-spacing:0}.history-ledger caption>span{display:block}.history-ledger caption>span+span{margin:0}}
+@media(max-height:600px){.history-ledger th,.history-ledger td{padding-block:1px}.history-ledger .ready-slot{height:18px}.history-ledger caption{padding-top:5px;font-size:.45rem;line-height:9px}.history-ledger tbody .player-name{font-size:.85rem;line-height:20px}.player-total strong{font-size:1.15rem}.contract{font-size:.6rem;line-height:11px}.round-change{font-size:.45rem;line-height:8px;margin-top:0}}
+</style>
