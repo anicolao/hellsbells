@@ -1,0 +1,60 @@
+name: Verify and stage preview or production
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pages-stage
+  cancel-in-progress: false
+jobs:
+  verify-and-stage:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v31
+      - run: nix develop --command bun install --frozen-lockfile
+      - run: nix develop --command bun run check
+      - run: nix develop --command bun test
+      - name: Select production or retained PR path
+        id: destination
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          if [[ -n "$PR_NUMBER" ]]; then
+            echo "base=/$REPO_NAME/pr$PR_NUMBER" >> "$GITHUB_OUTPUT"
+            echo "directory=pr$PR_NUMBER" >> "$GITHUB_OUTPUT"
+          else
+            echo "base=/$REPO_NAME" >> "$GITHUB_OUTPUT"
+            echo "directory=" >> "$GITHUB_OUTPUT"
+          fi
+      - run: nix develop --command bun run build
+        env:
+          PUBLIC_BASE_PATH: ${{ steps.destination.outputs.base }}
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build
+          destination_dir: ${{ steps.destination.outputs.directory }}
+          keep_files: true
+      - name: Publish from the trusted main-branch workflow
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run publish-pages.yml --ref main --repo "$GITHUB_REPOSITORY"
+      - name: Link PR review pages
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PREVIEW_BASE: https://${{ github.repository_owner }}.github.io${{ steps.destination.outputs.base }}
+        run: |
+          gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --edit-last --create-if-none --body "Review: $PREVIEW_BASE/rules.html · Components: $PREVIEW_BASE/gallery/ · PDF: $PREVIEW_BASE/downloads/hells-bells-rulebook.pdf"

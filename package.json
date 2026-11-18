@@ -1,0 +1,33 @@
+{
+  "name": "hells-bells",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun run catalog && vite dev --host 127.0.0.1 --port 5197 --strictPort",
+    "build": "bun run catalog && vite build && bun scripts/finalize-build.ts",
+    "check": "bun run catalog && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "test": "bun test",
+    "prepare": "svelte-kit sync",
+    "catalog": "bun scripts/catalog.ts",
+    "art:prepare": "bun scripts/prepare-art.ts",
+    "review": "bun scripts/review.ts"
+  },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "5.2.11",
+    "@fontsource/atkinson-hyperlegible": "5.2.8",
+    "marked": "^16.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "@sveltejs/adapter-static": "3.0.10",
+    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^6.0.0",
+    "@types/bun": "^1.3.0",
+    "sharp": "^0.35.5",
+    "svelte": "^5.0.0",
+    "svelte-check": "^4.0.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.0.0"
+  },
+  "license": "GPL-3.0-only"
+}
