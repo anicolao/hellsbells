@@ -5,6 +5,7 @@ import {type Firestore,getDoc,getDocs,doc,collection,query,orderBy,updateDoc,del
 import {createGame,joinGame,append} from '../../src/lib/backend/repository';
 import {replay} from '../../src/lib/engine/engine';
 import type {Event,State} from '../../src/lib/engine/types';
+import {nextActor,botCommand} from '../../src/lib/engine/bot';
 const suite=process.env.FIRESTORE_EMULATOR_HOST?describe:describe.skip;
 suite('Firestore append-only rooms',()=>{
  let env:RulesTestEnvironment;
@@ -18,6 +19,14 @@ suite('Firestore append-only rooms',()=>{
  test('outsiders and unauthenticated clients cannot read logs',async()=>{const id=await createGame(db('a'),'a','A');await assertFails(getDocs(collection(db('outsider'),'games',id,'events')));await assertFails(getDoc(doc(env.unauthenticatedContext().firestore(),'games',id)));await assertFails(getDocs(collection(db('a'),'games')));});
  test('concurrent joins serialize without losing seats and full table rejects a fourth',async()=>{const id=await createGame(db('a'),'a','A',3);await Promise.all([joinGame(db('b'),'b',id,'B'),joinGame(db('c'),'c',id,'C')]);expect((await state('a',id)).players).toHaveLength(3);await expect(joinGame(db('d'),'d',id,'D')).rejects.toThrow();});
  test('stale commands cannot overwrite newer moves',async()=>{const id=await createGame(db('a'),'a','A');const s=await state('a',id);await append(db('a'),'a',id,s,'a',{type:'capacity',value:5});await expect(append(db('a'),'a',id,s,'a',{type:'capacity',value:3})).rejects.toThrow('changed');expect((await state('a',id)).capacity).toBe(5);});
+ test('simultaneous independent drafts and discards rebase without lost choices',async()=>{
+  const id=await createGame(db('a'),'a','A',3);await joinGame(db('b'),'b',id,'B');await joinGame(db('c'),'c',id,'C');let s=await state('a',id);await append(db('a'),'a',id,s,'a',{type:'start'});s=await state('a',id);
+  await Promise.all(s.players.map(p=>append(db(p.id),p.id,id,s,p.id,{type:'choose',value:p.options[0]})));
+  s=await state('a',id);expect(s.players.every(p=>p.imp>=0)).toBe(true);
+  while(s.phase==='magician'){const actor=nextActor(s)!;await append(db(actor),actor,id,s,actor,botCommand(s,actor));s=await state('a',id);}
+  const dealt=s.players[0].hand.length;await Promise.all(s.players.map(p=>append(db(p.id),p.id,id,s,p.id,{type:'discard',cards:[p.hand[0]]})));
+  s=await state('a',id);expect(s.phase).not.toBe('discard');expect(s.players.every(p=>p.hand.length===dealt-1&&p.discard.length===1)).toBe(true);
+ });
  test('actors cannot impersonate another seat or rewrite room membership',async()=>{const id=await createGame(db('a'),'a','A');await joinGame(db('b'),'b',id,'B');const s=await state('a',id);await expect(append(db('b'),'b',id,s,'a',{type:'capacity',value:5})).rejects.toThrow();await assertFails(updateDoc(doc(db('b'),'games',id),{members:['b'],owner:'b'}));await assertFails(setDoc(doc(db('b'),'games',id,'events','3'),{version:1,sequence:3,actor:'a',id:'forged',command:{type:'capacity',value:5},createdAt:serverTimestamp()}));});
  test('only owner controls registered bots',async()=>{const id=await createGame(db('a'),'a','A');let s=await state('a',id);await append(db('a'),'a',id,s,'a',{type:'bot',target:'bot-x',name:'X'});s=await state('a',id);expect(s.players[1].bot).toBe(true);await joinGame(db('b'),'b',id,'B');s=await state('a',id);await append(db('a'),'a',id,s,'a',{type:'start'});s=await state('a',id);await expect(append(db('b'),'b',id,s,'bot-x',{type:'choose',value:s.players[1].options[0]})).rejects.toThrow();await append(db('a'),'a',id,s,'bot-x',{type:'choose',value:s.players[1].options[0]});});
 });

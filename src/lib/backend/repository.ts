@@ -1,4 +1,4 @@
-import {getDoc,doc,collection,query,orderBy,onSnapshot,runTransaction,serverTimestamp,type Firestore} from 'firebase/firestore';
+import {getDoc,getDocs,doc,collection,query,orderBy,onSnapshot,runTransaction,serverTimestamp,type Firestore} from 'firebase/firestore';
 import {apply,eventFor,replay} from '$lib/engine/engine';
 import type {State,Event,Command} from '$lib/engine/types';
 export type Room={owner:string;members:string[];bots:string[];capacity:number;revision:number;phase:string;version:1};
@@ -14,4 +14,25 @@ export async function joinGame(db:Firestore,uid:string,id:string,name:string){
  }
 }
 export function watchGame(db:Firestore,id:string,update:(state:State)=>void,error:(error:Error)=>void){return onSnapshot(query(collection(db,gamePath(id),'events'),orderBy('sequence')),{includeMetadataChanges:true},snapshot=>{try{const events=snapshot.docs.map(d=>d.data() as Event);const state=replay(events);if(state)update(state);}catch(e){error(e as Error);}},error);}
-export async function append(db:Firestore,uid:string,id:string,state:State,actor:string,command:Command){if(actor!==uid&&!(state.owner===uid&&state.players.some(p=>p.id===actor&&p.bot)))throw Error('This is another player’s seat');const event=eventFor(state,actor,command,crypto.randomUUID());const next=apply(state,event);const room=doc(db,gamePath(id));await runTransaction(db,async tx=>{const snapshot=await tx.get(room);if(!snapshot.exists()||snapshot.data().revision!==state.revision)throw Error('The table changed. Try your move again.');tx.set(doc(room,'events',String(event.sequence)),{...event,createdAt:serverTimestamp()});tx.update(room,metadata(next));});}
+export async function append(db:Firestore,uid:string,id:string,state:State,actor:string,command:Command){
+ if(actor!==uid&&!(state.owner===uid&&state.players.some(p=>p.id===actor&&p.bot)))throw Error('This is another player’s seat');
+ const room=doc(db,gamePath(id)),commandId=crypto.randomUUID();
+ const independent=command.type==='choose'||command.type==='discard'||command.type==='bid'&&state.arcana===18||command.type==='adjust'&&state.phase==='adjust';
+ let current=state;
+ for(let attempt=0;attempt<8;attempt++){
+  const event=eventFor(current,actor,command,commandId),next=apply(current,event);
+  try{await runTransaction(db,async tx=>{const snapshot=await tx.get(room);if(!snapshot.exists()||snapshot.data().revision!==current.revision)throw Error('The table changed. Try your move again.');tx.set(doc(room,'events',String(event.sequence)),{...event,createdAt:serverTimestamp()});tx.update(room,metadata(next));});return;}
+  catch(error){
+   const code=(error as {code?:string}).code;
+   const race=(error as Error).message.includes('The table changed')||['permission-denied','aborted'].includes(code??'');
+   if(!independent||!race||attempt===7)throw error;
+   const latest=await getDoc(room);if(!latest.exists()||latest.data().revision===current.revision)throw error;
+   const snapshot=await getDocs(query(collection(room,'events'),orderBy('sequence')));
+   const events=snapshot.docs.map(d=>d.data() as Event);
+   if(events.some(e=>e.id===commandId))return;
+   const fresh=replay(events);
+   if(!fresh||fresh.round!==state.round||fresh.phase!==state.phase)throw error;
+   current=fresh;
+  }
+ }
+}

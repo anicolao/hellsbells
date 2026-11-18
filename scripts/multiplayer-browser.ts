@@ -20,4 +20,4 @@ try{
  }
  if(await host.locator('.game-table').getAttribute('data-phase')!=='play')throw Error('Multiplayer did not reach play');
  const before=await pages[1].locator('.hand-card').count();await pages[1].reload();await pages[1].locator('.hand-card').first().waitFor();if(await pages[1].locator('.hand-card').count()!==before)throw Error('Guest failed to resume');console.log('Three anonymous human seats joined, drafted, discarded, bid, and resumed:',invite);
-}finally{await browser.close();}
+}catch(e){for(let i=0;i<pages.length;i++){await pages[i].screenshot({path:'tmp/qa/play/multiplayer-failure-'+i+'.png'});console.log('Seat',i,(await pages[i].locator('body').innerText()).slice(-700));}throw e;}finally{await browser.close();}
