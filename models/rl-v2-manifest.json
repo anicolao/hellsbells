@@ -1,0 +1,269 @@
+{
+  "version": 2,
+  "policy": "rl-v2",
+  "algorithm": "league counterfactual action-value RL and episodic cross-entropy policy search, with sampled-deal planning",
+  "runtime": "1.3.10",
+  "playerCount": 3,
+  "models": [
+    {
+      "path": "models/rl-v2-bid.json",
+      "sha256": "5a533c85a8be4c6f96a0a8c8dc37de71895d6cfe44b15209e8b49e8bdb23af64",
+      "inputs": 141,
+      "hidden": 64,
+      "outputs": 18,
+      "training": {
+        "algorithm": "league counterfactual action-value RL",
+        "namespace": "hellsbells-league-bid-refine-v2b",
+        "episodes": 1350,
+        "seed": 230811,
+        "development": {
+          "easy": {
+            "namespace": "hellsbells-league-development-v2",
+            "games": 180,
+            "wins": 156,
+            "ties": 4,
+            "uniqueWinRate": 0.8666666666666667,
+            "meanPoints": 10.033333333333333,
+            "wilson95": [
+              0.8092715870345016,
+              0.9087378297677892
+            ],
+            "seats": [
+              {
+                "games": 60,
+                "wins": 51,
+                "ties": 1
+              },
+              {
+                "games": 60,
+                "wins": 55,
+                "ties": 0
+              },
+              {
+                "games": 60,
+                "wins": 50,
+                "ties": 3
+              }
+            ]
+          },
+          "previous": {
+            "namespace": "hellsbells-league-development-v2",
+            "games": 180,
+            "wins": 146,
+            "ties": 2,
+            "uniqueWinRate": 0.8111111111111111,
+            "meanPoints": 16.905555555555555,
+            "wilson95": [
+              0.7476559023231929,
+              0.8615642089029932
+            ],
+            "seats": [
+              {
+                "games": 60,
+                "wins": 50,
+                "ties": 0
+              },
+              {
+                "games": 60,
+                "wins": 52,
+                "ties": 0
+              },
+              {
+                "games": 60,
+                "wins": 44,
+                "ties": 2
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "path": "models/rl-v2-discard.json",
+      "sha256": "1b0442c59fda9bc138723f178b1c55f240d7f639544f0ac438b3720a0ea74a2c",
+      "inputs": 141,
+      "hidden": 48,
+      "outputs": 6,
+      "training": {
+        "algorithm": "league counterfactual action-value RL",
+        "namespace": "hellsbells-league-discard-train-v2",
+        "episodes": 1400,
+        "seed": 230811,
+        "development": {
+          "easy": {
+            "namespace": "hellsbells-league-development-v2",
+            "games": 120,
+            "wins": 100,
+            "ties": 1,
+            "uniqueWinRate": 0.8333333333333334,
+            "meanPoints": 10.841666666666667,
+            "wilson95": [
+              0.756545606089762,
+              0.8894408798729518
+            ],
+            "seats": [
+              {
+                "games": 40,
+                "wins": 32,
+                "ties": 1
+              },
+              {
+                "games": 40,
+                "wins": 36,
+                "ties": 0
+              },
+              {
+                "games": 40,
+                "wins": 32,
+                "ties": 0
+              }
+            ]
+          },
+          "previous": {
+            "namespace": "hellsbells-league-development-v2",
+            "games": 120,
+            "wins": 96,
+            "ties": 0,
+            "uniqueWinRate": 0.8,
+            "meanPoints": 18.45,
+            "wilson95": [
+              0.7196316465662729,
+              0.8617561908001696
+            ],
+            "seats": [
+              {
+                "games": 40,
+                "wins": 30,
+                "ties": 0
+              },
+              {
+                "games": 40,
+                "wins": 37,
+                "ties": 0
+              },
+              {
+                "games": 40,
+                "wins": 29,
+                "ties": 0
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "path": "models/rl-v2-tactics.json",
+      "sha256": "04f45f69ba7695be431959e7a5b987b98c8041590a34975c58f0a12c9bb74bd6",
+      "parameters": 17
+    }
+  ],
+  "inference": {
+    "discard": "learned six-template action-value network",
+    "play": "learned tactical weights over public card and contract features; 20 sampled endgames with five or fewer cards",
+    "bid": "up to 128 sampled hidden deals, with successive racing across legal bids; expected round return and final-round outright-win utility",
+    "biddingNetwork": "self-play training scaffold and peer-policy prediction",
+    "samples": 128,
+    "playSamples": 20,
+    "information": "own hand and discards, public game state, revealed cards and permitted inspections; never actual opponent hands, reserve or RNG"
+  },
+  "acceptance": {
+    "minimumUniqueWinRate": 0.9,
+    "criterion": "observed outright win rate >= target for each predeclared held-out opponent cohort; ties excluded; Wilson intervals reported separately",
+    "passed": true
+  },
+  "evaluation": {
+    "games": 6003,
+    "wins": 5658,
+    "ties": 57,
+    "uniqueWinRate": 0.9425287356321839,
+    "cohorts": [
+      {
+        "path": "reports/rl/heldout-v2-easy.json",
+        "opponent": "easy",
+        "games": 2001,
+        "wins": 1944,
+        "ties": 12,
+        "uniqueWinRate": 0.9715142428785607,
+        "wilson95": [
+          0.9632728461019406,
+          0.9779486449126114
+        ],
+        "seats": [
+          {
+            "games": 667,
+            "wins": 653,
+            "ties": 3
+          },
+          {
+            "games": 667,
+            "wins": 650,
+            "ties": 1
+          },
+          {
+            "games": 667,
+            "wins": 641,
+            "ties": 8
+          }
+        ]
+      },
+      {
+        "path": "reports/rl/heldout-v2-previous.json",
+        "opponent": "previous",
+        "games": 2001,
+        "wins": 1884,
+        "ties": 16,
+        "uniqueWinRate": 0.9415292353823088,
+        "wilson95": [
+          0.9303776531418632,
+          0.9509887351054677
+        ],
+        "seats": [
+          {
+            "games": 667,
+            "wins": 627,
+            "ties": 8
+          },
+          {
+            "games": 667,
+            "wins": 637,
+            "ties": 2
+          },
+          {
+            "games": 667,
+            "wins": 620,
+            "ties": 6
+          }
+        ]
+      },
+      {
+        "path": "reports/rl/heldout-v2-mixed.json",
+        "opponent": "mixed",
+        "games": 2001,
+        "wins": 1830,
+        "ties": 29,
+        "uniqueWinRate": 0.9145427286356822,
+        "wilson95": [
+          0.90148514949381,
+          0.926011646263022
+        ],
+        "seats": [
+          {
+            "games": 667,
+            "wins": 610,
+            "ties": 11
+          },
+          {
+            "games": 667,
+            "wins": 618,
+            "ties": 9
+          },
+          {
+            "games": 667,
+            "wins": 602,
+            "ties": 9
+          }
+        ]
+      }
+    ]
+  }
+}

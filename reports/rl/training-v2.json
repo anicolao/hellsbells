@@ -1,0 +1,6220 @@
+{
+  "trainingOpponents": [
+    "two easy",
+    "two frozen rl-v1",
+    "mixed easy and rl-v1",
+    "two current self-play policies"
+  ],
+  "developmentOnlySelection": true,
+  "heldoutUsedAfterFreezing": true,
+  "experiments": [
+    {
+      "namespace": "hellsbells-league-train-v2",
+      "checkpoints": [
+        {
+          "kind": "development",
+          "episode": 100,
+          "samples": 500,
+          "mse": 2.7970004926511107,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 89,
+              "ties": 5,
+              "uniqueWinRate": 0.7416666666666667,
+              "meanPoints": 11.058333333333334,
+              "wilson95": [
+                0.6567130404034741,
+                0.8116271619194934
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 25,
+                  "ties": 4
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 56,
+              "ties": 3,
+              "uniqueWinRate": 0.4666666666666667,
+              "meanPoints": 26.533333333333335,
+              "wilson95": [
+                0.3798276424616983,
+                0.5555737089420304
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 15,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 18,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 200,
+          "samples": 1000,
+          "mse": 2.564868624260255,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 98,
+              "ties": 2,
+              "uniqueWinRate": 0.8166666666666667,
+              "meanPoints": 10.133333333333333,
+              "wilson95": [
+                0.7379892641067634,
+                0.8756978975578147
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 36,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 69,
+              "ties": 1,
+              "uniqueWinRate": 0.575,
+              "meanPoints": 25.066666666666666,
+              "wilson95": [
+                0.4855758824815893,
+                0.6597710768600213
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 24,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 22,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 300,
+          "samples": 1500,
+          "mse": 2.4888692800462127,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 97,
+              "ties": 1,
+              "uniqueWinRate": 0.8083333333333333,
+              "meanPoints": 11.025,
+              "wilson95": [
+                0.7287868300416364,
+                0.8687506694738739
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 70,
+              "ties": 3,
+              "uniqueWinRate": 0.5833333333333334,
+              "meanPoints": 23.641666666666666,
+              "wilson95": [
+                0.49387868684398173,
+                0.6676179346466968
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 22,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 25,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 400,
+          "samples": 2000,
+          "mse": 2.451109085916839,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 99,
+              "ties": 3,
+              "uniqueWinRate": 0.825,
+              "meanPoints": 10.783333333333333,
+              "wilson95": [
+                0.7472413105195714,
+                0.8825955132940744
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 66,
+              "ties": 3,
+              "uniqueWinRate": 0.55,
+              "meanPoints": 23.9,
+              "wilson95": [
+                0.46081381811060756,
+                0.6360841547837995
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 21,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 22,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 500,
+          "samples": 2500,
+          "mse": 2.5002862048248184,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 101,
+              "ties": 0,
+              "uniqueWinRate": 0.8416666666666667,
+              "meanPoints": 10.341666666666667,
+              "wilson95": [
+                0.7659051081885379,
+                0.8962310399232437
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 66,
+              "ties": 4,
+              "uniqueWinRate": 0.55,
+              "meanPoints": 23.841666666666665,
+              "wilson95": [
+                0.46081381811060756,
+                0.6360841547837995
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 22,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 20,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 24,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 600,
+          "samples": 3000,
+          "mse": 2.5370143348874996,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 98,
+              "ties": 0,
+              "uniqueWinRate": 0.8166666666666667,
+              "meanPoints": 11.691666666666666,
+              "wilson95": [
+                0.7379892641067634,
+                0.8756978975578147
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 71,
+              "ties": 3,
+              "uniqueWinRate": 0.5916666666666667,
+              "meanPoints": 20.041666666666668,
+              "wilson95": [
+                0.5022061864748179,
+                0.6754400971649285
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 24,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 24,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 700,
+          "samples": 3500,
+          "mse": 2.510363424039703,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 99,
+              "ties": 0,
+              "uniqueWinRate": 0.825,
+              "meanPoints": 9.65,
+              "wilson95": [
+                0.7472413105195714,
+                0.8825955132940744
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 35,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 72,
+              "ties": 3,
+              "uniqueWinRate": 0.6,
+              "meanPoints": 21.258333333333333,
+              "wilson95": [
+                0.5105585981828253,
+                0.6832373476059888
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 24,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 25,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 800,
+          "samples": 4000,
+          "mse": 2.5007959659275723,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 93,
+              "ties": 5,
+              "uniqueWinRate": 0.775,
+              "meanPoints": 9.858333333333333,
+              "wilson95": [
+                0.6924293655773726,
+                0.8405094853418662
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 70,
+              "ties": 3,
+              "uniqueWinRate": 0.5833333333333334,
+              "meanPoints": 22.791666666666668,
+              "wilson95": [
+                0.49387868684398173,
+                0.6676179346466968
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 24,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 900,
+          "samples": 4500,
+          "mse": 2.5203203719254015,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 98,
+              "ties": 1,
+              "uniqueWinRate": 0.8166666666666667,
+              "meanPoints": 10.383333333333333,
+              "wilson95": [
+                0.7379892641067634,
+                0.8756978975578147
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 35,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 69,
+              "ties": 1,
+              "uniqueWinRate": 0.575,
+              "meanPoints": 22.091666666666665,
+              "wilson95": [
+                0.4855758824815893,
+                0.6597710768600213
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1000,
+          "samples": 5000,
+          "mse": 2.5310449350980906,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 95,
+              "ties": 1,
+              "uniqueWinRate": 0.7916666666666666,
+              "meanPoints": 10.816666666666666,
+              "wilson95": [
+                0.7105215895553653,
+                0.8547165856620093
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 71,
+              "ties": 1,
+              "uniqueWinRate": 0.5916666666666667,
+              "meanPoints": 21.591666666666665,
+              "wilson95": [
+                0.5022061864748179,
+                0.6754400971649285
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 22,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 20,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1100,
+          "samples": 5500,
+          "mse": 2.5728202975470387,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 97,
+              "ties": 1,
+              "uniqueWinRate": 0.8083333333333333,
+              "meanPoints": 10.225,
+              "wilson95": [
+                0.7287868300416364,
+                0.8687506694738739
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 72,
+              "ties": 4,
+              "uniqueWinRate": 0.6,
+              "meanPoints": 20.158333333333335,
+              "wilson95": [
+                0.5105585981828253,
+                0.6832373476059888
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 3
+                },
+                {
+                  "games": 40,
+                  "wins": 22,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 27,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1200,
+          "samples": 6000,
+          "mse": 2.6112897072146084,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 94,
+              "ties": 2,
+              "uniqueWinRate": 0.7833333333333333,
+              "meanPoints": 10.575,
+              "wilson95": [
+                0.7014547414958805,
+                0.8476337715724263
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 76,
+              "ties": 5,
+              "uniqueWinRate": 0.6333333333333333,
+              "meanPoints": 20.966666666666665,
+              "wilson95": [
+                0.5442225769899933,
+                0.7141720173950921
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 24,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 25,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 27,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1300,
+          "samples": 6500,
+          "mse": 2.545509067805562,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 91,
+              "ties": 1,
+              "uniqueWinRate": 0.7583333333333333,
+              "meanPoints": 10.9,
+              "wilson95": [
+                0.6744968590361364,
+                0.8261426675849666
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 28,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 74,
+              "ties": 1,
+              "uniqueWinRate": 0.6166666666666667,
+              "meanPoints": 21.3,
+              "wilson95": [
+                0.5273391477284313,
+                0.6987561223585186
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 22,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1400,
+          "samples": 7000,
+          "mse": 2.552230120106435,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 97,
+              "ties": 1,
+              "uniqueWinRate": 0.8083333333333333,
+              "meanPoints": 9.791666666666666,
+              "wilson95": [
+                0.7287868300416364,
+                0.8687506694738739
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 77,
+              "ties": 2,
+              "uniqueWinRate": 0.6416666666666667,
+              "meanPoints": 21.491666666666667,
+              "wilson95": [
+                0.5527036937000394,
+                0.721840562834114
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 28,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 26,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1500,
+          "samples": 7500,
+          "mse": 2.5545469471955564,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 97,
+              "ties": 1,
+              "uniqueWinRate": 0.8083333333333333,
+              "meanPoints": 10.058333333333334,
+              "wilson95": [
+                0.7287868300416364,
+                0.8687506694738739
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 71,
+              "ties": 6,
+              "uniqueWinRate": 0.5916666666666667,
+              "meanPoints": 21.708333333333332,
+              "wilson95": [
+                0.5022061864748179,
+                0.6754400971649285
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 22,
+                  "ties": 4
+                },
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 26,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1600,
+          "samples": 8000,
+          "mse": 2.5480380096892308,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 95,
+              "ties": 3,
+              "uniqueWinRate": 0.7916666666666666,
+              "meanPoints": 9.958333333333334,
+              "wilson95": [
+                0.7105215895553653,
+                0.8547165856620093
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 73,
+              "ties": 3,
+              "uniqueWinRate": 0.6083333333333333,
+              "meanPoints": 21.575,
+              "wilson95": [
+                0.5189361630897077,
+                0.6910094448481742
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 22,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 28,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1700,
+          "samples": 8500,
+          "mse": 2.5653448242119405,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 92,
+              "ties": 4,
+              "uniqueWinRate": 0.7666666666666667,
+              "meanPoints": 10.75,
+              "wilson95": [
+                0.6834438839010675,
+                0.8333453048691035
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 74,
+              "ties": 8,
+              "uniqueWinRate": 0.6166666666666667,
+              "meanPoints": 20.341666666666665,
+              "wilson95": [
+                0.5273391477284313,
+                0.6987561223585186
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 4
+                },
+                {
+                  "games": 40,
+                  "wins": 24,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 27,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1800,
+          "samples": 9000,
+          "mse": 2.5744935509288758,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 101,
+              "ties": 3,
+              "uniqueWinRate": 0.8416666666666667,
+              "meanPoints": 9.858333333333333,
+              "wilson95": [
+                0.7659051081885379,
+                0.8962310399232437
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 35,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 75,
+              "ties": 3,
+              "uniqueWinRate": 0.625,
+              "meanPoints": 21.7,
+              "wilson95": [
+                0.5357678452838708,
+                0.7064770869521468
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 27,
+                  "ties": 3
+                },
+                {
+                  "games": 40,
+                  "wins": 25,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1900,
+          "samples": 9500,
+          "mse": 2.573908935847637,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 95,
+              "ties": 6,
+              "uniqueWinRate": 0.7916666666666666,
+              "meanPoints": 10.083333333333334,
+              "wilson95": [
+                0.7105215895553653,
+                0.8547165856620093
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 28,
+                  "ties": 4
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 74,
+              "ties": 2,
+              "uniqueWinRate": 0.6166666666666667,
+              "meanPoints": 21.958333333333332,
+              "wilson95": [
+                0.5273391477284313,
+                0.6987561223585186
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 25,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 26,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 2000,
+          "samples": 10000,
+          "mse": 2.56574690119978,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 99,
+              "ties": 2,
+              "uniqueWinRate": 0.825,
+              "meanPoints": 9.758333333333333,
+              "wilson95": [
+                0.7472413105195714,
+                0.8825955132940744
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 76,
+              "ties": 3,
+              "uniqueWinRate": 0.6333333333333333,
+              "meanPoints": 22.558333333333334,
+              "wilson95": [
+                0.5442225769899933,
+                0.7141720173950921
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 3
+                },
+                {
+                  "games": 40,
+                  "wins": 26,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 27,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "hellsbells-tactics-train-v2",
+      "checkpoints": [
+        {
+          "generation": 1,
+          "fitness": 0.7341761218456231,
+          "weights": [
+            1.1354612319296133,
+            0.026979684473847465,
+            0.4504737142658656,
+            0.4879346160708904,
+            -0.2440447493395784,
+            -0.2742899396513284,
+            0.3977025952555371,
+            0.16400694368757548,
+            0.8940832269007836,
+            0.2717086052243975,
+            0.3359049268336114
+          ],
+          "sigma": [
+            0.17232090412167345,
+            0.20934771421684997,
+            0.21196910905892608,
+            0.19849644961719573,
+            0.2004098876292914,
+            0.2550855478143891,
+            0.24860953408165348,
+            0.20929616864026182,
+            0.2663124182748925,
+            0.18843871056535216,
+            0.2620200392352669
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 153,
+              "ties": 2,
+              "uniqueWinRate": 0.85,
+              "meanPoints": 9.6,
+              "wilson95": [
+                0.7905541547797237,
+                0.8948184703497355
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 53,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 93,
+              "ties": 8,
+              "uniqueWinRate": 0.5166666666666667,
+              "meanPoints": 25.06111111111111,
+              "wilson95": [
+                0.44408004568569426,
+                0.5885567459871371
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 28,
+                  "ties": 6
+                },
+                {
+                  "games": 60,
+                  "wins": 35,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 30,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 2,
+          "fitness": 0.7063461301149897,
+          "weights": [
+            1.25547333433958,
+            0.21509390228428005,
+            0.39646856893336657,
+            0.2930643913457748,
+            0.1579453025313269,
+            0.10354600936226319,
+            0.19836215728397807,
+            0.222305978342566,
+            1.0212913523633151,
+            0.23694516855697087,
+            -0.03654838877918404
+          ],
+          "sigma": [
+            0.19377390315932044,
+            0.17236101172380927,
+            0.141455960531947,
+            0.21194598330923625,
+            0.1503681402398005,
+            0.22628024525301416,
+            0.20040722828754148,
+            0.20273249998238124,
+            0.17223460448091582,
+            0.15038001193091818,
+            0.22496804518274724
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 151,
+              "ties": 4,
+              "uniqueWinRate": 0.8388888888888889,
+              "meanPoints": 10.03888888888889,
+              "wilson95": [
+                0.7781942661243509,
+                0.8854204978898875
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 4
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 109,
+              "ties": 5,
+              "uniqueWinRate": 0.6055555555555555,
+              "meanPoints": 24.55,
+              "wilson95": [
+                0.5326667296266275,
+                0.6740329509679713
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 36,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 41,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 32,
+                  "ties": 3
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 3,
+          "fitness": 0.7228916454066776,
+          "weights": [
+            1.0503816472327687,
+            0.16296010251148346,
+            0.4477946939032571,
+            0.6286798371883856,
+            -0.1030180817218784,
+            -0.021321142051588235,
+            0.20711653127237414,
+            0.3004328270698634,
+            1.055026129114089,
+            0.5601226506608676,
+            -0.09219069022495281
+          ],
+          "sigma": [
+            0.17124232941450235,
+            0.16130295889439367,
+            0.10639109453680462,
+            0.20574143790849547,
+            0.129971390762779,
+            0.28760854013190584,
+            0.14812889572388183,
+            0.16751968297792375,
+            0.14545317815458886,
+            0.1394126386109089,
+            0.18120530310721106
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 143,
+              "ties": 6,
+              "uniqueWinRate": 0.7944444444444444,
+              "meanPoints": 11.483333333333333,
+              "wilson95": [
+                0.7295526952842258,
+                0.8470306242691287
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 46,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 101,
+              "ties": 7,
+              "uniqueWinRate": 0.5611111111111111,
+              "meanPoints": 24.61111111111111,
+              "wilson95": [
+                0.48808695992673246,
+                0.6315812762069827
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 35,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 35,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 31,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 4,
+          "fitness": 0.7193766962558106,
+          "weights": [
+            1.0639594164900326,
+            0.040667868286590345,
+            0.249421744161639,
+            0.5177732381050552,
+            -0.19152646434994972,
+            0.7502487018720136,
+            0.13189156913714462,
+            0.2495621125733956,
+            1.3137549496119545,
+            0.4824194316516629,
+            0.06103104400996697
+          ],
+          "sigma": [
+            0.1262805977008652,
+            0.14084567224943997,
+            0.10500023670754872,
+            0.17807431387192907,
+            0.09487275103118968,
+            0.3219025947537848,
+            0.14692287981855556,
+            0.15253607656288015,
+            0.1164891442336779,
+            0.10624446332014842,
+            0.16106609606740324
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 142,
+              "ties": 5,
+              "uniqueWinRate": 0.7888888888888889,
+              "meanPoints": 11.911111111111111,
+              "wilson95": [
+                0.7235515182980812,
+                0.8421528706976629
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 46,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 120,
+              "ties": 3,
+              "uniqueWinRate": 0.6666666666666666,
+              "meanPoints": 22.355555555555554,
+              "wilson95": [
+                0.5949509727403892,
+                0.7314169439879248
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 40,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 35,
+                  "ties": 3
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 5,
+          "fitness": 0.760739108101681,
+          "weights": [
+            1.016040096756555,
+            0.13920855662204415,
+            0.40559264069712314,
+            0.6723834801084974,
+            -0.18058781986058062,
+            0.5183045381220149,
+            0.5122115869878081,
+            0.2025422766531741,
+            1.3502329820138914,
+            0.2935442349870628,
+            0.17485746432193228
+          ],
+          "sigma": [
+            0.08512088824573945,
+            0.10130109923658488,
+            0.09105172337974421,
+            0.17704363462940714,
+            0.09273356111056533,
+            0.33428268142216466,
+            0.1371751114707263,
+            0.11698448850292936,
+            0.09535891543344928,
+            0.0738665312276971,
+            0.14111002139748732
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 146,
+              "ties": 4,
+              "uniqueWinRate": 0.8111111111111111,
+              "meanPoints": 10.716666666666667,
+              "wilson95": [
+                0.7476559023231929,
+                0.8615642089029932
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 112,
+              "ties": 4,
+              "uniqueWinRate": 0.6222222222222222,
+              "meanPoints": 23.605555555555554,
+              "wilson95": [
+                0.5495367065379416,
+                0.6897997657294886
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 37,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 36,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 39,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 6,
+          "fitness": 0.7643196467875824,
+          "weights": [
+            0.9606226056383101,
+            0.3579486719542013,
+            0.5160138064746602,
+            0.26965986819874255,
+            -0.22598074188532263,
+            0.933491363703431,
+            0.4642913093163774,
+            0.1589191194243685,
+            1.188576542410768,
+            0.29480077736543514,
+            0.07436974388030107
+          ],
+          "sigma": [
+            0.0770755141654651,
+            0.1033211520741299,
+            0.07600106195297673,
+            0.13604205975105935,
+            0.07941842626473655,
+            0.29163822675395756,
+            0.13711793195129307,
+            0.11225132022748083,
+            0.07864478667005503,
+            0.06056336496468515,
+            0.12712184273085553
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 145,
+              "ties": 3,
+              "uniqueWinRate": 0.8055555555555556,
+              "meanPoints": 11,
+              "wilson95": [
+                0.7416043794180397,
+                0.856736801250536
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 106,
+              "ties": 3,
+              "uniqueWinRate": 0.5888888888888889,
+              "meanPoints": 24.944444444444443,
+              "wilson95": [
+                0.5158808549890499,
+                0.6581820339327176
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 39,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 35,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 32,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 7,
+          "fitness": 0.7791363632032359,
+          "weights": [
+            0.9258890164382703,
+            0.26626651302635207,
+            0.3838495665769614,
+            0.2891587642606804,
+            -0.21392536585456734,
+            0.3709769360144405,
+            0.5819635112689913,
+            0.21132326814916014,
+            0.9870960900325731,
+            0.28399362336963396,
+            0.10762489057794342
+          ],
+          "sigma": [
+            0.06096741647646574,
+            0.09573298060112528,
+            0.10593225084712124,
+            0.11196706964901286,
+            0.06881399006081741,
+            0.29778515522158105,
+            0.14334919732485155,
+            0.10744159720267703,
+            0.11000234875087253,
+            0.06861275881376276,
+            0.12102438042774064
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 150,
+              "ties": 4,
+              "uniqueWinRate": 0.8333333333333334,
+              "meanPoints": 10.416666666666666,
+              "wilson95": [
+                0.7720468899777125,
+                0.8806889434789155
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 106,
+              "ties": 2,
+              "uniqueWinRate": 0.5888888888888889,
+              "meanPoints": 24.305555555555557,
+              "wilson95": [
+                0.5158808549890499,
+                0.6581820339327176
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 38,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 34,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 34,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 8,
+          "fitness": 0.7200025547166204,
+          "weights": [
+            0.9725480295889205,
+            0.1568711337873124,
+            0.33141624710001877,
+            0.5427374244808943,
+            -0.205507251227796,
+            0.35412737086140644,
+            0.286469609589247,
+            0.24342282173270002,
+            1.3649321707544522,
+            0.35182196880091937,
+            0.19848270418845956
+          ],
+          "sigma": [
+            0.05196462025505569,
+            0.07678982843004405,
+            0.09282640231518008,
+            0.10481641788180387,
+            0.06491124616374042,
+            0.24087262962671252,
+            0.09045156853204236,
+            0.1015891901085639,
+            0.09321095816575059,
+            0.04340418173633462,
+            0.10326999893448612
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 145,
+              "ties": 5,
+              "uniqueWinRate": 0.8055555555555556,
+              "meanPoints": 11.416666666666666,
+              "wilson95": [
+                0.7416043794180397,
+                0.856736801250536
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 124,
+              "ties": 2,
+              "uniqueWinRate": 0.6888888888888889,
+              "meanPoints": 22.36111111111111,
+              "wilson95": [
+                0.6179038880110056,
+                0.7519797509477503
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 41,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 44,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 39,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 9,
+          "fitness": 0.6629249095800243,
+          "weights": [
+            0.9725480295889205,
+            0.1568711337873124,
+            0.33141624710001877,
+            0.5427374244808943,
+            -0.205507251227796,
+            0.35412737086140644,
+            0.286469609589247,
+            0.24342282173270002,
+            1.3649321707544522,
+            0.35182196880091937,
+            0.19848270418845956
+          ],
+          "sigma": [
+            0.056016540875111015,
+            0.07358667589644999,
+            0.07495894893402327,
+            0.0926396874265059,
+            0.0608826679875594,
+            0.1836546963542695,
+            0.08294463342559624,
+            0.08919410249422907,
+            0.06283833469467298,
+            0.03894223658365334,
+            0.10497456073088138
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 145,
+              "ties": 5,
+              "uniqueWinRate": 0.8055555555555556,
+              "meanPoints": 11.416666666666666,
+              "wilson95": [
+                0.7416043794180397,
+                0.856736801250536
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 124,
+              "ties": 2,
+              "uniqueWinRate": 0.6888888888888889,
+              "meanPoints": 22.36111111111111,
+              "wilson95": [
+                0.6179038880110056,
+                0.7519797509477503
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 41,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 44,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 39,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 10,
+          "fitness": 0.731896921845268,
+          "weights": [
+            1.0111054938601454,
+            0.20726908279697528,
+            0.36947500905838654,
+            0.5607265287766993,
+            -0.3658608307382585,
+            0.25515362200447134,
+            0.2546113104090425,
+            0.46794052377191053,
+            1.352904330037982,
+            0.29446731066377985,
+            0.13708400391864928
+          ],
+          "sigma": [
+            0.04339252147297576,
+            0.04792062474187247,
+            0.0570844708935799,
+            0.09067626821121827,
+            0.05578318330139627,
+            0.20559130679037807,
+            0.09855714224468742,
+            0.10898351382174222,
+            0.03665618514151137,
+            0.035,
+            0.10909799680085812
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 139,
+              "ties": 8,
+              "uniqueWinRate": 0.7722222222222223,
+              "meanPoints": 11.494444444444444,
+              "wilson95": [
+                0.7056412267522465,
+                0.8274263705706664
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 123,
+              "ties": 2,
+              "uniqueWinRate": 0.6833333333333333,
+              "meanPoints": 22.733333333333334,
+              "wilson95": [
+                0.6121496060714819,
+                0.7468551023296635
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 41,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 37,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 11,
+          "fitness": 0.7002131336296569,
+          "weights": [
+            0.9728433598965998,
+            0.1787827703919718,
+            0.3832936992731838,
+            0.47713379803750167,
+            -0.3029668151760485,
+            0.5277947831456564,
+            0.405610243064598,
+            0.38455700307545526,
+            1.3485635817476005,
+            0.3301567956571533,
+            0.24512398586025902
+          ],
+          "sigma": [
+            0.03759402697357894,
+            0.03579261985931411,
+            0.041066430508644905,
+            0.08536568941007666,
+            0.04828672395697721,
+            0.19096608790432346,
+            0.10819490340947119,
+            0.10103397977073343,
+            0.035,
+            0.035,
+            0.08700560695429647
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 143,
+              "ties": 5,
+              "uniqueWinRate": 0.7944444444444444,
+              "meanPoints": 11.472222222222221,
+              "wilson95": [
+                0.7295526952842258,
+                0.8470306242691287
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 118,
+              "ties": 7,
+              "uniqueWinRate": 0.6555555555555556,
+              "meanPoints": 22.9,
+              "wilson95": [
+                0.5835373701863704,
+                0.7210726854267226
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 42,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 39,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 37,
+                  "ties": 3
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 12,
+          "fitness": 0.6673910505224334,
+          "weights": [
+            0.9991738101745816,
+            0.14291001847286436,
+            0.42470490242011927,
+            0.33126324113712113,
+            -0.31444998140915886,
+            0.3532276639920504,
+            0.33984426894391856,
+            0.42008706404852575,
+            1.333966971744542,
+            0.24052881527120454,
+            0.255747805947979
+          ],
+          "sigma": [
+            0.035,
+            0.04257990024055909,
+            0.04012455947669323,
+            0.09099814810194573,
+            0.0410887643414795,
+            0.14850109459108718,
+            0.06660016282891387,
+            0.11427348419831992,
+            0.035,
+            0.035,
+            0.08417536537485357
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 142,
+              "ties": 7,
+              "uniqueWinRate": 0.7888888888888889,
+              "meanPoints": 11.422222222222222,
+              "wilson95": [
+                0.7235515182980812,
+                0.8421528706976629
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 46,
+                  "ties": 4
+                },
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 110,
+              "ties": 5,
+              "uniqueWinRate": 0.6111111111111112,
+              "meanPoints": 23.322222222222223,
+              "wilson95": [
+                0.5382806192890348,
+                0.6792979918631745
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 37,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 39,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 34,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 13,
+          "fitness": 0.7469975805364505,
+          "weights": [
+            0.9588205411953651,
+            0.19124340460427294,
+            0.41265177875983483,
+            0.3499342588208185,
+            -0.30414175280974165,
+            0.5332977112482654,
+            0.455836842063524,
+            0.4942816007290805,
+            1.3153240029920916,
+            0.19630795183939867,
+            0.2404123580631909
+          ],
+          "sigma": [
+            0.04464479740196284,
+            0.035,
+            0.035,
+            0.09112663955481687,
+            0.035,
+            0.09813164395318597,
+            0.05428015271318552,
+            0.08837907831629976,
+            0.035,
+            0.035,
+            0.07835720269100696
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 144,
+              "ties": 5,
+              "uniqueWinRate": 0.8,
+              "meanPoints": 11.05,
+              "wilson95": [
+                0.7355701522001451,
+                0.8518920979108201
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 46,
+                  "ties": 4
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 110,
+              "ties": 4,
+              "uniqueWinRate": 0.6111111111111112,
+              "meanPoints": 23.433333333333334,
+              "wilson95": [
+                0.5382806192890348,
+                0.6792979918631745
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 40,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 38,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 32,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 14,
+          "fitness": 0.7785654162651243,
+          "weights": [
+            0.9541048902708165,
+            0.187281062155858,
+            0.4258132298113051,
+            0.41815721992089333,
+            -0.36820001384558815,
+            0.37953519642852357,
+            0.49749835728121844,
+            0.4615289072576089,
+            1.4147257059825917,
+            0.2836716191823271,
+            0.23352265489043525
+          ],
+          "sigma": [
+            0.04259441713425155,
+            0.035,
+            0.035614049102297936,
+            0.09259781641475948,
+            0.03820263701826991,
+            0.08352562624754764,
+            0.05778799129846424,
+            0.0925973619352527,
+            0.035,
+            0.03662577340190108,
+            0.06848270353967445
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 144,
+              "ties": 5,
+              "uniqueWinRate": 0.8,
+              "meanPoints": 11.727777777777778,
+              "wilson95": [
+                0.7355701522001451,
+                0.8518920979108201
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 46,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 53,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 119,
+              "ties": 4,
+              "uniqueWinRate": 0.6611111111111111,
+              "meanPoints": 22.05,
+              "wilson95": [
+                0.5892390407484821,
+                0.7262499454222214
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 44,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 42,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 33,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 15,
+          "fitness": 0.6864725149763824,
+          "weights": [
+            0.9298406381601798,
+            0.21683712834390445,
+            0.3766471688502943,
+            0.4086439347627713,
+            -0.3118525976730749,
+            0.42222226820398145,
+            0.40897505817337676,
+            0.5170027246313712,
+            1.414497739021395,
+            0.24201775337399095,
+            0.17713332058791786
+          ],
+          "sigma": [
+            0.038675998871660545,
+            0.035,
+            0.03840362681614186,
+            0.08561419494771927,
+            0.035,
+            0.06006114424130728,
+            0.05453211250377803,
+            0.07187321331315599,
+            0.035,
+            0.035,
+            0.06266041515560689
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 141,
+              "ties": 5,
+              "uniqueWinRate": 0.7833333333333333,
+              "meanPoints": 11.522222222222222,
+              "wilson95": [
+                0.7175661628363559,
+                0.8372592956017779
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 121,
+              "ties": 5,
+              "uniqueWinRate": 0.6722222222222223,
+              "meanPoints": 22.233333333333334,
+              "wilson95": [
+                0.6006732896009437,
+                0.7365735576849808
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 41,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 42,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 38,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 16,
+          "fitness": 0.6592736121398939,
+          "weights": [
+            1.0263979214424086,
+            0.2076144717236012,
+            0.430272668803707,
+            0.39879450221688717,
+            -0.26674056231458704,
+            0.3715334835336657,
+            0.4318973308657663,
+            0.5887954981337833,
+            1.3841518348847053,
+            0.19862541955232377,
+            0.277891125245987
+          ],
+          "sigma": [
+            0.04649915006501459,
+            0.035,
+            0.035,
+            0.08428829768987667,
+            0.035,
+            0.05276962893855367,
+            0.059930420570330906,
+            0.05690186303547462,
+            0.036169399177792244,
+            0.035,
+            0.06798112926989669
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 143,
+              "ties": 7,
+              "uniqueWinRate": 0.7944444444444444,
+              "meanPoints": 11.488888888888889,
+              "wilson95": [
+                0.7295526952842258,
+                0.8470306242691287
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 3
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 117,
+              "ties": 4,
+              "uniqueWinRate": 0.65,
+              "meanPoints": 23.1,
+              "wilson95": [
+                0.5778458441047194,
+                0.7158852809507632
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 41,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 37,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 39,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 17,
+          "fitness": 0.7394702345332057,
+          "weights": [
+            1.0263979214424086,
+            0.2076144717236012,
+            0.430272668803707,
+            0.39879450221688717,
+            -0.26674056231458704,
+            0.3715334835336657,
+            0.4318973308657663,
+            0.5887954981337833,
+            1.3841518348847053,
+            0.19862541955232377,
+            0.277891125245987
+          ],
+          "sigma": [
+            0.04400444035418189,
+            0.035,
+            0.03567473409191128,
+            0.06998724073014422,
+            0.035,
+            0.040762802637425564,
+            0.046028910681231605,
+            0.04627894777997456,
+            0.035,
+            0.035,
+            0.06660406006306523
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 143,
+              "ties": 7,
+              "uniqueWinRate": 0.7944444444444444,
+              "meanPoints": 11.488888888888889,
+              "wilson95": [
+                0.7295526952842258,
+                0.8470306242691287
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 3
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 117,
+              "ties": 4,
+              "uniqueWinRate": 0.65,
+              "meanPoints": 23.1,
+              "wilson95": [
+                0.5778458441047194,
+                0.7158852809507632
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 41,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 37,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 39,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 18,
+          "fitness": 0.7225858549448084,
+          "weights": [
+            1.0161646293548647,
+            0.1831525010915201,
+            0.3792844705416045,
+            0.49631148676704495,
+            -0.26262997453712733,
+            0.41595482562474984,
+            0.5047178090540845,
+            0.5506990300456073,
+            1.3989464282362634,
+            0.1902541778772057,
+            0.10173015318196542
+          ],
+          "sigma": [
+            0.035,
+            0.035,
+            0.035,
+            0.06914227754082047,
+            0.035,
+            0.035,
+            0.04393025524466854,
+            0.03618942195775408,
+            0.035,
+            0.035,
+            0.07211497873828991
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 144,
+              "ties": 6,
+              "uniqueWinRate": 0.8,
+              "meanPoints": 11.061111111111112,
+              "wilson95": [
+                0.7355701522001451,
+                0.8518920979108201
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 120,
+              "ties": 5,
+              "uniqueWinRate": 0.6666666666666666,
+              "meanPoints": 22.927777777777777,
+              "wilson95": [
+                0.5949509727403892,
+                0.7314169439879248
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 42,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 42,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 36,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 19,
+          "fitness": 0.6536454644719351,
+          "weights": [
+            1.0039893113655187,
+            0.26759620355980357,
+            0.43250381883309874,
+            0.6008407085518932,
+            -0.3301648538712656,
+            0.3614022346785594,
+            0.4695223366227773,
+            0.6228280509340736,
+            1.4059912553152887,
+            0.29252447983832536,
+            0.25700713299281047
+          ],
+          "sigma": [
+            0.036385240746929115,
+            0.035,
+            0.03604274554035426,
+            0.06896644927800408,
+            0.03722308276212562,
+            0.035,
+            0.03555247392903905,
+            0.044339325440855455,
+            0.037882827943310896,
+            0.04288147055400475,
+            0.06851196911401183
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 142,
+              "ties": 8,
+              "uniqueWinRate": 0.7888888888888889,
+              "meanPoints": 11.644444444444444,
+              "wilson95": [
+                0.7235515182980812,
+                0.8421528706976629
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 3
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 119,
+              "ties": 4,
+              "uniqueWinRate": 0.6611111111111111,
+              "meanPoints": 22.511111111111113,
+              "wilson95": [
+                0.5892390407484821,
+                0.7262499454222214
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 44,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 39,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 36,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 20,
+          "fitness": 0.7281975541786956,
+          "weights": [
+            1.0856060250489608,
+            0.21723896951145932,
+            0.3837020543630949,
+            0.5351143965253982,
+            -0.2441811806629173,
+            0.3710441907553779,
+            0.42757237182938457,
+            0.6064898406572783,
+            1.449365904954819,
+            0.2889272251947247,
+            0.1449391579696272
+          ],
+          "sigma": [
+            0.035,
+            0.03608226413343206,
+            0.035,
+            0.05661099672757321,
+            0.036795739006137335,
+            0.035,
+            0.035,
+            0.035,
+            0.03616149278853717,
+            0.035,
+            0.07514438953602888
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 147,
+              "ties": 6,
+              "uniqueWinRate": 0.8166666666666667,
+              "meanPoints": 11.905555555555555,
+              "wilson95": [
+                0.7537252847530411,
+                0.8663737570307555
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 119,
+              "ties": 1,
+              "uniqueWinRate": 0.6611111111111111,
+              "meanPoints": 22.727777777777778,
+              "wilson95": [
+                0.5892390407484821,
+                0.7262499454222214
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 40,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 42,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 37,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "hellsbells-league-discard-train-v2",
+      "checkpoints": [
+        {
+          "kind": "development",
+          "episode": 100,
+          "samples": 500,
+          "mse": 1.0348079406264235,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 95,
+              "ties": 4,
+              "uniqueWinRate": 0.7916666666666666,
+              "meanPoints": 11.191666666666666,
+              "wilson95": [
+                0.7105215895553653,
+                0.8547165856620093
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 35,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 3
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 82,
+              "ties": 5,
+              "uniqueWinRate": 0.6833333333333333,
+              "meanPoints": 16.7,
+              "wilson95": [
+                0.595519646541652,
+                0.7597729207378406
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 26,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 23,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 200,
+          "samples": 1000,
+          "mse": 1.1823113421632785,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 102,
+              "ties": 5,
+              "uniqueWinRate": 0.85,
+              "meanPoints": 10.541666666666666,
+              "wilson95": [
+                0.7753231505975375,
+                0.9029626596633118
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 38,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 80,
+              "ties": 3,
+              "uniqueWinRate": 0.6666666666666666,
+              "meanPoints": 17.458333333333332,
+              "wilson95": [
+                0.5783093452093498,
+                0.744683897772007
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 25,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 25,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 300,
+          "samples": 1500,
+          "mse": 1.3060760562804543,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 102,
+              "ties": 1,
+              "uniqueWinRate": 0.85,
+              "meanPoints": 10.975,
+              "wilson95": [
+                0.7753231505975375,
+                0.9029626596633118
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 35,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 87,
+              "ties": 2,
+              "uniqueWinRate": 0.725,
+              "meanPoints": 18.075,
+              "wilson95": [
+                0.6390686764395932,
+                0.7969722015852385
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 28,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 400,
+          "samples": 2000,
+          "mse": 1.3291875139385092,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 98,
+              "ties": 5,
+              "uniqueWinRate": 0.8166666666666667,
+              "meanPoints": 11.008333333333333,
+              "wilson95": [
+                0.7379892641067634,
+                0.8756978975578147
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 36,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 3
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 92,
+              "ties": 4,
+              "uniqueWinRate": 0.7666666666666667,
+              "meanPoints": 17.416666666666668,
+              "wilson95": [
+                0.6834438839010675,
+                0.8333453048691035
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 3
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 500,
+          "samples": 2500,
+          "mse": 1.3958225211028565,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 99,
+              "ties": 4,
+              "uniqueWinRate": 0.825,
+              "meanPoints": 10.808333333333334,
+              "wilson95": [
+                0.7472413105195714,
+                0.8825955132940744
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 94,
+              "ties": 3,
+              "uniqueWinRate": 0.7833333333333333,
+              "meanPoints": 16.933333333333334,
+              "wilson95": [
+                0.7014547414958805,
+                0.8476337715724263
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 3
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 600,
+          "samples": 3000,
+          "mse": 1.445331134395563,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 98,
+              "ties": 4,
+              "uniqueWinRate": 0.8166666666666667,
+              "meanPoints": 11.591666666666667,
+              "wilson95": [
+                0.7379892641067634,
+                0.8756978975578147
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 90,
+              "ties": 3,
+              "uniqueWinRate": 0.75,
+              "meanPoints": 17.125,
+              "wilson95": [
+                0.6655869783172575,
+                0.8189028861547777
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 700,
+          "samples": 3500,
+          "mse": 1.4666761124711511,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 98,
+              "ties": 3,
+              "uniqueWinRate": 0.8166666666666667,
+              "meanPoints": 11.533333333333333,
+              "wilson95": [
+                0.7379892641067634,
+                0.8756978975578147
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 86,
+              "ties": 3,
+              "uniqueWinRate": 0.7166666666666667,
+              "meanPoints": 18.008333333333333,
+              "wilson95": [
+                0.6302963078582111,
+                0.7895949080175528
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 28,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 27,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 800,
+          "samples": 4000,
+          "mse": 1.4820564528020386,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 97,
+              "ties": 4,
+              "uniqueWinRate": 0.8083333333333333,
+              "meanPoints": 11.616666666666667,
+              "wilson95": [
+                0.7287868300416364,
+                0.8687506694738739
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 35,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 88,
+              "ties": 1,
+              "uniqueWinRate": 0.7333333333333333,
+              "meanPoints": 18.341666666666665,
+              "wilson95": [
+                0.6478739437150142,
+                0.8043165964588853
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 27,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 900,
+          "samples": 4500,
+          "mse": 1.5093183075223198,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 96,
+              "ties": 6,
+              "uniqueWinRate": 0.8,
+              "meanPoints": 11.441666666666666,
+              "wilson95": [
+                0.7196316465662729,
+                0.8617561908001696
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 3
+                },
+                {
+                  "games": 40,
+                  "wins": 36,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 3
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 87,
+              "ties": 2,
+              "uniqueWinRate": 0.725,
+              "meanPoints": 18.158333333333335,
+              "wilson95": [
+                0.6390686764395932,
+                0.7969722015852385
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 28,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 28,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1000,
+          "samples": 5000,
+          "mse": 1.5557179740673281,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 94,
+              "ties": 5,
+              "uniqueWinRate": 0.7833333333333333,
+              "meanPoints": 11.1,
+              "wilson95": [
+                0.7014547414958805,
+                0.8476337715724263
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 35,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 3
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 88,
+              "ties": 1,
+              "uniqueWinRate": 0.7333333333333333,
+              "meanPoints": 18.55,
+              "wilson95": [
+                0.6478739437150142,
+                0.8043165964588853
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 28,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1100,
+          "samples": 5500,
+          "mse": 1.5996774985277513,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 97,
+              "ties": 4,
+              "uniqueWinRate": 0.8083333333333333,
+              "meanPoints": 11.683333333333334,
+              "wilson95": [
+                0.7287868300416364,
+                0.8687506694738739
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 36,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 93,
+              "ties": 1,
+              "uniqueWinRate": 0.775,
+              "meanPoints": 18.3,
+              "wilson95": [
+                0.6924293655773726,
+                0.8405094853418662
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 33,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1200,
+          "samples": 6000,
+          "mse": 1.5840619895460872,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 97,
+              "ties": 4,
+              "uniqueWinRate": 0.8083333333333333,
+              "meanPoints": 11.491666666666667,
+              "wilson95": [
+                0.7287868300416364,
+                0.8687506694738739
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 90,
+              "ties": 2,
+              "uniqueWinRate": 0.75,
+              "meanPoints": 18.108333333333334,
+              "wilson95": [
+                0.6655869783172575,
+                0.8189028861547777
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1300,
+          "samples": 6500,
+          "mse": 1.5516318262718272,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 97,
+              "ties": 4,
+              "uniqueWinRate": 0.8083333333333333,
+              "meanPoints": 10.9,
+              "wilson95": [
+                0.7287868300416364,
+                0.8687506694738739
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 3
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 94,
+              "ties": 2,
+              "uniqueWinRate": 0.7833333333333333,
+              "meanPoints": 17.833333333333332,
+              "wilson95": [
+                0.7014547414958805,
+                0.8476337715724263
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 35,
+                  "ties": 2
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1400,
+          "samples": 7000,
+          "mse": 1.5543706521479668,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 100,
+              "ties": 1,
+              "uniqueWinRate": 0.8333333333333334,
+              "meanPoints": 10.841666666666667,
+              "wilson95": [
+                0.756545606089762,
+                0.8894408798729518
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 36,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 96,
+              "ties": 0,
+              "uniqueWinRate": 0.8,
+              "meanPoints": 18.45,
+              "wilson95": [
+                0.7196316465662729,
+                0.8617561908001696
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 37,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 29,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1500,
+          "samples": 7500,
+          "mse": 1.594902412796154,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 98,
+              "ties": 2,
+              "uniqueWinRate": 0.8166666666666667,
+              "meanPoints": 11.45,
+              "wilson95": [
+                0.7379892641067634,
+                0.8756978975578147
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 31,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 35,
+                  "ties": 1
+                },
+                {
+                  "games": 40,
+                  "wins": 32,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 120,
+              "wins": 94,
+              "ties": 0,
+              "uniqueWinRate": 0.7833333333333333,
+              "meanPoints": 18.466666666666665,
+              "wilson95": [
+                0.7014547414958805,
+                0.8476337715724263
+              ],
+              "seats": [
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 34,
+                  "ties": 0
+                },
+                {
+                  "games": 40,
+                  "wins": 30,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "hellsbells-league-bid-refine-v2b",
+      "checkpoints": [
+        {
+          "kind": "development",
+          "episode": 150,
+          "samples": 750,
+          "mse": 1.8091327715855303,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 143,
+              "ties": 6,
+              "uniqueWinRate": 0.7944444444444444,
+              "meanPoints": 11.466666666666667,
+              "wilson95": [
+                0.7295526952842258,
+                0.8470306242691287
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 46,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 3
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 140,
+              "ties": 3,
+              "uniqueWinRate": 0.7777777777777778,
+              "meanPoints": 17.58888888888889,
+              "wilson95": [
+                0.7115961997536944,
+                0.832350328126829
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 42,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 300,
+          "samples": 1500,
+          "mse": 1.954883404000929,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 155,
+              "ties": 3,
+              "uniqueWinRate": 0.8611111111111112,
+              "meanPoints": 10.03888888888889,
+              "wilson95": [
+                0.8030072981112379,
+                0.9041231881334424
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 56,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 122,
+              "ties": 4,
+              "uniqueWinRate": 0.6777777777777778,
+              "meanPoints": 18.805555555555557,
+              "wilson95": [
+                0.6064061215775904,
+                0.7417196562659445
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 37,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 35,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 450,
+          "samples": 2250,
+          "mse": 2.081052789725748,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 154,
+              "ties": 4,
+              "uniqueWinRate": 0.8555555555555555,
+              "meanPoints": 10.616666666666667,
+              "wilson95": [
+                0.7967685455528166,
+                0.899483010134253
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 57,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 135,
+              "ties": 1,
+              "uniqueWinRate": 0.75,
+              "meanPoints": 18.622222222222224,
+              "wilson95": [
+                0.681964014563061,
+                0.80758786052941
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 44,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 40,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 600,
+          "samples": 3000,
+          "mse": 2.070620571932098,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 153,
+              "ties": 3,
+              "uniqueWinRate": 0.85,
+              "meanPoints": 10.577777777777778,
+              "wilson95": [
+                0.7905541547797237,
+                0.8948184703497355
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 54,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 131,
+              "ties": 2,
+              "uniqueWinRate": 0.7277777777777777,
+              "meanPoints": 18.93888888888889,
+              "wilson95": [
+                0.6585001485735321,
+                0.7875360042884968
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 37,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 750,
+          "samples": 3750,
+          "mse": 2.139122243767554,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 149,
+              "ties": 5,
+              "uniqueWinRate": 0.8277777777777777,
+              "meanPoints": 11.238888888888889,
+              "wilson95": [
+                0.7659200997039709,
+                0.8759368031950464
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 2
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 140,
+              "ties": 3,
+              "uniqueWinRate": 0.7777777777777778,
+              "meanPoints": 16.55,
+              "wilson95": [
+                0.7115961997536944,
+                0.832350328126829
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 41,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 900,
+          "samples": 4500,
+          "mse": 2.171785161530139,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 154,
+              "ties": 1,
+              "uniqueWinRate": 0.8555555555555555,
+              "meanPoints": 10.938888888888888,
+              "wilson95": [
+                0.7967685455528166,
+                0.899483010134253
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 54,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 136,
+              "ties": 2,
+              "uniqueWinRate": 0.7555555555555555,
+              "meanPoints": 17.522222222222222,
+              "wilson95": [
+                0.6878625842267486,
+                0.8125682214233328
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 46,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 40,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1050,
+          "samples": 5250,
+          "mse": 2.2387931955094076,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 152,
+              "ties": 1,
+              "uniqueWinRate": 0.8444444444444444,
+              "meanPoints": 10.838888888888889,
+              "wilson95": [
+                0.784363054834744,
+                0.8901306397371049
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 54,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 53,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 141,
+              "ties": 6,
+              "uniqueWinRate": 0.7833333333333333,
+              "meanPoints": 17.58888888888889,
+              "wilson95": [
+                0.7175661628363559,
+                0.8372592956017779
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 44,
+                  "ties": 3
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1200,
+          "samples": 6000,
+          "mse": 2.258110511728588,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 150,
+              "ties": 7,
+              "uniqueWinRate": 0.8333333333333334,
+              "meanPoints": 10.65,
+              "wilson95": [
+                0.7720468899777125,
+                0.8806889434789155
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 3
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 139,
+              "ties": 5,
+              "uniqueWinRate": 0.7722222222222223,
+              "meanPoints": 17.57777777777778,
+              "wilson95": [
+                0.7056412267522465,
+                0.8274263705706664
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 44,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1350,
+          "samples": 6750,
+          "mse": 2.3068451905796046,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 156,
+              "ties": 4,
+              "uniqueWinRate": 0.8666666666666667,
+              "meanPoints": 10.033333333333333,
+              "wilson95": [
+                0.8092715870345016,
+                0.9087378297677892
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 55,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 3
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 146,
+              "ties": 2,
+              "uniqueWinRate": 0.8111111111111111,
+              "meanPoints": 16.905555555555555,
+              "wilson95": [
+                0.7476559023231929,
+                0.8615642089029932
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 44,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "development",
+          "episode": 1500,
+          "samples": 7500,
+          "mse": 2.348940004756849,
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 151,
+              "ties": 4,
+              "uniqueWinRate": 0.8388888888888889,
+              "meanPoints": 10.477777777777778,
+              "wilson95": [
+                0.7781942661243509,
+                0.8854204978898875
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 54,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 4
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-league-development-v2",
+              "games": 180,
+              "wins": 145,
+              "ties": 5,
+              "uniqueWinRate": 0.8055555555555556,
+              "meanPoints": 17.05,
+              "wilson95": [
+                0.7416043794180397,
+                0.856736801250536
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 53,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "hellsbells-tactics-train-v2b",
+      "checkpoints": [
+        {
+          "generation": 1,
+          "fitness": 0.7383695271806135,
+          "weights": [
+            0.9725480295889205,
+            0.1568711337873124,
+            0.33141624710001877,
+            0.5427374244808943,
+            -0.205507251227796,
+            0.35412737086140644,
+            0.286469609589247,
+            0.24342282173270002,
+            1.3649321707544522,
+            0.35182196880091937,
+            0.19848270418845956
+          ],
+          "sigma": [
+            0.2043820524396075,
+            0.1736279632204873,
+            0.200033691474379,
+            0.16804704668282222,
+            0.16905055442900135,
+            0.2739416862255991,
+            0.2034258350891599,
+            0.2955321281398714,
+            0.25587572443334794,
+            0.28680273266515155,
+            0.21975897958770335
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 143,
+              "ties": 5,
+              "uniqueWinRate": 0.7944444444444444,
+              "meanPoints": 11.05,
+              "wilson95": [
+                0.7295526952842258,
+                0.8470306242691287
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 133,
+              "ties": 6,
+              "uniqueWinRate": 0.7388888888888889,
+              "meanPoints": 18.505555555555556,
+              "wilson95": [
+                0.6702065350320432,
+                0.7975874789452069
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 40,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 2,
+          "fitness": 0.819545917126094,
+          "weights": [
+            1.3821299948808188,
+            -0.1219261989310193,
+            0.33969232080141615,
+            0.7104697925779365,
+            0.013956481022052936,
+            0.5762415613446359,
+            0.24223068935449626,
+            0.3711872612053331,
+            1.570172668186214,
+            0.6701858504791413,
+            0.19472601778177756
+          ],
+          "sigma": [
+            0.177288464433614,
+            0.14938180151950295,
+            0.12044424345586643,
+            0.20578803086566294,
+            0.1404949142125563,
+            0.23467754973160734,
+            0.13021879030828545,
+            0.2835357127144219,
+            0.21695304533328386,
+            0.19729457661124944,
+            0.22119109457231162
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 138,
+              "ties": 2,
+              "uniqueWinRate": 0.7666666666666667,
+              "meanPoints": 13.261111111111111,
+              "wilson95": [
+                0.6997008662253994,
+                0.822487800539903
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 46,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 143,
+              "ties": 6,
+              "uniqueWinRate": 0.7944444444444444,
+              "meanPoints": 17.36111111111111,
+              "wilson95": [
+                0.7295526952842258,
+                0.8470306242691287
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 44,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 4
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 3,
+          "fitness": 0.7970736016953609,
+          "weights": [
+            1.2303520322961834,
+            0.2636085204786357,
+            0.2781893902976159,
+            0.20849932352931025,
+            0.041914044831840525,
+            0.4165118232746513,
+            0.23095516275660083,
+            -0.008521126793768596,
+            1.4203224404345456,
+            0.3584626780878199,
+            0.051433268636602525
+          ],
+          "sigma": [
+            0.14159997967689564,
+            0.15815080263130968,
+            0.08628634586633638,
+            0.20029115283640578,
+            0.1257878131035729,
+            0.2077190059100607,
+            0.09961008440459597,
+            0.23571420447255392,
+            0.21967898278425552,
+            0.19023180106260068,
+            0.17738471150734542
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 144,
+              "ties": 3,
+              "uniqueWinRate": 0.8,
+              "meanPoints": 11.78888888888889,
+              "wilson95": [
+                0.7355701522001451,
+                0.8518920979108201
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 139,
+              "ties": 4,
+              "uniqueWinRate": 0.7722222222222223,
+              "meanPoints": 17.944444444444443,
+              "wilson95": [
+                0.7056412267522465,
+                0.8274263705706664
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 43,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 4,
+          "fitness": 0.7980406254202437,
+          "weights": [
+            1.1263207573994651,
+            0.17568984993458284,
+            0.28096088899696026,
+            0.22363516653415144,
+            -0.12915772532471878,
+            0.38500176782460227,
+            0.10744569654826544,
+            0.03866067469168649,
+            1.3205814971576786,
+            0.3386963941204727,
+            0.00687954172007843
+          ],
+          "sigma": [
+            0.12924186912310526,
+            0.10576514944438481,
+            0.08046446206793673,
+            0.2366499796473311,
+            0.12377874664769394,
+            0.1860596241858755,
+            0.10277198493819364,
+            0.20984598417630052,
+            0.14905053946564822,
+            0.14775170903355386,
+            0.18509396964777167
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 142,
+              "ties": 6,
+              "uniqueWinRate": 0.7888888888888889,
+              "meanPoints": 10.438888888888888,
+              "wilson95": [
+                0.7235515182980812,
+                0.8421528706976629
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 43,
+                  "ties": 4
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 137,
+              "ties": 3,
+              "uniqueWinRate": 0.7611111111111111,
+              "meanPoints": 18.305555555555557,
+              "wilson95": [
+                0.6937747633253338,
+                0.8175349728823579
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 39,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 5,
+          "fitness": 0.8261110114216047,
+          "weights": [
+            1.3880615286326305,
+            0.1575239428304418,
+            0.1851426746337106,
+            0.2334935536787715,
+            -0.07209685533210317,
+            0.19658839422658136,
+            0.02715846929496496,
+            0.5618141514036896,
+            1.5988465348641774,
+            0.37010337524798964,
+            -0.3397532917775676
+          ],
+          "sigma": [
+            0.15706232871965925,
+            0.09086867989747197,
+            0.08338056501929658,
+            0.23242696229334414,
+            0.10916019849588363,
+            0.18355340004097703,
+            0.11861203484078922,
+            0.1952155189704517,
+            0.17135391504859993,
+            0.14032789114791244,
+            0.17461645359107575
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 140,
+              "ties": 6,
+              "uniqueWinRate": 0.7777777777777778,
+              "meanPoints": 11.811111111111112,
+              "wilson95": [
+                0.7115961997536944,
+                0.832350328126829
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 46,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 46,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 4
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 146,
+              "ties": 4,
+              "uniqueWinRate": 0.8111111111111111,
+              "meanPoints": 17.616666666666667,
+              "wilson95": [
+                0.7476559023231929,
+                0.8615642089029932
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 6,
+          "fitness": 0.8304479937636333,
+          "weights": [
+            0.9742306046407658,
+            0.03324680317828965,
+            0.35420635339467543,
+            0.3833151607477444,
+            -0.34901354503232596,
+            0.11911602061631901,
+            0.18807141095953367,
+            0.32992504265643025,
+            1.4731120958600847,
+            0.42586855132642554,
+            -0.38779564566909286
+          ],
+          "sigma": [
+            0.1444280931597975,
+            0.05944576284912849,
+            0.08270843561078345,
+            0.21951820565245433,
+            0.09550634355808593,
+            0.16527627898372327,
+            0.07555583423442375,
+            0.1756576754296344,
+            0.15324276290822023,
+            0.11320596590529511,
+            0.17825610852860174
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 145,
+              "ties": 8,
+              "uniqueWinRate": 0.8055555555555556,
+              "meanPoints": 11.822222222222223,
+              "wilson95": [
+                0.7416043794180397,
+                0.856736801250536
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 4
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 4
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 154,
+              "ties": 3,
+              "uniqueWinRate": 0.8555555555555555,
+              "meanPoints": 17.216666666666665,
+              "wilson95": [
+                0.7967685455528166,
+                0.899483010134253
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 53,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 7,
+          "fitness": 0.8383921293382719,
+          "weights": [
+            1.0345170345369525,
+            0.03404951649974921,
+            0.30904815087143506,
+            0.32539490553083683,
+            -0.17454111268859204,
+            0.054210269921387846,
+            0.1108374845936908,
+            -0.04030308759638443,
+            1.3480682421007872,
+            0.5369477520707752,
+            -0.375508005446928
+          ],
+          "sigma": [
+            0.15298015580111488,
+            0.03948105591650563,
+            0.05802348065519152,
+            0.16326027306247498,
+            0.09178185802031268,
+            0.14147327910279772,
+            0.06880180433689674,
+            0.15022801305862477,
+            0.16825814647386067,
+            0.11264742914716272,
+            0.1331641534071704
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 143,
+              "ties": 3,
+              "uniqueWinRate": 0.7944444444444444,
+              "meanPoints": 12.105555555555556,
+              "wilson95": [
+                0.7295526952842258,
+                0.8470306242691287
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 43,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 141,
+              "ties": 3,
+              "uniqueWinRate": 0.7833333333333333,
+              "meanPoints": 17.42222222222222,
+              "wilson95": [
+                0.7175661628363559,
+                0.8372592956017779
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 41,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 8,
+          "fitness": 0.853057177620564,
+          "weights": [
+            1.13092308397413,
+            0.06769016365039737,
+            0.3559441179982322,
+            0.4555289043322963,
+            -0.2533418668160538,
+            0.10966325506492378,
+            0.2230630206333161,
+            0.22589131114928182,
+            1.3833391766600234,
+            0.38203219444826164,
+            -0.3802892162155589
+          ],
+          "sigma": [
+            0.16289139190533475,
+            0.035,
+            0.03853805343192704,
+            0.17373550596832923,
+            0.05618507426986137,
+            0.10020584536964493,
+            0.06526434204805015,
+            0.15585192860409985,
+            0.14228223279305974,
+            0.10231337990133628,
+            0.1184210419471196
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 146,
+              "ties": 4,
+              "uniqueWinRate": 0.8111111111111111,
+              "meanPoints": 11.305555555555555,
+              "wilson95": [
+                0.7476559023231929,
+                0.8615642089029932
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 53,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 134,
+              "ties": 4,
+              "uniqueWinRate": 0.7444444444444445,
+              "meanPoints": 17.905555555555555,
+              "wilson95": [
+                0.6760787580147182,
+                0.8025941865201424
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 48,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 39,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 9,
+          "fitness": 0.7909403385917086,
+          "weights": [
+            1.3671197940463014,
+            0.09167510580838795,
+            0.44872424216063617,
+            0.22247692980382447,
+            -0.3211556395229703,
+            0.27029555591113247,
+            0.30277565428081177,
+            -0.42308847034311253,
+            1.0975831429946785,
+            0.539443881385277,
+            -0.10334259948895205
+          ],
+          "sigma": [
+            0.15542759464523315,
+            0.035,
+            0.043008074385427225,
+            0.12553434249191558,
+            0.04167627750693139,
+            0.0823860613759666,
+            0.059051006669811786,
+            0.21131297264068233,
+            0.13868900505083098,
+            0.08420448427873034,
+            0.13223101851922575
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 148,
+              "ties": 3,
+              "uniqueWinRate": 0.8222222222222222,
+              "meanPoints": 10.933333333333334,
+              "wilson95": [
+                0.7598131328927978,
+                0.871164839448609
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 138,
+              "ties": 4,
+              "uniqueWinRate": 0.7666666666666667,
+              "meanPoints": 18.244444444444444,
+              "wilson95": [
+                0.6997008662253994,
+                0.822487800539903
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 43,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 10,
+          "fitness": 0.7862183050493357,
+          "weights": [
+            0.9499783604161052,
+            0.06625183011381817,
+            0.37498840749497425,
+            0.2986406779648749,
+            -0.20507737850468577,
+            0.2744903545254174,
+            0.2898906347275285,
+            0.010534137915953395,
+            1.299211459931373,
+            0.4219429287574488,
+            -0.420370074139673
+          ],
+          "sigma": [
+            0.1913979624851434,
+            0.035,
+            0.035844156925152394,
+            0.12427517039511736,
+            0.0423351157901123,
+            0.08679350838388772,
+            0.040406381328621344,
+            0.15778809608711952,
+            0.10345753785350759,
+            0.09198382436481506,
+            0.0903317031600502
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 147,
+              "ties": 4,
+              "uniqueWinRate": 0.8166666666666667,
+              "meanPoints": 10.966666666666667,
+              "wilson95": [
+                0.7537252847530411,
+                0.8663737570307555
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 1
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 142,
+              "ties": 4,
+              "uniqueWinRate": 0.7888888888888889,
+              "meanPoints": 17.683333333333334,
+              "wilson95": [
+                0.7235515182980812,
+                0.8421528706976629
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 47,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 43,
+                  "ties": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 11,
+          "fitness": 0.8314927348455518,
+          "weights": [
+            1.3042622126630181,
+            0.05704731143345199,
+            0.3424036147007504,
+            0.36840603789348814,
+            -0.1833089366272478,
+            0.18051735343548606,
+            0.26721247928573205,
+            0.058581157934426024,
+            1.1630191592471246,
+            0.525135963095499,
+            -0.2681329872319172
+          ],
+          "sigma": [
+            0.22035171452554878,
+            0.035,
+            0.035,
+            0.09918781055185902,
+            0.0414684538528103,
+            0.08976562170892714,
+            0.03605941664207474,
+            0.14489813731605095,
+            0.09643925076215824,
+            0.07246434696087031,
+            0.07006374449850586
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 150,
+              "ties": 6,
+              "uniqueWinRate": 0.8333333333333334,
+              "meanPoints": 10.3,
+              "wilson95": [
+                0.7720468899777125,
+                0.8806889434789155
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 45,
+                  "ties": 4
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 54,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 140,
+              "ties": 2,
+              "uniqueWinRate": 0.7777777777777778,
+              "meanPoints": 17.627777777777776,
+              "wilson95": [
+                0.7115961997536944,
+                0.832350328126829
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 49,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 41,
+                  "ties": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "generation": 12,
+          "fitness": 0.8419929883776598,
+          "weights": [
+            1.1246883568532409,
+            0.05791997187888574,
+            0.44979267305749204,
+            0.29443833988754226,
+            -0.28425047102944223,
+            0.16516383145027802,
+            0.3041043112096882,
+            0.22823802883091798,
+            1.204890000697758,
+            0.6032832870014215,
+            -0.31923373576599084
+          ],
+          "sigma": [
+            0.15538893259503891,
+            0.035,
+            0.03577648026365099,
+            0.091271107528668,
+            0.039523665491955746,
+            0.08574453702359248,
+            0.035,
+            0.15600287792008904,
+            0.07309490546800405,
+            0.07131987505662868,
+            0.055779574774901794
+          ],
+          "development": {
+            "easy": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 149,
+              "ties": 3,
+              "uniqueWinRate": 0.8277777777777777,
+              "meanPoints": 10.827777777777778,
+              "wilson95": [
+                0.7659200997039709,
+                0.8759368031950464
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 46,
+                  "ties": 3
+                },
+                {
+                  "games": 60,
+                  "wins": 51,
+                  "ties": 0
+                },
+                {
+                  "games": 60,
+                  "wins": 52,
+                  "ties": 0
+                }
+              ]
+            },
+            "previous": {
+              "namespace": "hellsbells-tactics-development-v2",
+              "games": 180,
+              "wins": 144,
+              "ties": 4,
+              "uniqueWinRate": 0.8,
+              "meanPoints": 17.68888888888889,
+              "wilson95": [
+                0.7355701522001451,
+                0.8518920979108201
+              ],
+              "seats": [
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 1
+                },
+                {
+                  "games": 60,
+                  "wins": 50,
+                  "ties": 2
+                },
+                {
+                  "games": 60,
+                  "wins": 44,
+                  "ties": 1
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "hellsbells-planner-league-train-v3",
+      "checkpoints": [
+        {
+          "generation": 1,
+          "fitness": 0.8332074372220277,
+          "wins": 28,
+          "games": 36,
+          "parameters": {
+            "tactics": [
+              0.9742306046407658,
+              0.03324680317828965,
+              0.4594299193464279,
+              0.3833151607477444,
+              -0.34901354503232596,
+              0.11911602061631901,
+              0.18807141095953367,
+              0.32992504265643025,
+              1.33467901781874,
+              0.5099734119571582,
+              -0.3194774652704442
+            ],
+            "discardBias": [
+              -0.03170348323406394,
+              -0.06177351533960507,
+              0.1651128556493352,
+              0.06335354976635058,
+              0.08183424701399523,
+              0.040920642229449015
+            ]
+          },
+          "sigma": [
+            0.09116671053190042,
+            0.10535716411781487,
+            0.09106610319108846,
+            0.08353622936393174,
+            0.13900750680743337,
+            0.12001616536321258,
+            0.11763677971758693,
+            0.11681086200553745,
+            0.10356671470385648,
+            0.1323479808890601
+          ]
+        },
+        {
+          "generation": 2,
+          "fitness": 0.8644726301314176,
+          "wins": 29,
+          "games": 36,
+          "parameters": {
+            "tactics": [
+              0.9742306046407658,
+              0.03324680317828965,
+              0.43381277203371593,
+              0.3833151607477444,
+              -0.34901354503232596,
+              0.11911602061631901,
+              0.18807141095953367,
+              0.32992504265643025,
+              1.317082301143556,
+              0.4386877924073295,
+              -0.19929548278023274
+            ],
+            "discardBias": [
+              -0.2826580783078809,
+              0.014267397619131355,
+              0.24983600375276777,
+              0.21868372889765447,
+              0.03187998981317596,
+              0.027112218348409885
+            ]
+          },
+          "sigma": [
+            0.07043969127063239,
+            0.0827216119748956,
+            0.07137814815781728,
+            0.07957725207827389,
+            0.13131710686780046,
+            0.08631407249433494,
+            0.08614590425086123,
+            0.11218067829014601,
+            0.08389048834166354,
+            0.08923379375223892
+          ]
+        },
+        {
+          "generation": 3,
+          "fitness": 0.9184454646550155,
+          "wins": 31,
+          "games": 36,
+          "parameters": {
+            "tactics": [
+              0.9742306046407658,
+              0.03324680317828965,
+              0.5993114765653172,
+              0.3833151607477444,
+              -0.34901354503232596,
+              0.11911602061631901,
+              0.18807141095953367,
+              0.32992504265643025,
+              1.3174881976904715,
+              0.46284609890065254,
+              -0.3551867391753616
+            ],
+            "discardBias": [
+              -0.1612352009679417,
+              -0.007508109830109291,
+              0.18935899962407,
+              0.029171297008960942,
+              -0.05306468669818473,
+              0.0568966581181074
+            ]
+          },
+          "sigma": [
+            0.07308538103470368,
+            0.07989329283542052,
+            0.06372591387657472,
+            0.10142016519076921,
+            0.11477212773376097,
+            0.07505830405090427,
+            0.06634522927616959,
+            0.09401827968538772,
+            0.07457471151813796,
+            0.10384391718447376
+          ]
+        },
+        {
+          "generation": 4,
+          "fitness": 0.9640534751221465,
+          "wins": 32,
+          "games": 36,
+          "parameters": {
+            "tactics": [
+              0.9742306046407658,
+              0.03324680317828965,
+              0.4096708970120982,
+              0.3833151607477444,
+              -0.34901354503232596,
+              0.11911602061631901,
+              0.18807141095953367,
+              0.32992504265643025,
+              1.4568783440542283,
+              0.4517575242507395,
+              -0.4670966734522868
+            ],
+            "discardBias": [
+              0.07393800628217007,
+              0.10071230929307048,
+              0.14843489196400544,
+              -0.012208105932217883,
+              0.012233728821633049,
+              0.10038420944774665
+            ]
+          },
+          "sigma": [
+            0.08298018169528885,
+            0.05355957581242727,
+            0.04531603782399176,
+            0.12714973817794847,
+            0.12570815297639826,
+            0.07497783784491523,
+            0.05002219034570314,
+            0.09446808565529927,
+            0.05490848449537706,
+            0.10162074710635749
+          ]
+        },
+        {
+          "generation": 5,
+          "fitness": 0.9898293327106644,
+          "wins": 33,
+          "games": 36,
+          "parameters": {
+            "tactics": [
+              0.9742306046407658,
+              0.03324680317828965,
+              0.4610950364949325,
+              0.3833151607477444,
+              -0.34901354503232596,
+              0.11911602061631901,
+              0.18807141095953367,
+              0.32992504265643025,
+              1.4854663982645115,
+              0.4187209841217394,
+              -0.38115645238968154
+            ],
+            "discardBias": [
+              -0.12473443440557104,
+              0.0361957931777008,
+              0.11176855875167654,
+              0.04094329499482831,
+              -0.02936652301775462,
+              -0.08508043816666214
+            ]
+          },
+          "sigma": [
+            0.0597008022884481,
+            0.04699584483313737,
+            0.034317780866661006,
+            0.12678266036752453,
+            0.09721445684060907,
+            0.05280054270454627,
+            0.03954600917439957,
+            0.08908065859522103,
+            0.04438144049800933,
+            0.09202670072918692
+          ]
+        },
+        {
+          "generation": 6,
+          "fitness": 1.0162862345456996,
+          "wins": 34,
+          "games": 36,
+          "parameters": {
+            "tactics": [
+              0.9742306046407658,
+              0.03324680317828965,
+              0.486213767057068,
+              0.3833151607477444,
+              -0.34901354503232596,
+              0.11911602061631901,
+              0.18807141095953367,
+              0.32992504265643025,
+              1.4708954606861024,
+              0.4330113746959654,
+              -0.2766705281079124
+            ],
+            "discardBias": [
+              -0.15572999267652265,
+              0.023937282661242378,
+              0.12596873813323142,
+              0.0018383248334712388,
+              -0.0737915034133917,
+              -0.0538633708189244
+            ]
+          },
+          "sigma": [
+            0.044650274705198896,
+            0.03757862177113732,
+            0.025,
+            0.10345406728552652,
+            0.0724318783617587,
+            0.04479581328659871,
+            0.026744510262666908,
+            0.06636786395525664,
+            0.04434525779583503,
+            0.07160986121964397
+          ]
+        },
+        {
+          "generation": 7,
+          "fitness": 0.8926793539845702,
+          "wins": 30,
+          "games": 36,
+          "parameters": {
+            "tactics": [
+              0.9742306046407658,
+              0.03324680317828965,
+              0.48719975557100853,
+              0.3833151607477444,
+              -0.34901354503232596,
+              0.11911602061631901,
+              0.18807141095953367,
+              0.32992504265643025,
+              1.4600595248881896,
+              0.4628393118996085,
+              -0.2608693108765118
+            ],
+            "discardBias": [
+              -0.10860215385667103,
+              0.041519367084680334,
+              0.1493098814158938,
+              -0.04087780452068219,
+              -0.04469660325490303,
+              0.05977430146023654
+            ]
+          },
+          "sigma": [
+            0.028114938433728105,
+            0.028331294460191624,
+            0.025,
+            0.0697865692198564,
+            0.053090823805766636,
+            0.030279529311959957,
+            0.025,
+            0.06405994914590257,
+            0.03155177902009912,
+            0.0637608582913832
+          ]
+        },
+        {
+          "generation": 8,
+          "fitness": 0.8749450406560422,
+          "wins": 29,
+          "games": 36,
+          "parameters": {
+            "tactics": [
+              0.9742306046407658,
+              0.03324680317828965,
+              0.5008586975466136,
+              0.3833151607477444,
+              -0.34901354503232596,
+              0.11911602061631901,
+              0.18807141095953367,
+              0.32992504265643025,
+              1.4644174332915945,
+              0.44111573318246394,
+              -0.2667655003453844
+            ],
+            "discardBias": [
+              -0.11646837704264447,
+              0.017611966564103188,
+              0.11947079329418829,
+              -0.008715897560918014,
+              -0.045892750025709,
+              -0.009515790045160621
+            ]
+          },
+          "sigma": [
+            0.025,
+            0.025,
+            0.025,
+            0.056627470897279916,
+            0.0462646287580038,
+            0.025,
+            0.025,
+            0.05935647862484294,
+            0.03251593340268534,
+            0.03846954694964379
+          ]
+        }
+      ]
+    }
+  ]
+}
