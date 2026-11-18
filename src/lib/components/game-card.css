@@ -1,4 +1,5 @@
-.game-card{position:relative;isolation:isolate;width:100%;aspect-ratio:992/1586;container-type:inline-size;color:#29231d;font-family:'Atkinson Hyperlegible',sans-serif;text-align:left;filter:drop-shadow(0 4px 7px #20130638);border-radius:2%;background:#e8dcc3;overflow:hidden}
+.game-card{position:relative;isolation:isolate;width:100%;aspect-ratio:992/1586;container-type:inline-size;color:#29231d;font-family:'Atkinson Hyperlegible',sans-serif;text-align:left;filter:drop-shadow(0 4px 7px #20130638);border-radius:2%;background:transparent;overflow:hidden}
+.game-card.pip:not(.back)::before{content:"";position:absolute;inset:8% 13%;background:#e8dcc3;z-index:0;pointer-events:none}
 .game-card img{display:block;pointer-events:none;user-select:none}
 .game-card .frame,.game-card .card-back{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:2}
 .game-card .illustration{position:absolute;z-index:1;left:8%;top:14.5%;width:84%;height:37%;object-fit:contain;background:#201a19}
