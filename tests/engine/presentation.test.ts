@@ -1,6 +1,6 @@
 import {describe,test,expect} from 'bun:test';
 import {fixture} from '../../src/routes/dev/animations/scenarios';
-import {automaticCommand,adjustments,collectionPose,remainingBalance,playStages,fanPose,flightPose,displayedWon,collectFlightPose,decisionStages} from '../../src/lib/components/play/presentation';
+import {automaticCommand,adjustments,collectionPose,remainingBalance,playStages,fanPose,flightPose,displayedWon,collectFlightPose,decisionStages,seereLeadCards,afterPower} from '../../src/lib/components/play/presentation';
 import {apply,eventFor} from '../../src/lib/engine/engine';
 describe('automatic transitions and real decisions',()=>{
  test('ordinary prebid advances, Balam waits',()=>{const ordinary=fixture('prebid');expect(automaticCommand(ordinary,'you')).toEqual({type:'prebid'});expect(automaticCommand(fixture('balam'),'you')).toBeNull();});
@@ -19,3 +19,5 @@ test("won-trick stack increments only on landing, including Death double tricks"
 test("winning-trick introduction holds, shrinks, then reveals choices",()=>{expect(decisionStages(0)).toEqual({shrink:0,reveal:0,ready:false});expect(decisionStages(.2).shrink).toBe(0);expect(decisionStages(.6).shrink).toBeGreaterThan(.8);expect(decisionStages(.6).reveal).toBe(0);expect(decisionStages(1)).toEqual({shrink:1,reveal:1,ready:true});});
 
 test("round readiness is recorded independently and the final player starts the next round",()=>{let s=fixture("score");const first=s.players[0].id,initialRound=s.round,revision=s.revision;s=apply(s,eventFor(s,first,{type:"continue",value:1}));expect(s.phase).toBe("round-end");expect(s.revision).toBe(revision+1);expect(s.players[0].done).toBe(true);expect(automaticCommand(s,first)).toBeNull();expect(()=>apply(s,eventFor(s,first,{type:"continue",value:1}))).toThrow("Already ready");for(const p of s.players.slice(1))s=apply(s,eventFor(s,p.id,{type:"continue",value:1}));expect(s.phase).toBe("round-end");expect(s.players.every(p=>p.done)).toBe(true);expect(automaticCommand(s,s.owner)).toEqual({type:"continue"});s=apply(s,eventFor(s,s.owner,{type:"continue"}));expect(s.round).toBe(initialRound+1);expect(s.phase).not.toBe("round-end");expect(s.players.every(p=>!p.done)).toBe(true);});
+
+test("Seere is not offered on the final trick; next-lead cards obey Chariot",()=>{const s=fixture("seere");expect(afterPower(s,"you")).toBe(true);expect(seereLeadCards(s,"you").length).toBeGreaterThan(0);s.trickNumber=s.physical;expect(afterPower(s,"you")).toBe(false);expect(automaticCommand(s,"you")).toEqual({type:"continue"});expect(seereLeadCards(s,"you")).toEqual([]);});

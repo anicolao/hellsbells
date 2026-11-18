@@ -11,6 +11,7 @@ export const scenarios=[
  {id:'empress',name:'Empress · first-win decision',hint:'Playback stops at the decision. Choose KEEP or RAISE on the actual contract tokens; then replay collection.'},
  {id:'temperance',name:'Temperance · bid decision',hint:'A genuine choice stays on screen indefinitely. Choose a contract to continue.'},
  {id:'imp',name:'Imp · after-win decision',hint:'Use the imp and choose a target, or explicitly pass. The trick itself cannot dismiss this choice.'},
+ {id:'seere',name:'Seere · play to keep the lead',hint:'After the decision appears, click a legal hand card to decline Seere’s power and lead it. The final-trick version never offers her power.'},
  {id:'balam',name:'Balam · before-bid decision',hint:'An eligible inspection pauses. Choose an opponent’s imp or tap the pile marked “Decline Balam’s power.”'},
  {id:'score',name:'Round scoring · ready for next round',hint:'Tap the deck when you are ready. Each player’s seal appears as they ready; the next round starts when everyone is ready.'},
  {id:'round-ready',name:'Round scoring · readiness seal',hint:'Scrub the readiness seal arriving beside a player’s score. Use Ready another player to simulate the other seats.'},
@@ -26,7 +27,7 @@ export function fixture(kind:string,count=3){let s:State|undefined;function step
  for(let i=0;i<count;i++){const actor=nextActor(s!)!;step(actor,botCommand(s!,actor));}
  s!.winner=kind==='opponent'?'seat-1':'you';s!.turn=s!.winner;s!.players.forEach(p=>{p.won=p.id===s!.winner?1:0;});s!.firstWin={you:true};s!.players[0].bid=4;
  if(kind==='empress'||kind==='win-decision')s!.arcana=3;else if(kind==='temperance')s!.arcana=14;else s!.arcana=1;
- if(kind==='imp')s!.players[0].imp=4;
+ if(kind==='imp')s!.players[0].imp=4;if(kind==='seere')s!.players[0].imp=8;
  }
  if(kind==='win-decision'){const own=s!.lastTrick.find(p=>p.player==='you')!,strong=s!.lastTrick.reduce((a,b)=>Number(a.card.split('-')[1])>Number(b.card.split('-')[1])?a:b);[own.card,strong.card]=[strong.card,own.card];s!.lastTrick=[...s!.lastTrick.filter(p=>p.player!=='you'),own];s!.trick=s!.lastTrick.map(p=>({...p}));}
  if(kind==='hand'){s!.turn='you';s!.leader='you';s!.arcana=1;}

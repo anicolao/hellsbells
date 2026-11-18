@@ -10,7 +10,7 @@
  let subject=$state('collect'),count=$state(3),speed=$state(1),position=$state(0),playing=$state(false),game=$state<State>(fixture('collect')),error=$state(''),generation=$state(0);
  const automatic=$derived(automaticCommand(game,game.phase==='round-end'?game.owner:game.turn));
  const combined=$derived(subject==='win-decision'&&!automatic);
- const decisionScene=$derived(game.phase==='after'&&!automatic&&['empress','temperance','imp','win-decision'].includes(subject));
+ const decisionScene=$derived(game.phase==='after'&&!automatic&&['empress','temperance','imp','win-decision','seere'].includes(subject));
  const motionScene=$derived(['play','play-opponent'].includes(subject)||combined);
  const readinessScene=$derived(subject==='round-ready'&&game.phase==='round-end');
  const playable=$derived(!!automatic||motionScene||decisionScene||readinessScene);
