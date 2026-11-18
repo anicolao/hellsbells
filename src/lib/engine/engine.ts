@@ -22,7 +22,7 @@ function beginPrebid(s:State){resetDone(s);s.phase='prebid';s.turn=clockwise(s,s
 function afterDiscards(s:State){resetDone(s);if([0,2,6,9,15].includes(s.arcana)){s.phase='arcana';s.turn=clockwise(s,s.dealer);}else beginPrebid(s);}
 export function startRound(s:State,forcedArcana?:number){
  s.round++;s.arcana=forcedArcana??(s.round===5?15+random(s,7):s.remaining[random(s,s.remaining.length)]);s.remaining=s.remaining.filter(a=>a!==s.arcana);
- const deck=shuffled(s,minor.map(c=>c.id));const dealt=Math.floor((56-s.players.length)/s.players.length);s.reserve=deck.slice(dealt*s.players.length);s.physical=dealt-s.round;s.trickNumber=1;s.trick=[];s.lastTrick=[];s.winner=null;s.pending=null;s.exposed=[];s.inspections=[];s.firstWin={};s.initialBids={};s.standing=Object.fromEntries(s.players.map(p=>[p.id,p.score]));
+ const deck=shuffled(s,minor.map(c=>c.id));const dealt=Math.floor((56-s.players.length)/s.players.length);s.reserve=deck.slice(dealt*s.players.length);s.physical=dealt-s.round;s.trickNumber=1;s.trick=[];s.lastTrick=[];s.completedTricks=[];s.winner=null;s.pending=null;s.exposed=[];s.inspections=[];s.firstWin={};s.initialBids={};s.standing=Object.fromEntries(s.players.map(p=>[p.id,p.score]));
  for(const [i,p] of s.players.entries()){p.hand=deck.slice(i*dealt,(i+1)*dealt);p.discard=[];p.reserved=null;p.bid=null;p.won=0;p.used=false;p.adjusted=false;p.choice=null;p.done=false;}
  s.phase=s.arcana===1?'magician':'discard';s.turn=clockwise(s,s.dealer);s.leader=s.turn;
 }
@@ -36,7 +36,7 @@ export function legalCards(s:State,id:string,exclude?:string,ignore=false):strin
  return hand;
 }
 export function trickWinner(s:State,plays=s.trick){const effectiveTrump=!s.noTrump&&plays.some(p=>cards[p.card].suit===trump(s));const suit=effectiveTrump?trump(s):s.led;const eligible=plays.filter(p=>cards[p.card].suit===suit);requireRule(eligible.length,'No eligible winner');return eligible.reduce((a,b)=>(s.low?cards[b.card].rank<cards[a.card].rank:cards[b.card].rank>cards[a.card].rank)?b:a).player;}
-function award(s:State){s.winner=trickWinner(s);s.lastTrick=s.trick.map(p=>({...p,concealed:false}));const p=player(s,s.winner);const first=p.won===0;p.won+=s.arcana===13&&s.trickNumber===s.physical?2:1;s.firstWin[p.id]=first;s.phase='after';s.turn=p.id;}
+function award(s:State){s.winner=trickWinner(s);s.lastTrick=s.trick.map(p=>({...p,concealed:false}));(s.completedTricks??=[]).push(s.lastTrick.map(p=>({...p}))); const p=player(s,s.winner);const first=p.won===0;p.won+=s.arcana===13&&s.trickNumber===s.physical?2:1;s.firstWin[p.id]=first;s.phase='after';s.turn=p.id;}
 function inspect(s:State,viewer:string,target:string,count:number){requireRule(target!==viewer,'Choose an opponent');const p=player(s,target);s.inspections.push({viewer,target,cards:shuffled(s,available(s,p)).slice(0,count)});}
 export function scoreRound(s:State){
  const penalties:Record<string,number>={},recoveries:Record<string,number>={};const totals=Object.values(s.standing);const best=Math.min(...totals),worst=Math.max(...totals);const cutoff=[...totals].sort((a,b)=>b-a)[Math.floor(s.players.length/2)-1];
@@ -44,9 +44,18 @@ export function scoreRound(s:State){
  for(const p of s.players){let recovery=0;const exact=p.won===p.bid;if(s.arcana===6&&exact&&p.choice&&player(s,p.choice).won===player(s,p.choice).bid)recovery=2;if(s.arcana===10&&exact)recovery=1;if(s.arcana===15&&s.standing[p.id]===worst&&p.choice)recovery=Math.floor(penalties[p.choice]/2);if(s.arcana===19&&exact)recovery=s.standing[p.id]===worst?10:5;if(s.arcana===21&&exact)recovery=Math.max(0,...p.penalties.slice(0,4));recoveries[p.id]=recovery;p.penalties.push(penalties[p.id]);p.recoveries.push(recovery);p.score=Math.max(0,p.score+penalties[p.id]-recovery);}
  s.history.push({round:s.round,arcana:s.arcana,penalties,recoveries,bids:Object.fromEntries(s.players.map(p=>[p.id,p.bid!])),won:Object.fromEntries(s.players.map(p=>[p.id,p.won])),scores:Object.fromEntries(s.players.map(p=>[p.id,p.score]))});resetDone(s);s.phase=s.round===5?'ended':'round-end';s.turn=s.owner;
 }
+// Explicit copies avoid structured-clone serialization in the simulation hot path.
+// Copy every nested mutable collection, including historical records.
+function copyState(s:State):State{return {...s,
+ players:s.players.map(p=>({...p,options:[...p.options],hand:[...p.hand],discard:[...p.discard],penalties:[...p.penalties],recoveries:[...p.recoveries]})),
+ remaining:[...s.remaining],reserve:[...s.reserve],trick:s.trick.map(p=>({...p})),lastTrick:s.lastTrick.map(p=>({...p})),
+ ...(s.completedTricks?{completedTricks:s.completedTricks.map(t=>t.map(p=>({...p})))}:{}),
+ forced:[...s.forced],pending:s.pending?{...s.pending}:null,exposed:[...s.exposed],inspections:s.inspections.map(i=>({...i,cards:[...i.cards]})),
+ standing:{...s.standing},initialBids:{...s.initialBids},firstWin:{...s.firstWin},
+ history:s.history.map(r=>({...r,penalties:{...r.penalties},recoveries:{...r.recoveries},bids:{...r.bids},won:{...r.won},scores:{...r.scores}}))};}
 export function apply(previous:State|undefined,event:Event):State{
  requireRule(event.version===1,'Unsupported event version');if(!previous){requireRule(event.sequence===1,'Missing creation');return createState(event.actor,event.command);}
- requireRule(event.sequence===previous.revision+1,'Stale event');const s=structuredClone(previous),c=event.command,id=event.actor;
+ requireRule(event.sequence===previous.revision+1,'Stale event');const s=copyState(previous),c=event.command,id=event.actor;
  if(c.type==='join'||c.type==='bot'){requireRule(s.phase==='lobby'&&s.players.length<s.capacity,'Table is full or started');const bot=c.type==='bot';requireRule(!bot||id===s.owner,'Only the host adds imps');const uid=bot?c.target!:id;requireRule(uid&&!s.players.some(p=>p.id===uid),'Already seated');if(bot){requireRule(c.value===undefined||c.value===0||c.value===1,'Unknown computer policy');requireRule(c.value!==1||s.capacity===3,'Trained imps require three players');}const joined=newPlayer(uid,c.name?.trim().slice(0,24)||'Guest',bot);if(bot)joined.botPolicy=c.value===1?'rl-v1':'easy';s.players.push(joined);}
  else {const p=player(s,id);
  if(c.type==='capacity'){requireRule(id===s.owner&&s.phase==='lobby'&&[3,4,5].includes(c.value!)&&c.value!>=s.players.length,'Invalid table size');requireRule(c.value===3||!s.players.some(p=>p.botPolicy==='rl-v1'),'Trained imps require three players');s.capacity=c.value!;}
