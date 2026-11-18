@@ -30,7 +30,7 @@ Round results retain each player’s final bid, tricks won, original penalty, re
 
 ## Trained three-player bot
 
-`src/lib/engine/rl-bot.ts` exports `rlBotCommand(state, playerId)` with the same command interface as the easy bot. It uses frozen Monte Carlo action-value networks for bidding and selecting among six legal discard patterns. Other decisions use the existing easy policy, as do games with more than three players. The easy bot remains the unchanged benchmark and is still the default online opponent.
+`src/lib/engine/rl-bot.ts` exports `rlBotCommand(state, playerId)` with the same command interface as the easy bot. It uses frozen Monte Carlo action-value networks for bidding and selecting among six legal discard patterns. Other decisions use the existing easy policy, as do games with more than three players. The easy bot remains the unchanged benchmark. The entry screen offers Easy Imps and Trained Imps practice decks; trained practice always creates a three-player table. Bot registration events use `value: 1` for the frozen `rl-v1` policy and omit the value (or use zero) for easy bots. Replay preserves the choice, and the host lazily loads the trained policy to drive those seats. Existing bot events remain easy.
 
 The networks read the player's own cards, public scores, public bids, dealer position, and round power. Moon bids remain hidden. They never read the game RNG, reserve, opponent hands/discards, or secret opponent choices. Training can simulate counterfactual actions through the real engine to obtain rewards; runtime inference uses only the observation vector and learned weights, with no simulations or hidden-card access.
 
