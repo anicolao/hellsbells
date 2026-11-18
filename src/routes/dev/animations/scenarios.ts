@@ -1,4 +1,4 @@
-import {apply,eventFor} from '$lib/engine/engine';
+import {startRound,apply,eventFor} from '$lib/engine/engine';
 import {botCommand,nextActor} from '$lib/engine/bot';
 import type {State,Command} from '$lib/engine/types';
 export const scenarios=[
@@ -13,11 +13,13 @@ export const scenarios=[
  {id:'imp',name:'Imp · after-win decision',hint:'Use the imp and choose a target, or explicitly pass. The trick itself cannot dismiss this choice.'},
  {id:'seere',name:'Seere · play to keep the lead',hint:'After the decision appears, click a legal hand card to decline Seere’s power and lead it. The final-trick version never offers her power.'},
  {id:'balam',name:'Balam · before-bid decision',hint:'An eligible inspection pauses. Choose an opponent’s imp or tap the pile marked “Decline Balam’s power.”'},
+ {id:'score-history',name:'Scores · round four history',hint:'Four scored rounds, with the current round highlighted. Each cell shows won / bid and the original penalty minus any recovery. Totals and readiness stay with each player.'},
+ {id:'score-final',name:'Scores · completed game',hint:'The complete five-round ledger. Hover a round result to see its power and running total.'},
  {id:'score',name:'Round scoring · ready for next round',hint:'Tap the deck when you are ready. Each player’s seal appears as they ready; the next round starts when everyone is ready.'},
  {id:'round-ready',name:'Round scoring · readiness seal',hint:'Scrub the readiness seal arriving beside a player’s score. Use Ready another player to simulate the other seats.'},
  {id:'hand',name:'Full hand · 3–5 players',hint:'All cards fit in a fan. Hover or focus a card to lift it; tap or drag to play. Resize the viewport to test the fit.'},
 ] as const;
-export function fixture(kind:string,count=3){let s:State|undefined;function step(actor:string,command:Command){s=apply(s,eventFor(s,actor,command,`lab-${(s?.revision??0)+1}`));}
+export function fixture(kind:string,count=3):State{if(kind==='score-history'||kind==='score-final')return historyFixture(count,kind==='score-final');let s:State|undefined;function step(actor:string,command:Command){s=apply(s,eventFor(s,actor,command,`lab-${(s?.revision??0)+1}`));}
  step('you',{type:'create',name:'You',capacity:count,seed:'animation-lab-4'});for(let i=1;i<count;i++)step(`seat-${i}`,{type:'join',name:['Belial','Paimon','Vassago','Orobas'][i-1]});step('you',{type:'start'});
  for(let i=0;i<1000&&s!.phase!=='play';i++){const actor=nextActor(s!)!;step(actor,botCommand(s!,actor));}
  const state=s!;state.players.forEach((p,i)=>{p.imp=i===0?2:0;p.used=false;});
@@ -34,4 +36,10 @@ export function fixture(kind:string,count=3){let s:State|undefined;function step
  if(kind==='score'||kind==='round-ready'){for(let i=0;i<300&&s!.phase!=='round-end';i++){const actor=nextActor(s!)!;step(actor,botCommand(s!,actor));}}
  if(kind==='round-ready')step('seat-1',{type:'continue',value:1});
  return s!;
+}
+
+function historyFixture(count:number,final:boolean):State{
+ let s=fixture('hand',count);s.round=0;s.history=[];s.remaining=Array.from({length:15},(_,i)=>i);for(const p of s.players){p.score=0;p.penalties=[];p.recoveries=[];}startRound(s,10);
+ for(let n=0;n<5000;n++){if(final?s.phase==='ended':s.phase==='round-end'&&s.round===4)return s;const actor=nextActor(s);if(!actor)break;s=apply(s,eventFor(s,actor,botCommand(s,actor)));}
+ throw Error('Could not prepare score history');
 }

@@ -19,7 +19,7 @@
  function decline(){game={...game,players:game.players.map(p=>p.id==='you'?{...p,adjusted:true,used:true}:p),afterRevealed:true};position=0;playing=true;}
  function command(c:Command,actor='you'){try{game=apply($state.snapshot(game),eventFor(game,actor,c,`lab-action-${game.revision+1}`));position=0;playing=!!automaticCommand(game,game.phase==='round-end'?game.owner:game.turn);error='';}catch(e){error=(e as Error).message;}}
  function toggle(){if(position>=1)position=0;playing=!playing;}
- onMount(()=>{ready=true;let frame=0,last=performance.now();const tick=(now:number)=>{if(playing){position=Math.min(1,position+(now-last)/duration*speed);if(position===1){playing=false;if(subject==='score'&&game.phase==='round-end'&&automatic&&game.players.every(p=>p.done))command(automatic,game.owner);}}last=now;frame=requestAnimationFrame(tick);};frame=requestAnimationFrame(tick);return()=>cancelAnimationFrame(frame);});
+ onMount(()=>{const params=new URLSearchParams(location.search),scenario=params.get('scenario'),players=Number(params.get('players'));if(scenarios.some(s=>s.id===scenario))subject=scenario!;if([3,4,5].includes(players))count=players;if(scenario||players)reset();ready=true;let frame=0,last=performance.now();const tick=(now:number)=>{if(playing){position=Math.min(1,position+(now-last)/duration*speed);if(position===1){playing=false;if(subject==='score'&&game.phase==='round-end'&&automatic&&game.players.every(p=>p.done))command(automatic,game.owner);}}last=now;frame=requestAnimationFrame(tick);};frame=requestAnimationFrame(tick);return()=>cancelAnimationFrame(frame);});
 </script>
 <svelte:head><title>Animation lab · Hell’s Bells</title></svelte:head>
 <main class="play-shell animation-lab" data-ready={ready} data-scenario={subject} id="main">
