@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "algorithm": "Monte Carlo action-value reinforcement learning with replay",
+  "runtime": "1.3.10",
+  "playerCount": 3,
+  "learnedActions": [
+    "bid",
+    "discard-template"
+  ],
+  "otherActions": "unchanged easy bot",
+  "models": [
+    {
+      "path": "models/rl-bid.json",
+      "sha256": "b188c6d6d9be6b4f30d4707352eb50a3cea7bf8b47ec28e033cdec7cd8c41c65",
+      "inputs": 81,
+      "hidden": 64,
+      "outputs": 18,
+      "training": {
+        "algorithm": "Monte Carlo action-value reinforcement learning",
+        "namespace": "hellsbells-q-train-v1",
+        "episodes": 2750,
+        "samples": 13750,
+        "seed": 71931,
+        "development": {
+          "namespace": "hellsbells-development-v1",
+          "games": 600,
+          "wins": 355,
+          "ties": 20,
+          "uniqueWinRate": 0.5916666666666667,
+          "tiedWinRate": 0.03333333333333333,
+          "fractionalWinRate": 0.6080555555555556,
+          "meanPoints": 17.251666666666665,
+          "wilson95": [
+            0.5518742365097888,
+            0.6302927423800393
+          ],
+          "seats": [
+            {
+              "games": 200,
+              "wins": 119,
+              "ties": 4
+            },
+            {
+              "games": 200,
+              "wins": 116,
+              "ties": 10
+            },
+            {
+              "games": 200,
+              "wins": 120,
+              "ties": 6
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "models/rl-discard.json",
+      "sha256": "ba5f854f9725bb10380b20a0628f55299d18b2e2ac5b619f7b5e861b86f491c2",
+      "inputs": 141,
+      "hidden": 48,
+      "outputs": 6,
+      "training": {
+        "namespace": "hellsbells-discard-train-v1",
+        "episodes": 750,
+        "seed": 45719,
+        "bidPath": "models/rl-bid-q-v1.json",
+        "development": {
+          "namespace": "hellsbells-development-v1",
+          "games": 600,
+          "wins": 409,
+          "ties": 17,
+          "uniqueWinRate": 0.6816666666666666,
+          "tiedWinRate": 0.028333333333333332,
+          "fractionalWinRate": 0.6958333333333333,
+          "meanPoints": 15.51,
+          "wilson95": [
+            0.6433375698726372,
+            0.717684261018113
+          ],
+          "seats": [
+            {
+              "games": 200,
+              "wins": 138,
+              "ties": 4
+            },
+            {
+              "games": 200,
+              "wins": 136,
+              "ties": 6
+            },
+            {
+              "games": 200,
+              "wins": 135,
+              "ties": 7
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "acceptance": {
+    "minimumUniqueWinRate": 0.6,
+    "criterion": "95% Wilson lower bound >= target",
+    "passed": true,
+    "report": "reports/rl/heldout.json"
+  },
+  "evaluation": {
+    "namespace": "hellsbells-heldout-v1",
+    "games": 6000,
+    "wins": 4137,
+    "ties": 195,
+    "uniqueWinRate": 0.6895,
+    "wilson95": [
+      0.6776739820554002,
+      0.7010835121463123
+    ],
+    "baselineUniqueWinRate": 0.3165
+  }
+}

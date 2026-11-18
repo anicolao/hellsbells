@@ -1,0 +1,11 @@
+import {createHash} from 'node:crypto';
+import {Network,type Checkpoint} from '../../src/lib/engine/rl/network';
+import {evaluate} from './simulator';
+const bidPath=process.argv[2],discardPath=process.argv[3],namespace=process.env.EVAL_NAMESPACE??'hellsbells-heldout-v1',count=Number(process.env.EVAL_GAMES??6000);
+const bid=bidPath?Network.load(await Bun.file(bidPath).json() as Checkpoint):undefined;
+const discard=discardPath?Network.load(await Bun.file(discardPath).json() as Checkpoint):undefined;
+if(discard&&!bid)throw Error('A discard policy requires a bidding policy');
+const models=await Promise.all([bidPath,discardPath].filter((p):p is string=>!!p).map(async path=>({path,sha256:createHash('sha256').update(await Bun.file(path).text()).digest('hex')})));
+const result={...evaluate(bid,namespace,count,discard),opponents:'two unchanged easy bots',winCriterion:'sole lowest final score; shared wins reported separately',models};
+console.log(JSON.stringify(result,null,2));if(process.env.REPORT)await Bun.write(process.env.REPORT,JSON.stringify(result,null,2)+'\n');
+const minimum=Number(process.env.MIN_WIN_RATE??0);if(result.wilson95[0]<minimum)throw Error(`95% confidence lower bound ${(result.wilson95[0]*100).toFixed(2)}% is below ${minimum*100}%`);

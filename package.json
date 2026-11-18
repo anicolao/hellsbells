@@ -14,7 +14,13 @@
     "test:play": "bun scripts/play-browser.ts && bun scripts/multiplayer-browser.ts",
     "test:engine": "bun test tests/engine",
     "test:backend": "firebase emulators:exec --project demo-hellsbells --only auth,firestore \"bun test tests/backend\"",
-    "test:animations": "bun scripts/animation-browser.ts"
+    "test:animations": "bun scripts/animation-browser.ts",
+    "rl:train": "bun scripts/rl/train-q.ts",
+    "rl:evaluate": "bun scripts/rl/evaluate.ts models/rl-bid.json models/rl-discard.json",
+    "rl:baseline": "bun scripts/rl/evaluate.ts",
+    "rl:train:bids": "bun scripts/rl/train-q.ts",
+    "rl:train:discards": "bun scripts/rl/train-discard.ts",
+    "rl:verify": "MIN_WIN_RATE=0.60 bun scripts/rl/evaluate.ts models/rl-bid.json models/rl-discard.json"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "5.2.8",
