@@ -1,0 +1,306 @@
+{
+  "imps": [
+    {
+      "id": "imp-0",
+      "name": "Amdusias",
+      "power": "Discordant Chime",
+      "rule": "On your play, play any available card and make its suit the led suit. This overrides card-choice restrictions. Players still to act follow the new suit; previously played cards remain eligible under it. Trump is unchanged.",
+      "art": 0,
+      "kind": "imp"
+    },
+    {
+      "id": "imp-1",
+      "name": "Valefor",
+      "power": "Sticky Fingers",
+      "rule": "After winning a trick, exchange one chosen available card from your remaining hand with one random available card from an opponent’s hand.",
+      "art": 1,
+      "kind": "imp"
+    },
+    {
+      "id": "imp-2",
+      "name": "Furfur",
+      "power": "Thunderclap",
+      "rule": "When playing into an ongoing trick, suppress trump’s winning advantage for that trick. Your card must be legal. The highest card of the final led suit wins, except that The Hanged Man’s high/low choice still applies.",
+      "art": 2,
+      "kind": "imp"
+    },
+    {
+      "id": "imp-3",
+      "name": "Bael",
+      "power": "Now You See Me",
+      "rule": "On your play, play one legal card face down; reveal it after everyone plays, before awarding the trick. If leading, truthfully announce its suit. An already exposed card may be concealed this way.",
+      "art": 3,
+      "kind": "imp"
+    },
+    {
+      "id": "imp-4",
+      "name": "Dantalion",
+      "power": "Mind Probe",
+      "rule": "After winning a trick, privately inspect two random available cards from one opponent’s remaining hand, then return them.",
+      "art": 4,
+      "kind": "imp"
+    },
+    {
+      "id": "imp-5",
+      "name": "Agares",
+      "power": "Come Back Here",
+      "rule": "On your turn, before playing, return any previously played card in the current trick to its owner. They choose a different legal replacement, treating the returned card as absent when determining legality. If none exists, the original stays. Your use is spent either way; then play your card.",
+      "art": 5,
+      "kind": "imp"
+    },
+    {
+      "id": "imp-6",
+      "name": "Shax",
+      "power": "Blind Luck",
+      "rule": "On your turn, choose another player still to act in this trick. On their turn, they play a random available card, ignoring follow-suit and other card-choice restrictions.",
+      "art": 6,
+      "kind": "imp"
+    },
+    {
+      "id": "imp-7",
+      "name": "Balam",
+      "power": "Foretelling",
+      "rule": "Before bidding, privately inspect three random available cards from one opponent’s hand, then return them.",
+      "art": 7,
+      "kind": "imp"
+    },
+    {
+      "id": "imp-8",
+      "name": "Seere",
+      "power": "Jump the Queue",
+      "rule": "After winning a trick, choose another player to lead the next trick. Ownership of the completed trick is unchanged.",
+      "art": 8,
+      "kind": "imp"
+    },
+    {
+      "id": "imp-9",
+      "name": "Andromalius",
+      "power": "Caught Red-Handed",
+      "rule": "After every trick you win, you may expose one random available card from an opponent’s remaining hand. It stays face up until played, even if exchanged. This power is repeatable.",
+      "art": 9,
+      "kind": "imp"
+    }
+  ],
+  "arcana": [
+    {
+      "id": "arcana-0",
+      "number": "0",
+      "name": "The Fool",
+      "suit": "Wands",
+      "rule": "After normal discards, before bidding, each player may discard one additional chosen card and draw a random replacement from the reserve. Choose the outgoing card before drawing; it goes to discards, not the reserve.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "✧"
+    },
+    {
+      "id": "arcana-1",
+      "number": "I",
+      "name": "The Magician",
+      "suit": "Cups",
+      "rule": "Before normal discards, each player may exchange one chosen hand card for a random reserve card. Choose the outgoing card first, draw the replacement, then mix the outgoing card into the reserve. Resolve clockwise from the dealer’s left.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "☽"
+    },
+    {
+      "id": "arcana-2",
+      "number": "II",
+      "name": "The High Priestess",
+      "suit": "Swords",
+      "rule": "Before bidding, each player may privately inspect two random cards from another player’s hand, then return them.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "✺"
+    },
+    {
+      "id": "arcana-3",
+      "number": "III",
+      "name": "The Empress",
+      "suit": "Pentacles",
+      "rule": "Immediately after winning their first trick, each player may increase their bid by one. Declining then forfeits the opportunity.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "♜"
+    },
+    {
+      "id": "arcana-4",
+      "number": "IV",
+      "name": "The Emperor",
+      "suit": "Wands",
+      "rule": "Every trick, its leader may declare Royal Command as they lead. Every follower must play the highest card of whichever suit they legally play: highest led-suit card if able to follow, otherwise highest of their chosen suit. Amdusias and Shax override this restriction when using their powers.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "♛"
+    },
+    {
+      "id": "arcana-5",
+      "number": "V",
+      "name": "The Hierophant",
+      "suit": "Cups",
+      "rule": "If unable to follow suit, a player must play designated trump if available. No overtrumping is required. This obligation remains when Furfur suppresses trump advantage.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "✥"
+    },
+    {
+      "id": "arcana-6",
+      "number": "VI",
+      "name": "The Lovers",
+      "suit": "Swords",
+      "rule": "Before bidding, each player secretly chooses another player; reveal choices at scoring. If chooser and chosen player both make their contracts exactly, the chooser recovers two points. Mutual selection is unnecessary.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "♡"
+    },
+    {
+      "id": "arcana-7",
+      "number": "VII",
+      "name": "The Chariot",
+      "suit": "Pentacles",
+      "rule": "Each trick’s winner must lead their highest-ranked available card next trick; choose freely among tied ranks. The first leader and a substitute leader appointed by Seere are unrestricted. Amdusias may override the lead restriction with his power.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "➶"
+    },
+    {
+      "id": "arcana-8",
+      "number": "VIII",
+      "name": "Strength",
+      "suit": "Wands",
+      "rule": "Every trick is won by the highest card of the final led suit, regardless of trump.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "✦"
+    },
+    {
+      "id": "arcana-9",
+      "number": "IX",
+      "name": "The Hermit",
+      "suit": "Cups",
+      "rule": "Before bidding, each player may secretly reserve one retained card for the final trick. It is unavailable until then and must be played as that player’s final card. Its owner may inspect it.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "☾"
+    },
+    {
+      "id": "arcana-10",
+      "number": "X",
+      "name": "Wheel of Fortune",
+      "suit": "Swords",
+      "rule": "Each player making an exact contract recovers one point.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "☸"
+    },
+    {
+      "id": "arcana-11",
+      "number": "XI",
+      "name": "Justice",
+      "suit": "Pentacles",
+      "rule": "Undershooting a bid costs double the normal penalty. Overshooting costs the normal penalty.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "⚖"
+    },
+    {
+      "id": "arcana-12",
+      "number": "XII",
+      "name": "The Hanged Man",
+      "suit": "Wands",
+      "rule": "As they lead each trick, its leader chooses whether the highest or lowest eligible card wins. If effective trump is present, compare only trumps; otherwise compare cards of the final led suit. Changing the led suit or suppressing trump does not change the chosen direction.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "↕"
+    },
+    {
+      "id": "arcana-13",
+      "number": "XIII",
+      "name": "Death",
+      "suit": "Cups",
+      "rule": "The final physical trick counts twice for its winner. With T physical tricks, bids range from 0 through T + 1 and the dealer’s hook applies to T + 1. It is impossible for everyone to make their contract.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "☠"
+    },
+    {
+      "id": "arcana-14",
+      "number": "XIV",
+      "name": "Temperance",
+      "suit": "Swords",
+      "rule": "Once per player per round, immediately after winning a trick, adjust your bid up or down by one. This may be used after the final trick, before scoring.",
+      "kind": "arcana",
+      "pool": "Regular",
+      "symbol": "♧"
+    },
+    {
+      "id": "arcana-15",
+      "number": "XV",
+      "name": "The Devil",
+      "suit": "Pentacles",
+      "rule": "Before bidding, each last-place player secretly chooses an opponent; reveal choices at scoring. If that opponent misses, recover half their actual round penalty, rounded down. Add your own round penalty before applying recovery.",
+      "kind": "arcana",
+      "pool": "Catch-up",
+      "symbol": "♆"
+    },
+    {
+      "id": "arcana-16",
+      "number": "XVI",
+      "name": "The Tower",
+      "suit": "Wands",
+      "rule": "First-place players pay double their normal round penalty for missing.",
+      "kind": "arcana",
+      "pool": "Catch-up",
+      "symbol": "ϟ"
+    },
+    {
+      "id": "arcana-17",
+      "number": "XVII",
+      "name": "The Star",
+      "suit": "Cups",
+      "rule": "Eligible players may miss by exactly one trick in either direction without penalty. An error of two or more costs the full normal penalty. A forgiven miss is not an exact contract.",
+      "kind": "arcana",
+      "pool": "Catch-up",
+      "symbol": "★"
+    },
+    {
+      "id": "arcana-18",
+      "number": "XVIII",
+      "name": "The Moon",
+      "suit": "Swords",
+      "rule": "Submit bids secretly and reveal simultaneously; the dealer’s hook is suspended. Each last-place player may then adjust their bid up or down by one.",
+      "kind": "arcana",
+      "pool": "Catch-up",
+      "symbol": "☾"
+    },
+    {
+      "id": "arcana-19",
+      "number": "XIX",
+      "name": "The Sun",
+      "suit": "Pentacles",
+      "rule": "Each exact contract recovers five points, or ten for a player who began in last place.",
+      "kind": "arcana",
+      "pool": "Catch-up",
+      "symbol": "☀"
+    },
+    {
+      "id": "arcana-20",
+      "number": "XX",
+      "name": "Judgement",
+      "suit": "Wands",
+      "rule": "After normal initial bidding with the dealer’s hook, each last-place player may adjust their bid up or down by one or two. The adjustment is exempt from the hook.",
+      "kind": "arcana",
+      "pool": "Catch-up",
+      "symbol": "♬"
+    },
+    {
+      "id": "arcana-21",
+      "number": "XXI",
+      "name": "The World",
+      "suit": "Cups",
+      "rule": "Each player making an exact contract erases their largest original round penalty from rounds 1–4. Earlier recoveries remain credited. Erase only one round; tied largest penalties allow a choice. Floor the final total at zero.",
+      "kind": "arcana",
+      "pool": "Catch-up",
+      "symbol": "◎"
+    }
+  ]
+}

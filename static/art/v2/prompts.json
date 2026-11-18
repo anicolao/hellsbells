@@ -1,0 +1,137 @@
+{
+  "generator": "Built-in image_gen",
+  "assets": [
+    {
+      "id": "frame",
+      "prompt": "Asset type: finished reusable tabletop card frame, no illustration and no text. Portrait aspect ratio exactly 5:8. A refined dark gothic engraved brass and oxblood leather tarot frame, thin delicate gold filigree bells and thorn motifs at the four corners, clean elegant craftsmanship, realistic gilded paper not cartoon. Outer edge square card, frame thickness only 5% each side. Top 8% blank cream title plaque. At x8%-92%, y15%-52% a genuinely TRANSPARENT rectangular illustration window. At x8%-92%, y57%-91% a large plain opaque warm ivory rules panel with no decorations behind text. Bottom tiny blank dark red plaque at y93%-96%. All regions aligned with exact generous straight rectangular text areas. No lettering, symbols, ranks or numbers anywhere. Transparent alpha in illustration window only and outside rounded outer corners, all text panels opaque. High-resolution flat front view, no perspective, no shadows outside frame, no mockup. Restrained production board game graphic design."
+    },
+    {
+      "id": "bael",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Bael, a mysterious horned demon fading into translucent smoke beneath a dark velvet cloak"
+    },
+    {
+      "id": "valefor",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Valefor, a sly horned demon thief in a burgundy hood carefully stealing a gold coin from a velvet purse"
+    },
+    {
+      "id": "furfur",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Furfur, a stag-horned storm demon summoning a thundercloud and lightning over a brass bell"
+    },
+    {
+      "id": "amdusias",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Amdusias, an elegant horned demon musician in a dark embroidered coat playing a violin with a brass bell suspended above"
+    },
+    {
+      "id": "dantalion",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Dantalion, a many-faced mind-reader demon with closed eyes, hovering pages and luminous thoughts inside a scholar’s study"
+    },
+    {
+      "id": "balam",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Balam, a three-eyed horned oracle gazing into a translucent crystal orb, stars and dark curtains"
+    },
+    {
+      "id": "seere",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Seere, an elegant swift winged demon messenger riding a pale spectral horse through moonlit air"
+    },
+    {
+      "id": "andromalius",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Andromalius, a keen-eyed horned investigator with a serpent curled round one arm, revealing a hidden tarot card under lamplight"
+    },
+    {
+      "id": "agares",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Agares, an ancient bearded horned wanderer with a crooked walking staff, reaching to recall a floating card on a misty stone bridge"
+    },
+    {
+      "id": "shax",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Shax, a sharp-beaked raven demon in a red jester mantle tossing ivory dice into candlelight"
+    },
+    {
+      "id": "arcana-0",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Fool: a youthful horned traveler with a small satchel stepping toward a cliff edge, a tiny black dog at their feet, rising sun"
+    },
+    {
+      "id": "arcana-2",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The High Priestess: a veiled horned priestess seated between dark and pale stone pillars, silver crescent and a closed book"
+    },
+    {
+      "id": "arcana-4",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Emperor: a stern horned emperor seated on a carved ram-headed throne, iron crown and crimson cloak"
+    },
+    {
+      "id": "arcana-1",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Magician: an infernal conjurer at a table with wand, cup, sword and pentacle, one raised hand weaving gold light"
+    },
+    {
+      "id": "arcana-3",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Empress: an imposing horned empress in embroidered dark green robes seated in an abundant garden with golden wheat"
+    },
+    {
+      "id": "arcana-5",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Hierophant: a ceremonial horned high priest in ivory and dark red vestments holding a brass key before a gothic altar"
+    },
+    {
+      "id": "arcana-6",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Lovers: two elegant adult demons facing each other across a small shared flame beneath an arch of thorn roses"
+    },
+    {
+      "id": "arcana-7",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Chariot: a horned charioteer driving an ornate brass chariot drawn by a black and a pale spectral beast"
+    },
+    {
+      "id": "arcana-10",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Wheel of Fortune: a huge ancient gilded wheel with zodiac-like abstract engravings turning above drifting clouds, no readable lettering"
+    },
+    {
+      "id": "arcana-11",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Justice: a blindfolded horned judge holding balanced golden scales and an upright sword, dark court chamber"
+    },
+    {
+      "id": "arcana-8",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Strength: a calm horned woman gently holding open the jaws of a great dark lion, no violence, dusk garden"
+    },
+    {
+      "id": "arcana-14",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Temperance: a winged horned figure pouring a shining stream between two brass cups, one foot on stone one in water"
+    },
+    {
+      "id": "arcana-12",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Hanged Man: a serene adult horned figure suspended upside down by one ankle from an old tree, golden halo, symbolic no injury"
+    },
+    {
+      "id": "arcana-15",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Devil: a magnificent adult goat-horned demon seated above a small golden contract and scales, candlelit subterranean hall"
+    },
+    {
+      "id": "arcana-13",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Death: an armored skeleton rider on a pale horse crossing a field of fallen flowers at dawn, symbolic renewal, no gore"
+    },
+    {
+      "id": "arcana-9",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Hermit: an aged cloaked horned wanderer raising a lantern on a rocky mountain, solitary star"
+    },
+    {
+      "id": "arcana-17",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Star: a radiant eight-pointed star reflected in a still pool, a kneeling cloaked figure pouring water beside it"
+    },
+    {
+      "id": "arcana-20",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. Judgement: a solemn winged horned herald blowing an immense brass trumpet above rising ghostly silhouettes, shafts of light"
+    },
+    {
+      "id": "arcana-16",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Tower: lightning striking the brass crown of a gothic bell tower, scattering glowing fragments against storm clouds"
+    },
+    {
+      "id": "arcana-19",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Sun: a brilliant golden sun illuminating a white horse in a walled garden of sunflowers, warm radiant optimism"
+    },
+    {
+      "id": "arcana-18",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The Moon: an immense silver crescent over two ancient towers, a black wolf and pale dog beside a winding stream"
+    },
+    {
+      "id": "arcana-21",
+      "prompt": "Individual landscape 3:2 illustration for a premium gothic tarot board game. Painterly dark fantasy with fine engraved details, rich jewel colors, dramatic chiaroscuro, aged brass, deep burgundy, ivory highlights. Sophisticated, sinister but playful, anatomically coherent adult fantasy character, no childlike cartoon, no kawaii. Strong focal subject centered with 8% breathing space, environment supports story. Entire artwork is illustration with no border, no frame, no panels, NO TEXT, no lettering, no watermark. The World: a graceful horned dancer inside an oval laurel wreath suspended over a celestial globe, four luminous corner stars"
+    }
+  ]
+}
