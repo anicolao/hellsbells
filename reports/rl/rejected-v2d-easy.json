@@ -1,0 +1,71 @@
+{
+  "namespace": "hellsbells-league-heldout-v2-easy",
+  "opponent": "easy",
+  "games": 1500,
+  "wins": 1438,
+  "ties": 14,
+  "uniqueWinRate": 0.9586666666666667,
+  "meanPoints": 5.469333333333333,
+  "wilson95": [
+    0.9473660445288178,
+    0.9676239384587523
+  ],
+  "seats": [
+    {
+      "games": 500,
+      "wins": 479,
+      "ties": 6
+    },
+    {
+      "games": 500,
+      "wins": 482,
+      "ties": 4
+    },
+    {
+      "games": 500,
+      "wins": 477,
+      "ties": 4
+    }
+  ],
+  "samples": 64,
+  "models": [
+    {
+      "role": "bid",
+      "path": "models/rl-v2-bid.json",
+      "sha256": "5a533c85a8be4c6f96a0a8c8dc37de71895d6cfe44b15209e8b49e8bdb23af64"
+    },
+    {
+      "role": "discard",
+      "path": "models/rl-v2-discard.json",
+      "sha256": "1b0442c59fda9bc138723f178b1c55f240d7f639544f0ac438b3720a0ea74a2c"
+    },
+    {
+      "role": "weights",
+      "path": "models/rl-v2-tactics.json",
+      "sha256": "bb6a5da43125a79691bfa039288e9c22ee3f679699de083703eea6754c199dce"
+    }
+  ],
+  "sources": [
+    {
+      "path": "src/lib/engine/engine.ts",
+      "sha256": "3c96f354258a9910253bbddec53a35dd5fd8d67c88b881694f9db2970808f996"
+    },
+    {
+      "path": "src/lib/engine/rl/tactics.ts",
+      "sha256": "8b12d05defee4a702223ad4fdff55a5e1d97f7c18ce6618564f5610caae8adc4"
+    },
+    {
+      "path": "src/lib/engine/rl/search.ts",
+      "sha256": "55f4dd3d8dbec698ac23752b2736f20532676b25696e8dc4ea262f4be8302e17"
+    },
+    {
+      "path": "src/lib/engine/rl/policy.ts",
+      "sha256": "ae0c96f7cb57215b9f3383610485568e7f26b89c180e5dcd3190aa21e7be9408"
+    },
+    {
+      "path": "scripts/rl/league.ts",
+      "sha256": "41c7ae5e7d0682b546daf887a1c5095f30d2d52a17bcd9b13221dbfb43ab5fe5"
+    }
+  ],
+  "winCriterion": "sole lowest final score; ties excluded from wins"
+}

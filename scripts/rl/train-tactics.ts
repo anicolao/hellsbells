@@ -5,7 +5,7 @@ import {match,tactical,easy,previous,assess} from './league';
 const rng=new Random(Number(process.env.TRAIN_SEED??981713)),generations=Number(process.env.GENERATIONS??30),population=Number(process.env.POPULATION??24),games=Number(process.env.GAMES??90),namespace=process.env.TRAIN_NAMESPACE??'hellsbells-tactics-train-v2',output=process.env.OUTPUT??'tmp/rl/league-tactics.json';
 if(/heldout|development|evaluation/.test(namespace))throw Error('Evaluation namespace');
 const bid=Network.load(await Bun.file(process.env.BID_MODEL??'tmp/rl/league-bid.json').json()),discard=Network.load(await Bun.file(process.env.DISCARD_MODEL??'models/rl-discard.json').json());
-let mean:number[]=process.env.RESUME?await Bun.file(process.env.RESUME).json():[...initialTactics],sigma=mean.map((_,i)=>i===8?.3:.25),champion=[...mean],best=-Infinity;
+const rawWeights=process.env.RESUME?await Bun.file(process.env.RESUME).json():initialTactics;let mean:number[]=Array.isArray(rawWeights)?[...rawWeights]:[...rawWeights.tactics],sigma=mean.map((_,i)=>i===8?.3:.25),champion=[...mean],best=-Infinity;
 const normal=()=>Math.sqrt(-2*Math.log(Math.max(1e-9,rng.next())))*Math.cos(2*Math.PI*rng.next());
 await mkdir('tmp/rl',{recursive:true});
 console.log(JSON.stringify({kind:'configuration',algorithm:'cross-entropy policy search with episodic league returns',namespace,generations,population,games}));

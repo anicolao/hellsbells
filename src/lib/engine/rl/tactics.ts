@@ -11,17 +11,24 @@ function none(total:number,marked:number,draw:number){let p=1;for(let i=0;i<draw
 /** Probability estimate from public cards and this player's hand only. */
 export function winChance(s:State,id:string,card:string,low=false,noTrump=s.noTrump,view=observation(s,id)){const suit=cards[card].suit,led=s.changedSuit?s.led:s.led??suit,tr=trump(s);const plays=[...s.trick.filter(p=>p.player!==id&&!p.concealed),{player:id,card,concealed:false}];const state={...s,led,low:s.trick.length?s.low:low,noTrump};const winningSuit=!noTrump&&plays.some(p=>cards[p.card].suit===tr)?tr:led;if(!plays.some(p=>cards[p.card].suit===winningSuit)||trickWinner(state,plays)!==id)return 0;
  const unknown=view.unknown,remaining=s.players.length-plays.length;let probability=1;
- for(let i=0;i<remaining;i++){const draw=s.physical-s.trickNumber+1,opponent=s.players[(s.players.findIndex(p=>p.id===id)+i+1)%s.players.length];const seeks=(opponent.bid??0)>opponent.won,playsStrong=seeks!==state.low;
- const better=state.low?view.counts[suit][cards[card].rank-1]:view.totals[suit]-view.counts[suit][cards[card].rank];
- const worse=view.totals[suit]-better;
- let beaten=playsStrong?1-none(unknown,better,draw):none(unknown,worse,draw)-none(unknown,worse+better,draw);
- if(suit===tr&&led!==tr)beaten*=none(unknown,view.totals[led!],draw);
+ for(let i=0;i<remaining;i++){const draw=s.physical-s.trickNumber+1,opponent=s.players[(s.players.findIndex(p=>p.id===id)+i+1)%s.players.length];const seeks=(opponent.bid??0)>opponent.won,playsStrong=(s.royal||seeks)!==state.low;
+ const voids=s.voids?.[opponent.id]??[],total=unknown-voids.reduce((sum,suit)=>sum+(view.totals[suit]??0),0),count=(suit:string)=>voids.includes(suit)?0:view.totals[suit];
+ const better=voids.includes(suit)?0:state.low?view.counts[suit][cards[card].rank-1]:view.totals[suit]-view.counts[suit][cards[card].rank];
+ const worse=count(suit)-better;
+ let beaten=playsStrong?1-none(total,better,draw):none(total,worse,draw)-none(total,worse+better,draw);
+ if(suit===tr&&led!==tr)beaten*=none(total,count(led!),draw);
  probability*=1-beaten;
- if(suit!==tr&&!noTrump){const trumps=view.totals[tr],followers=view.totals[led!];probability*=1-none(unknown,followers,draw)*(playsStrong?1-none(unknown-followers,trumps,draw):trumps/Math.max(1,unknown-followers));}
+ if(suit!==tr&&!noTrump){const trumps=count(tr),followers=count(led!);probability*=1-none(total,followers,draw)*(playsStrong?1-none(total-followers,trumps,draw):trumps/Math.max(1,total-followers));}
  }
  return Math.max(0,Math.min(1,probability));
 }
 export function handStrength(s:State,id:string,view=observation(s,id)){const p=player(s,id),tr=trump(s);return p.hand.reduce((sum,c)=>{const suit=cards[c].suit,above=view.totals[suit]-view.counts[suit][cards[c].rank],ownAbove=p.hand.filter(x=>cards[x].suit===suit&&cards[x].rank>cards[c].rank).length;return sum+(suit===tr&&!s.noTrump?Math.pow(.67,above)*Math.pow(.9,ownAbove):Math.pow(.48,above)*Math.pow(.8,ownAbove)*.65);},0);}
+export function playOptions(s:State,id:string):Command[]{const p=player(s,id);
+ const options:Command[]=legalCards(s,id,s.pending?.original).flatMap<Command>(card=>s.arcana===12&&!s.trick.length?[{type:'play' as const,card,low:false},{type:'play' as const,card,low:true}]:s.arcana===4&&!s.trick.length?[{type:'play' as const,card,royal:false},{type:'play' as const,card,royal:true}]:[{type:'play' as const,card}]);
+ if(!s.pending&&!p.used&&p.imp===0)for(const card of legalCards(s,id,undefined,true))options.push({type:'play',card,power:true,royal:true});
+ if(!s.pending&&!p.used&&p.imp===2&&s.trick.length)for(const card of legalCards(s,id))options.push({type:'play',card,power:true});
+ return options;
+}
 export function tacticalCommand(s:State,id:string,weights=initialTactics):Command{
  const p=player(s,id);if(s.phase==='after'){
   if(!p.adjusted&&s.arcana===3&&s.firstWin[id]&&p.bid!<bidMax(s)&&p.won>p.bid!)return {type:'adjust',value:p.bid!+1};
@@ -31,13 +38,12 @@ export function tacticalCommand(s:State,id:string,weights=initialTactics):Comman
  }
  if(s.phase==='adjust'){const max=s.arcana===20?2:1,prediction=Math.round(handStrength(s,id));return {type:'adjust',value:Math.max(0,Math.min(bidMax(s),Math.max(p.bid!-max,Math.min(p.bid!+max,prediction))))};}
  if(s.phase!=='play')return botCommand(s,id);
- const options:Command[]=legalCards(s,id,s.pending?.original).flatMap<Command>(card=>s.arcana===12&&!s.trick.length?[{type:'play' as const,card,low:false},{type:'play' as const,card,low:true}]:[{type:'play' as const,card,royal:s.arcana===4}]);
- if(!s.pending&&!p.used&&p.imp===0)for(const card of legalCards(s,id,undefined,true))options.push({type:'play',card,power:true,royal:true});
- if(!s.pending&&!p.used&&p.imp===2&&s.trick.length)for(const card of legalCards(s,id))options.push({type:'play',card,power:true});
+ const options=playOptions(s,id);
  const view=observation(s,id),remaining=s.physical-s.trickNumber+1,need=p.bid!-p.won,desired=Math.max(0,Math.min(1,need/remaining)),strength=handStrength(s,id,view),tr=trump(s);
  let best=options[0],score=-Infinity;
  for(const command of options){const card=command.card!,c=cards[card],modified=command.power&&p.imp===0?{...s,led:c.suit,changedSuit:true}:s;
- const chance=winChance(modified,id,card,!!command.low,command.power&&p.imp===2?true:s.noTrump,view);
+ const projected=!s.trick.length?{...modified,royal:!!command.royal}:modified;
+ const chance=winChance(projected,id,card,!!command.low,command.power&&p.imp===2?true:s.noTrump,view);
  // Exact contracts take priority; preserve high cards when ducking and low cards when winning.
  const urgency=need<=0?-1:need>=remaining?1:need>=strength*(weights[8]??1)+(weights[9]??0)?1:-1;
  const visible=s.trick.filter(p=>!p.concealed),currentWinner=visible.some(p=>cards[p.card].suit===s.led||!s.noTrump&&cards[p.card].suit===tr)?trickWinner({...s,trick:visible}):null,opponent=currentWinner&&currentWinner!==id?player(s,currentWinner):null;

@@ -1,0 +1,7 @@
+{
+  "candidate": "v2d",
+  "accepted": false,
+  "reason": "Mixed opponents won too often; the planner used one shared opponent-policy hypothesis instead of independent public registrations.",
+  "completedReports": ["rejected-v2d-easy.json", "rejected-v2d-mixed.json"],
+  "previousCohort": "Stopped after the mixed cohort failed; no partial result used for acceptance."
+}

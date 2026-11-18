@@ -21,7 +21,11 @@
     "rl:train:bids": "bun scripts/rl/train-q.ts",
     "rl:train:discards": "bun scripts/rl/train-discard.ts",
     "rl:verify": "MIN_WIN_RATE=0.60 bun scripts/rl/evaluate.ts models/rl-bid.json models/rl-discard.json",
-    "test:rl-play": "bun scripts/rl/browser.ts"
+    "test:rl-play": "bun scripts/rl/browser.ts",
+    "rl:train:league": "bun scripts/rl/train-league.ts",
+    "rl:train:tactics": "bun scripts/rl/train-tactics.ts",
+    "rl:verify:v2": "bun scripts/rl/verify-league.ts",
+    "rl:train:planner": "bun scripts/rl/train-planner.ts"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "5.2.8",
