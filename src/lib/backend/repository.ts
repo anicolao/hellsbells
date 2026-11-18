@@ -17,7 +17,7 @@ export function watchGame(db:Firestore,id:string,update:(state:State)=>void,erro
 export async function append(db:Firestore,uid:string,id:string,state:State,actor:string,command:Command){
  if(actor!==uid&&!(state.owner===uid&&state.players.some(p=>p.id===actor&&p.bot)))throw Error('This is another player’s seat');
  const room=doc(db,gamePath(id)),commandId=crypto.randomUUID();
- const independent=command.type==='choose'||command.type==='discard'||command.type==='bid'&&state.arcana===18||command.type==='adjust'&&state.phase==='adjust';
+ const independent=command.type==='choose'||command.type==='discard'||command.type==='bid'&&state.arcana===18||command.type==='adjust'&&state.phase==='adjust'||command.type==='continue'&&command.value===1&&state.phase==='round-end';
  let current=state;
  for(let attempt=0;attempt<8;attempt++){
   const event=eventFor(current,actor,command,commandId),next=apply(current,event);

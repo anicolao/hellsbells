@@ -22,7 +22,7 @@
  <div class="playing-label">{ranks[card.rank-1]} of {card.suit}</div>
  {:else}
  <img class="illustration" src={`${base}/art/cards/${portrait}.webp`} alt={card.kind==='imp'?`${card.name}, ${card.power}`:card.name} loading="lazy" draggable="false"/>
- <header class="title" data-fit="title"><h3>{card.kind==='minor'?ranks[card.rank-1]+' of '+card.suit:card.name}</h3></header>
+ <header class="title" class:court-title={card.kind==='minor'} data-fit="title">{#if card.kind==='minor'}<img class="title-suit" src={`${base}/art/cards/suit-${suit}.webp`} alt=""/>{/if}<h3>{card.kind==='minor'?ranks[card.rank-1]+' of '+card.suit:card.name}</h3></header>
  <div class="card-copy" data-fit="rules" use:fitRules={card.id}>
  {#if card.kind==='imp'}<p class="power">{card.power}</p><p class="effect">{cardCopy[card.id]}</p>
  {:else if card.kind==='arcana'}<p class="power">TRUMP · {card.suit}</p><p class="effect"><img class="trump-symbol" src={`${base}/art/cards/suit-${suit}.webp`} alt={`${card.suit} trump`}/>{cardCopy[card.id]}</p>
