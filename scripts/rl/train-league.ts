@@ -9,7 +9,7 @@ import type {State,Command} from '../../src/lib/engine/types';
 const episodes=Number(process.env.EPISODES??3000),interval=Number(process.env.EVAL_EVERY??100),count=Number(process.env.DEV_GAMES??180),seed=Number(process.env.TRAIN_SEED??230811),namespace=process.env.TRAIN_NAMESPACE??'hellsbells-league-train-v2',offset=Number(process.env.OFFSET??0),mode=process.env.MODE??'bid';
 if(/heldout|development|evaluation/.test(namespace))throw Error('Evaluation namespaces cannot be used for training');
 const bid=Network.load(await Bun.file(process.env.BID_MODEL??'models/rl-bid.json').json()).expandInputs(INPUTS),discard=Network.load(await Bun.file(process.env.DISCARD_MODEL??'models/rl-discard.json').json());bid.mode='q';
-const network=mode==='discard'?discard:bid,weights=process.env.TACTICS?await Bun.file(process.env.TACTICS).json():initialTactics,rng=new Random(seed),buffer:{x:Float64Array;actions:number[];targets:number[]}[]=[];let inserted=0,best=-Infinity,loss=0,observations=0;
+const network=mode==='discard'?discard:bid,rawWeights=process.env.TACTICS?await Bun.file(process.env.TACTICS).json():initialTactics,weights=Array.isArray(rawWeights)?rawWeights:rawWeights.tactics,rng=new Random(seed),buffer:{x:Float64Array;actions:number[];targets:number[]}[]=[];let inserted=0,best=-Infinity,loss=0,observations=0;
 const output=process.env.OUTPUT??`tmp/rl/league-${mode}.json`;
 await mkdir('tmp/rl',{recursive:true});
 const self:Agent=(s,id)=>s.phase==='bid'||s.phase==='discard'?learnedCommand(s,id,bid,undefined,discard).command:tacticalCommand(s,id,weights);

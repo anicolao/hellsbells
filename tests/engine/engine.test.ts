@@ -60,3 +60,10 @@ describe('bidding, pre-bid Arcana, recovery, and ties',()=>{
 });
 
 test("trained computer seats require three-player tables and legacy bots stay easy",()=>{let s=apply(undefined,eventFor(undefined,"a",{type:"create",seed:"policies",capacity:4}));expect(()=>step(s,"a",{type:"bot",target:"rl",value:1})).toThrow("three players");s=step(s,"a",{type:"capacity",value:3});expect(()=>step(s,"a",{type:"bot",target:"unknown",value:99})).toThrow("Unknown computer policy");s=step(s,"a",{type:"bot",target:"rl",value:1});expect(s.players[1].botPolicy).toBe("rl-v1");expect(()=>step(s,"a",{type:"capacity",value:5})).toThrow("three players");s=step(s,"a",{type:"bot",target:"easy"});expect(s.players[2].botPolicy).toBe("easy");});
+
+describe('derived public suit knowledge',()=>{
+ test('ordinary off-suit follows prove a void, without reading hidden hands',()=>{let s=table(8);s=step(s,'a',{type:'play',card:card('Wands',2)});s.players[1].hand=[card('Cups',3)];s=step(s,'b',{type:'play',card:card('Cups',3)});expect(s.voids?.b).toEqual(['Wands']);});
+ test('Shax, Amdusias and concealed Bael plays do not prove a void',()=>{for(const kind of ['forced','discord','concealed']){let s=table(8);s=step(s,'a',{type:'play',card:card('Wands',2)});s.players[1].imp=kind==='discord'?0:3;s.players[1].used=false;if(kind==='forced')s.forced=['b'];if(kind==='concealed')s.players[1].hand=[card('Cups',3)];s=step(s,'b',{type:'play',card:card('Cups',3),power:kind!=='forced'});expect(s.voids?.b??[]).toEqual([]);}});
+ test('Bael exchanges invalidate both participants suit knowledge',()=>{let s=after(1,8);s.voids={a:['Pentacles'],b:['Pentacles'],c:['Pentacles']};s=step(s,'a',{type:'power',target:'b',card:s.players[0].hand[0]});expect(s.voids).toEqual({a:[],b:[],c:['Pentacles']});});
+ test('knowledge resets each round and before the Hermit reserved card becomes available',()=>{let s=after(3,9);s.voids={b:['Wands']};s.trickNumber=s.physical-1;s=step(s,'a',{type:'continue'});expect(s.voids).toEqual({});s.voids={b:['Wands']};startRound(s,8);expect(s.voids).toEqual({});});
+});
