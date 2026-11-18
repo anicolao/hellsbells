@@ -24,8 +24,10 @@ jobs:
       - run: nix develop --command bun install --frozen-lockfile
       - run: nix develop --command bun run check
       - name: Engine and append-only Firestore rules
+        timeout-minutes: 3
         run: nix develop --command firebase emulators:exec --project demo-hellsbells --only auth,firestore "bun test"
       - name: Play five rounds through the graphical table
+        timeout-minutes: 8
         run: |
           VITE_USE_FIREBASE_EMULATORS=true VITE_BOT_DELAY_MS=90 nix develop --command bun run dev -- --port 5201 > /tmp/hellsbells-dev.log 2>&1 &
           nix develop --command firebase emulators:exec --project demo-hellsbells --only auth,firestore "bun run test:play"
