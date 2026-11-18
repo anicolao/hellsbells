@@ -10,14 +10,19 @@
     "prepare": "svelte-kit sync",
     "catalog": "bun scripts/catalog.ts",
     "art:prepare": "bun scripts/prepare-art.ts",
-    "review": "bun scripts/review.ts"
+    "review": "bun scripts/review.ts",
+    "test:play": "bun scripts/play-browser.ts && bun scripts/multiplayer-browser.ts",
+    "test:engine": "bun test tests/engine",
+    "test:backend": "firebase emulators:exec --project demo-hellsbells --only auth,firestore \"bun test tests/backend\""
   },
   "dependencies": {
-    "@fontsource/cormorant-garamond": "5.2.11",
     "@fontsource/atkinson-hyperlegible": "5.2.8",
+    "@fontsource/cormorant-garamond": "5.2.11",
+    "firebase": "^13.4.0",
     "marked": "^16.0.0"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^6.0.0",
     "@playwright/test": "^1.65.1",
     "@sveltejs/adapter-static": "3.0.10",
     "@sveltejs/kit": "^2.0.0",

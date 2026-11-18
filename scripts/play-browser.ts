@@ -1,0 +1,23 @@
+import {chromium} from '@playwright/test';
+import {mkdir} from 'node:fs/promises';
+const browser=await chromium.launch({headless:true,executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE??'/Users/anicolao/Library/Caches/ms-playwright/chromium-1254/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing'});
+const context=await browser.newContext({viewport:{width:1440,height:1100}});const page=await context.newPage();const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+try{
+ await mkdir('tmp/qa/play',{recursive:true});await page.goto(process.env.PLAY_URL??'http://127.0.0.1:5200/play/');await page.getByRole('button',{name:'Practice against computer imps'}).waitFor({state:'visible'});await page.waitForFunction(()=>!(document.querySelector('[aria-label="Practice against computer imps"]') as HTMLButtonElement)?.disabled);await page.screenshot({path:'tmp/qa/play/entry.png'});await page.getByRole('button',{name:'Practice against computer imps'}).click({timeout:1500});await page.locator('.draft-cards button').first().waitFor({state:'visible'});await page.screenshot({path:'tmp/qa/play/draft.png'});await page.locator('.draft-cards button').first().click({timeout:1500});
+ const visited=new Set<string>();
+ for(let i=0;i<3000;i++){try{
+  if(await page.locator('.table-error').count())throw Error(await page.locator('.table-error').innerText());
+  const phase=await page.locator('.game-table').getAttribute('data-phase');
+  if(phase&&!visited.has(phase)){visited.add(phase);await page.screenshot({path:`tmp/qa/play/${phase}.png`});console.log('Phase',phase);if(phase==='play'){await page.setViewportSize({width:390,height:844});await page.screenshot({path:'tmp/qa/play/mobile-playing.png'});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Mobile page overflows');await page.setViewportSize({width:1440,height:1100});}}
+  if(phase==='ended')break;
+  if(phase==='draft'){const offered=page.locator('.draft-cards button');if(await offered.count())await offered.first().click({timeout:1500});}
+  else if(phase==='discard'){const selected=await page.locator('.hand-card .selected').count();const round=Number((await page.locator('.table-topline').innerText()).match(/ROUND (\d)/)?.[1]??1);if(selected<round){const card=page.locator('.hand-card .card-control:not(.selected):not(.disabled)').first();if(await card.count()){await card.hover({position:{x:15,y:80},timeout:1500});await card.locator('button').click({timeout:1500});}}else{const discard=page.getByRole('button',{name:'Discard selected cards'});if(await discard.count()&&await discard.isEnabled())await discard.click({timeout:1500});}}
+  else if(['arcana','prebid','magician'].includes(phase??'')){const roundId=await page.locator('.round-area [data-card-id]').getAttribute('data-card-id');if(phase==='arcana'&&['arcana-6','arcana-15'].includes(roundId??'')){await page.locator('.opponent-portrait button').first().click({timeout:1500});await page.waitForTimeout(200);}const keep=page.getByRole('button',{name:'Keep hand / continue'});if(await keep.count())await keep.click({timeout:1500});}
+  else if(phase==='bid'||phase==='adjust'){const bid=page.locator('.bid-tray button');if(await bid.count())await bid.first().click({timeout:1500});}
+  else if(phase==='play'){const playable=page.locator('.hand-card .card-control:not(.disabled)').first();if(await playable.count()){await playable.hover({position:{x:15,y:80},timeout:1500});await playable.locator('button').click({timeout:1500});}}
+  else if(phase==='after'){const take=page.getByRole('button',{name:'Take the trick'});if(await take.count())await take.first().click({timeout:1500});}
+  else if(phase==='round-end'){await page.getByRole('button',{name:'Deal next round'}).click({timeout:1500});}
+  if(i===2999)throw Error('Game did not complete');}catch(e){if(!(e instanceof Error)||!e.message.includes('Timeout'))throw e;}await page.waitForTimeout(130);
+ }
+ await page.screenshot({path:'tmp/qa/play/final.png'});await page.reload();await page.locator('.game-table').waitFor();await page.screenshot({path:'tmp/qa/play/resumed.png'});await page.setViewportSize({width:390,height:844});await page.screenshot({path:'tmp/qa/play/mobile.png'});if(errors.length)throw Error(JSON.stringify(errors));console.log('Full game and persistence checked',page.url());
+}catch(e){await page.screenshot({path:'tmp/qa/play/failure.png'});console.log((await page.locator('body').innerText()).slice(-1800));throw e;}finally{await browser.close();}

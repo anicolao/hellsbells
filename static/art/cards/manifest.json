@@ -1,5 +1,13 @@
 [
   {
+    "id": "back-imp",
+    "source": "static/art/v2/back-imp.png",
+    "width": 992,
+    "height": 1586,
+    "hasAlpha": false,
+    "output": "/art/cards/back-imp.webp"
+  },
+  {
     "id": "court-wands-queen",
     "source": "static/art/v2/court-wands-queen.png",
     "width": 1536,
@@ -144,6 +152,14 @@
     "output": "/art/cards/court-swords-king.webp"
   },
   {
+    "id": "back-catchup",
+    "source": "static/art/v2/back-catchup.png",
+    "width": 992,
+    "height": 1586,
+    "hasAlpha": false,
+    "output": "/art/cards/back-catchup.webp"
+  },
+  {
     "id": "arcana-7",
     "source": "static/art/v2/arcana-7.png",
     "width": 1536,
@@ -158,6 +174,14 @@
     "height": 1024,
     "hasAlpha": false,
     "output": "/art/cards/arcana-10.webp"
+  },
+  {
+    "id": "back-minor",
+    "source": "static/art/v2/back-minor.png",
+    "width": 992,
+    "height": 1586,
+    "hasAlpha": false,
+    "output": "/art/cards/back-minor.webp"
   },
   {
     "id": "arcana-14",
@@ -302,6 +326,14 @@
     "height": 1024,
     "hasAlpha": false,
     "output": "/art/cards/arcana-21.webp"
+  },
+  {
+    "id": "back-regular",
+    "source": "static/art/v2/back-regular.png",
+    "width": 992,
+    "height": 1586,
+    "hasAlpha": false,
+    "output": "/art/cards/back-regular.webp"
   },
   {
     "id": "suit-wands",

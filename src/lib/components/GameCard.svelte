@@ -10,9 +10,10 @@
  let suit=$derived('suit' in card?card.suit.toLowerCase():'');
  let portrait=$derived(card.kind==='imp'?card.name.toLowerCase():card.kind==='arcana'?card.id:`court-${suit}-${ranks[(card.kind==='minor'?card.rank:1)-1].toLowerCase()}`);
  let rankLabel=$derived(card.kind==='minor'?(card.rank===1?'A':card.rank<=10?String(card.rank):ranks[card.rank-1]):'');
+ let backArt=$derived(card.kind==='minor'?'back-minor':card.kind==='imp'?'back-imp':card.pool==='Catch-up'?'back-catchup':'back-regular');
 </script>
 <article class="game-card" class:back class:pip data-card-id={card.id} data-suit={'suit' in card?card.suit:undefined} aria-label={back?`${card.kind} card back`:card.name}>
- {#if back}<img class="card-back" src={base + "/art/cards/card-back.webp"} alt="" draggable="false"/><span class="back-label">{card.kind==='imp'?'IMPS':card.kind==='arcana'?'MAJOR ARCANA':'MINOR ARCANA'}</span>
+ {#if back}<img class="card-back" src={`${base}/art/cards/${backArt}.webp`} alt="" draggable="false"/>
  {:else}
  <img class="frame" src={`${base}/art/cards/${pip?'playing-frame':'frame'}.webp`} alt="" aria-hidden="true" draggable="false"/>
  {#if pip&&card.kind==='minor'}
