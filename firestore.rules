@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+  function signed(){return request.auth != null;}
+  function room(id){return /databases/$(database)/documents/games/$(id);}
+  function event(id,seq){return /databases/$(database)/documents/games/$(id)/events/$(string(seq));}
+  function validRoom(d){return d.keys().hasOnly(['owner','members','bots','capacity','revision','phase','version']) && d.version==1 && d.owner is string && d.members is list && d.bots is list && d.members.size()>=1 && d.members.size()<=d.capacity && d.capacity in [3,4,5] && d.revision is int && d.revision>=1 && d.bots.toSet().difference(d.members.toSet()).size()==0;}
+  function controls(d,actor){return actor==request.auth.uid || (request.auth.uid==d.owner && actor in d.bots);}
+  match /games/{id} {
+   allow get: if signed();
+   allow list,delete: if false;
+   allow create: if signed() && validRoom(request.resource.data) && request.resource.data.owner==request.auth.uid && request.resource.data.members==[request.auth.uid] && request.resource.data.bots==[] && request.resource.data.phase=='lobby' && request.resource.data.revision==1 && getAfter(event(id,1)).data.command.type=='create';
+   allow update: if signed() && validRoom(request.resource.data) && request.resource.data.owner==resource.data.owner && request.resource.data.version==resource.data.version && request.resource.data.revision==resource.data.revision+1 && getAfter(event(id,request.resource.data.revision)).data.sequence==request.resource.data.revision && (
+    (getAfter(event(id,request.resource.data.revision)).data.command.type=='join' && resource.data.phase=='lobby' && request.resource.data.phase=='lobby' && !(request.auth.uid in resource.data.members) && request.resource.data.members==resource.data.members.concat([request.auth.uid]) && request.resource.data.bots==resource.data.bots && request.resource.data.capacity==resource.data.capacity)
+    || (request.auth.uid in resource.data.members && (
+      (getAfter(event(id,request.resource.data.revision)).data.command.type=='bot' && request.auth.uid==resource.data.owner && resource.data.phase=='lobby' && request.resource.data.phase=='lobby' && request.resource.data.members==resource.data.members.concat([getAfter(event(id,request.resource.data.revision)).data.command.target]) && request.resource.data.bots==resource.data.bots.concat([getAfter(event(id,request.resource.data.revision)).data.command.target]) && request.resource.data.capacity==resource.data.capacity)
+      || (getAfter(event(id,request.resource.data.revision)).data.command.type!='bot' && request.resource.data.members==resource.data.members && request.resource.data.bots==resource.data.bots && (request.resource.data.capacity==resource.data.capacity || (request.auth.uid==resource.data.owner && getAfter(event(id,request.resource.data.revision)).data.command.type in ['capacity','start'])))
+    )));
+   match /events/{seq} {
+    allow read: if signed() && request.auth.uid in get(room(id)).data.members;
+    allow update,delete: if false;
+    allow create: if signed() && request.resource.data.keys().hasOnly(['version','sequence','actor','id','command','createdAt']) && request.resource.data.version==1 && request.resource.data.id is string && request.resource.data.id.size()>0 && request.resource.data.id.size()<=64 && request.resource.data.command is map && request.resource.data.command.keys().hasOnly(['type','card','cards','target','value','power','royal','low','name','seed','capacity']) && request.resource.data.command.type in ['create','join','bot','capacity','start','choose','discard','arcana','prebid','bid','adjust','play','shax','recall','power','continue'] && request.resource.data.createdAt==request.time && seq==string(request.resource.data.sequence) && request.resource.data.sequence==getAfter(room(id)).data.revision && controls(getAfter(room(id)).data,request.resource.data.actor) && request.auth.uid in getAfter(room(id)).data.members && (
+      (!exists(room(id)) && request.resource.data.sequence==1 && request.resource.data.command.type=='create' && request.resource.data.actor==request.auth.uid)
+      || (exists(room(id)) && request.resource.data.sequence==get(room(id)).data.revision+1 && (
+        (request.resource.data.command.type=='join' && !(request.auth.uid in get(room(id)).data.members) && request.resource.data.actor==request.auth.uid && get(room(id)).data.phase=='lobby')
+        || (request.auth.uid in get(room(id)).data.members && request.resource.data.command.type!='create' && request.resource.data.command.type!='join')
+      )));
+   }
+  }
+ }
+}

@@ -6,7 +6,12 @@
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
     devShells = forAllSystems (system: let pkgs = import nixpkgs { inherit system; }; in {
-      default = pkgs.mkShell { packages = with pkgs; [ bun nodejs git ripgrep poppler-utils ]; };
+      default = pkgs.mkShell {
+        packages = with pkgs; [ bun nodejs git ripgrep poppler-utils firebase-tools jdk ] ++ lib.optionals stdenv.isLinux [ chromium ];
+        shellHook = pkgs.lib.optionalString pkgs.stdenv.isLinux ''
+          export PLAYWRIGHT_CHROMIUM_EXECUTABLE="${pkgs.chromium}/bin/chromium"
+        '';
+      };
     });
   };
 }

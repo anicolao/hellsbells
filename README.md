@@ -38,3 +38,11 @@ Copyright (c) 2026 Hell’s Bells contributors. Distributed under GPL-3.0-only; 
 ## GitHub Pages
 
 Production is served at https://anicolao.github.io/hellsbells/ after changes merge into main. Each same-repository PR is retained at `/hellsbells/pr<number>/`. Builds use `PUBLIC_BASE_PATH` and adapter-static. Verification stages the build on gh-pages without removing other previews, then dispatches the main-branch publishing workflow. Only that trusted main workflow deploys the combined site to the github-pages environment.
+
+## Play
+
+Open `/play/` to gather friends with an eight-character table code or practice against computer imps. Cards and contract tokens are the controls: select discards, tap the discard pile, bid with a token, play or drag a card into the center, and tap your imp to arm its power. The trick winner taps the completed trick to collect it. Read an imp’s card for its trigger.
+
+Firebase project `hellsbells-anicolao` uses anonymous authentication and shared `games/{id}/events/{sequence}` paths in every build. Public Firebase app configuration is versioned; no service-account credentials are included. The initial game is peer-replayed for trusted tables, with hidden information concealed in the interface but recoverable from the transcript. See `docs/architecture.md` for the trust boundary and versioning contract.
+
+For emulator development: `nix develop --command firebase emulators:start --only auth,firestore --project demo-hellsbells`, then `VITE_USE_FIREBASE_EMULATORS=true bun run dev`. Run `bun run test:engine`, `bun run test:backend` (inside the Nix shell), or `bun run test:play` against a running emulator-backed dev server. CI runs both reducer/rules tests and full-game browser checks before deployment.

@@ -1,0 +1,8 @@
+export type Phase='lobby'|'draft'|'magician'|'discard'|'arcana'|'prebid'|'bid'|'adjust'|'play'|'after'|'round-end'|'ended';
+export type Player={id:string;name:string;bot:boolean;options:number[];imp:number;hand:string[];discard:string[];reserved:string|null;bid:number|null;won:number;score:number;penalties:number[];recoveries:number[];used:boolean;adjusted:boolean;choice:string|null;done:boolean};
+export type Play={player:string;card:string;concealed:boolean};
+export type Pending={owner:string;index:number;original:string;returnTo:string;concealed:boolean;led:string|null};
+export type Inspection={viewer:string;target:string;cards:string[]};
+export type State={version:1;revision:number;owner:string;capacity:number;phase:Phase;players:Player[];rng:number;round:number;dealer:string;arcana:number;remaining:number[];reserve:string[];physical:number;trickNumber:number;turn:string;leader:string;led:string|null;trick:Play[];lastTrick:Play[];winner:string|null;nextLeader:string|null;noTrump:boolean;low:boolean;royal:boolean;forced:string[];changedSuit:boolean;pending:Pending|null;exposed:string[];inspections:Inspection[];standing:Record<string,number>;initialBids:Record<string,number>;firstWin:Record<string,boolean>;afterRevealed:boolean;history:{round:number;arcana:number;penalties:Record<string,number>;recoveries:Record<string,number>}[]};
+export type Command={type:'create'|'join'|'bot'|'capacity'|'start'|'choose'|'discard'|'arcana'|'prebid'|'bid'|'adjust'|'play'|'shax'|'recall'|'power'|'continue';card?:string;cards?:string[];target?:string;value?:number;power?:boolean;royal?:boolean;low?:boolean;name?:string;seed?:string;capacity?:number};
+export type Event={version:1;sequence:number;actor:string;id:string;command:Command};
