@@ -73,7 +73,7 @@ export function apply(previous:State|undefined,event:Event):State{
  else if(p.imp===9){const options=available(s,opponent);if(options.length){const exposed=options[random(s,options.length)];if(!s.exposed.includes(exposed))s.exposed.push(exposed);}}
  else throw Error('No after-win power');p.used=true;s.afterRevealed=true;}
  // value:1 records per-seat readiness; unvalued continuations preserve existing transcripts.
- else if(c.type==='continue'){if(s.phase==='after'){requireRule(s.winner===id,'Winner continues');if(s.trickNumber===s.physical)scoreRound(s);else{s.trickNumber++;beginTrick(s);}}else if(s.phase==='round-end'){if(c.value!==undefined){requireRule(c.value===1,'Invalid readiness signal');requireRule(!p.done,'Already ready');p.done=true;}if(c.value===undefined){const best=Math.min(...s.players.map(p=>p.score));s.dealer=order(s).find(id=>player(s,id).score===best)!;startRound(s);}}else throw Error('Cannot continue now');}
+ else if(c.type==='continue'){if(s.phase==='after'){requireRule(s.winner===id,'Winner continues');if(c.card)requireRule(p.imp===8&&!p.used&&s.trickNumber<s.physical&&!s.nextLeader,'Cannot lead while passing this power');if(s.trickNumber===s.physical)scoreRound(s);else{s.trickNumber++;beginTrick(s);if(c.card)return apply(s,{...event,command:{type:'play',card:c.card,royal:c.royal,low:c.low}});}}else if(s.phase==='round-end'){if(c.value!==undefined){requireRule(c.value===1,'Invalid readiness signal');requireRule(!p.done,'Already ready');p.done=true;}if(c.value===undefined){const best=Math.min(...s.players.map(p=>p.score));s.dealer=order(s).find(id=>player(s,id).score===best)!;startRound(s);}}else throw Error('Cannot continue now');}
  else throw Error('Unsupported command');
  }
  s.revision=event.sequence;return s;

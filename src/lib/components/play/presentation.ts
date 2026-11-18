@@ -1,7 +1,7 @@
-import {bidMax,player} from '$lib/engine/engine';
+import {apply,eventFor,legalCards,bidMax,player} from '$lib/engine/engine';
 import type {State,Command} from '$lib/engine/types';
 export function adjustments(s:State,id:string):number[]{const p=player(s,id);if(s.phase!=='after'||s.winner!==id||p.adjusted)return [];if(s.arcana===3&&s.firstWin[id]&&p.bid!<bidMax(s))return [p.bid!+1];if(s.arcana===14)return [p.bid!-1,p.bid!+1].filter(n=>n>=0&&n<=bidMax(s));return [];}
-export function afterPower(s:State,id:string){const p=player(s,id);return s.phase==='after'&&s.winner===id&&(!p.used&&([4,8].includes(p.imp)||p.imp===1&&p.hand.length>0&&s.players.some(q=>q.id!==id&&q.hand.length>0))||p.imp===9&&!s.afterRevealed&&s.players.some(q=>q.id!==id&&q.hand.length>0));}
+export function afterPower(s:State,id:string){const p=player(s,id);return s.phase==='after'&&s.winner===id&&(!p.used&&((p.imp===4||p.imp===8&&s.trickNumber<s.physical)||p.imp===1&&p.hand.length>0&&s.players.some(q=>q.id!==id&&q.hand.length>0))||p.imp===9&&!s.afterRevealed&&s.players.some(q=>q.id!==id&&q.hand.length>0));}
 export function automaticCommand(s:State,id:string):Command|null{
  if(s.phase==='round-end')return s.players.every(p=>p.done)?{type:'continue'}:null;
  if(s.turn!==id)return null;
@@ -44,3 +44,6 @@ export function decisionStages(progress:number){return {shrink:smooth((progress-
 
 export const readyDuration=450;
 export function readyPose(progress:number){const t=Math.max(0,Math.min(1,progress)),c=1.70158;return {opacity:Math.min(1,t*3),scale:1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2),angle:(1-t)*-28};}
+
+export function seereCanLead(s:State,id:string){const p=player(s,id);return s.phase==='after'&&s.winner===id&&p.imp===8&&!p.used&&s.trickNumber<s.physical&&!s.nextLeader;}
+export function seereLeadCards(s:State,id:string){if(!seereCanLead(s,id))return [];return legalCards(apply(s,eventFor(s,id,{type:'continue'})),id);}
