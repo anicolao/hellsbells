@@ -1,0 +1,17 @@
+import {test,expect} from 'bun:test';
+import {apply,eventFor,legalCards,allowedBids,player} from '../../src/lib/engine/engine';
+import {botCommand,nextActor} from '../../src/lib/engine/bot';
+import {tacticalCommand,winChance,initialTactics} from '../../src/lib/engine/rl/tactics';
+import {searchBid} from '../../src/lib/engine/rl/search';
+import {Network,type Checkpoint} from '../../src/lib/engine/rl/network';
+import bidCheckpoint from '../../models/rl-bid.json';
+import discardCheckpoint from '../../models/rl-discard.json';
+import type {State} from '../../src/lib/engine/types';
+function fixture(phase:'bid'|'play'='play'){let s=apply(undefined,eventFor(undefined,'a',{type:'create',seed:'rl-league-unit',capacity:3}));for(const id of ['b','c'])s=apply(s,eventFor(s,id,{type:'join'}));s=apply(s,eventFor(s,'a',{type:'start'}));while(s.phase!==phase){const id=nextActor(s)!;s=apply(s,eventFor(s,id,botCommand(s,id)));}return s;}
+const bid=Network.load(bidCheckpoint as Checkpoint),discard=Network.load(discardCheckpoint as Checkpoint),policy={bid,discard,previousBid:bid,previousDiscard:discard,weights:initialTactics};
+function hiddenCopy(s:State,id:string){const copy=structuredClone(s);copy.rng=99;copy.reserve=['private'];for(const p of copy.players)if(p.id!==id){p.hand=['private'];p.discard=['private'];p.reserved='private';p.choice='private';p.options=[];}return copy;}
+test('card play uses public information, not opponent hands, discards or RNG',()=>{let s=fixture();for(let i=0;i<15;i++){const id=nextActor(s)!,before=structuredClone(s),command=tacticalCommand(s,id);expect(tacticalCommand(hiddenCopy(s,id),id)).toEqual(command);expect(s).toEqual(before);if(s.phase==='play'){expect(legalCards(s,id,s.pending?.original,!!command.power&&player(s,id).imp===0)).toContain(command.card!);for(const c of legalCards(s,id)){const p=winChance(s,id,c);expect(p).toBeGreaterThanOrEqual(0);expect(p).toBeLessThanOrEqual(1);}}s=apply(s,eventFor(s,id,command));}});
+test('public trick memory records resolved cards and resets at the next round',()=>{let s=fixture();expect(s.completedTricks).toEqual([]);while(s.phase!=='after'){const id=nextActor(s)!;s=apply(s,eventFor(s,id,botCommand(s,id)));}expect(s.completedTricks).toEqual([s.lastTrick]);expect(s.completedTricks![0].every(p=>!p.concealed)).toBe(true);while(s.round===1){const id=nextActor(s)!;s=apply(s,eventFor(s,id,botCommand(s,id)));}expect(s.completedTricks).toEqual([]);});
+test('sampled bidding is deterministic, legal, immutable and blind to hidden cards',()=>{const s=fixture('bid'),id=nextActor(s)!,before=structuredClone(s),command=searchBid(s,id,policy,2);expect(allowedBids(s,id)).toContain(command.value!);expect(searchBid(hiddenCopy(s,id),id,policy,2)).toEqual(command);expect(s).toEqual(before);});
+test('sampled bidding cannot observe committed secret Moon bids',()=>{const s=fixture('bid');s.arcana=18;const id=nextActor(s)!;for(const p of s.players)if(p.id!==id)p.bid=2;const copy=structuredClone(s);for(const p of copy.players)if(p.id!==id)p.bid=13;expect(searchBid(s,id,policy,2)).toEqual(searchBid(copy,id,policy,2));});
+test('Temperance adjustments wait until they cannot worsen the contract',()=>{const s=fixture();s.phase='after';s.arcana=14;s.winner=s.turn;const p=player(s,s.turn);p.adjusted=false;p.bid=3;p.won=1;s.trickNumber=2;expect(tacticalCommand(s,p.id).type).toBe('continue');p.won=4;expect(tacticalCommand(s,p.id)).toEqual({type:'adjust',value:4});p.bid=4;p.won=2;s.trickNumber=s.physical;expect(tacticalCommand(s,p.id)).toEqual({type:'adjust',value:3});});
