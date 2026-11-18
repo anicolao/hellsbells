@@ -1,0 +1,43 @@
+{
+  "namespace": "hellsbells-heldout-v1",
+  "games": 6000,
+  "wins": 4137,
+  "ties": 195,
+  "uniqueWinRate": 0.6895,
+  "tiedWinRate": 0.0325,
+  "fractionalWinRate": 0.7056944444444443,
+  "meanPoints": 15.4615,
+  "wilson95": [
+    0.6776739820554002,
+    0.7010835121463123
+  ],
+  "seats": [
+    {
+      "games": 2000,
+      "wins": 1410,
+      "ties": 61
+    },
+    {
+      "games": 2000,
+      "wins": 1347,
+      "ties": 68
+    },
+    {
+      "games": 2000,
+      "wins": 1380,
+      "ties": 66
+    }
+  ],
+  "opponents": "two unchanged easy bots",
+  "winCriterion": "sole lowest final score; shared wins excluded",
+  "models": [
+    {
+      "path": "models/rl-bid.json",
+      "sha256": "b188c6d6d9be6b4f30d4707352eb50a3cea7bf8b47ec28e033cdec7cd8c41c65"
+    },
+    {
+      "path": "models/rl-discard.json",
+      "sha256": "ba5f854f9725bb10380b20a0628f55299d18b2e2ac5b619f7b5e861b86f491c2"
+    }
+  ]
+}
