@@ -30,14 +30,15 @@ jobs:
         timeout-minutes: 8
         run: |
           VITE_USE_FIREBASE_EMULATORS=true VITE_BOT_DELAY_MS=90 nix develop --command bun run dev -- --port 5201 > /tmp/hellsbells-dev.log 2>&1 &
-          nix develop --command firebase emulators:exec --project demo-hellsbells --only auth,firestore "bun run test:play"
+          nix develop --command firebase emulators:exec --project demo-hellsbells --only auth,firestore "bun run test:play && bun run test:animations"
         env:
           PLAY_URL: http://127.0.0.1:5201/play/
+          LAB_URL: http://127.0.0.1:5201/dev/animations
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playable-table-evidence
-          path: tmp/qa/play/
+          path: tmp/qa/
           retention-days: 14
       - name: Select production or retained PR path
         id: destination
@@ -72,4 +73,4 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PREVIEW_BASE: https://${{ github.repository_owner }}.github.io${{ steps.destination.outputs.base }}
         run: |
-          gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --edit-last --create-if-none --body "Review: $PREVIEW_BASE/rules.html · Components: $PREVIEW_BASE/gallery/ · PDF: $PREVIEW_BASE/downloads/hells-bells-rulebook.pdf"
+          gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --edit-last --create-if-none --body "Play: $PREVIEW_BASE/play/ · Animation lab: $PREVIEW_BASE/dev/animations · Rules: $PREVIEW_BASE/rules.html · Components: $PREVIEW_BASE/gallery/ · PDF: $PREVIEW_BASE/downloads/hells-bells-rulebook.pdf"

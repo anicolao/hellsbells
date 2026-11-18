@@ -3,7 +3,7 @@ import {initializeTestEnvironment,assertFails,type RulesTestEnvironment} from '@
 import {readFileSync} from 'node:fs';
 import {type Firestore,getDoc,getDocs,doc,collection,query,orderBy,updateDoc,deleteDoc,setDoc,serverTimestamp} from 'firebase/firestore';
 import {createGame,joinGame,append} from '../../src/lib/backend/repository';
-import {replay} from '../../src/lib/engine/engine';
+import {apply,eventFor,replay} from '../../src/lib/engine/engine';
 import type {Event,State} from '../../src/lib/engine/types';
 import {nextActor,botCommand} from '../../src/lib/engine/bot';
 const suite=process.env.FIRESTORE_EMULATOR_HOST?describe:describe.skip;
@@ -26,6 +26,15 @@ suite('Firestore append-only rooms',()=>{
   while(s.phase==='magician'){const actor=nextActor(s)!;await append(db(actor),actor,id,s,actor,botCommand(s,actor));s=await state('a',id);}
   const dealt=s.players[0].hand.length;await Promise.all(s.players.map(p=>append(db(p.id),p.id,id,s,p.id,{type:'discard',cards:[p.hand[0]]})));
   s=await state('a',id);expect(s.phase).not.toBe('discard');expect(s.players.every(p=>p.hand.length===dealt-1&&p.discard.length===1)).toBe(true);
+ });
+ test('simultaneous round readiness persists every seat before the automatic next deal',async()=>{
+  const id=await createGame(db('a'),'a','A',3);await joinGame(db('b'),'b',id,'B');await joinGame(db('c'),'c',id,'C');let s=await state('a',id);
+  const start={type:'start'} as const;await append(db('a'),'a',id,s,'a',start);s=apply(s,eventFor(s,'a',start));
+  for(let n=0;n<300&&s.phase!=='round-end';n++){const actor=nextActor(s)!,command=botCommand(s,actor);await append(db(actor),actor,id,s,actor,command);s=apply(s,eventFor(s,actor,command));}
+  expect(s.phase).toBe('round-end');const previous=s.revision;
+  await Promise.all(s.players.map(p=>append(db(p.id),p.id,id,s,p.id,{type:'continue',value:1})));
+  s=await state('a',id);expect(s.phase).toBe('round-end');expect(s.revision).toBe(previous+3);expect(s.players.every(p=>p.done)).toBe(true);
+  await append(db('a'),'a',id,s,'a',{type:'continue'});s=await state('a',id);expect(s.round).toBe(2);expect(s.players.every(p=>!p.done)).toBe(true);
  });
  test('actors cannot impersonate another seat or rewrite room membership',async()=>{const id=await createGame(db('a'),'a','A');await joinGame(db('b'),'b',id,'B');const s=await state('a',id);await expect(append(db('b'),'b',id,s,'a',{type:'capacity',value:5})).rejects.toThrow();await assertFails(updateDoc(doc(db('b'),'games',id),{members:['b'],owner:'b'}));await assertFails(setDoc(doc(db('b'),'games',id,'events','3'),{version:1,sequence:3,actor:'a',id:'forged',command:{type:'capacity',value:5},createdAt:serverTimestamp()}));});
  test('only owner controls registered bots',async()=>{const id=await createGame(db('a'),'a','A');let s=await state('a',id);await append(db('a'),'a',id,s,'a',{type:'bot',target:'bot-x',name:'X'});s=await state('a',id);expect(s.players[1].bot).toBe(true);await joinGame(db('b'),'b',id,'B');s=await state('a',id);await append(db('a'),'a',id,s,'a',{type:'start'});s=await state('a',id);await expect(append(db('b'),'b',id,s,'bot-x',{type:'choose',value:s.players[1].options[0]})).rejects.toThrow();await append(db('a'),'a',id,s,'bot-x',{type:'choose',value:s.players[1].options[0]});});

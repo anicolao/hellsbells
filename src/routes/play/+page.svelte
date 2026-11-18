@@ -8,6 +8,7 @@
  import Table from '$lib/components/play/Table.svelte';
  import {connectFirebase} from '$lib/backend/firebase';
  import {createGame,joinGame,watchGame,append} from '$lib/backend/repository';
+ import {cardPlayDuration,automaticCommand,transitionDuration} from '$lib/components/play/presentation';
  import {nextActor,botCommand} from '$lib/engine/bot';
  import type {State,Command} from '$lib/engine/types';
  import type {Firestore} from 'firebase/firestore';
@@ -22,7 +23,7 @@
  $effect(()=>{clearTimeout(timer);if(!game||busy||game.owner!==uid)return;const current=game;
  if(practice&&current.phase==='lobby'){timer=setTimeout(()=>{if(current.players.length<current.capacity)send({type:'bot',target:`bot-${crypto.randomUUID().slice(0,8)}`,name:['Belial','Paimon','Vassago','Orobas'][current.players.length-1]});else{practice=false;send({type:'start'});}},400);return;}
  let actor=nextActor(current);
- if(actor&&(current.players.some(p=>p.id===actor&&p.bot))){timer=setTimeout(()=>send(botCommand(current,actor!),actor!),Number(import.meta.env.VITE_BOT_DELAY_MS)||(current.phase==='after'?1400:700));}
+ if(actor&&(current.players.some(p=>p.id===actor&&p.bot))){timer=setTimeout(()=>send(botCommand(current,actor!),actor!),Number(import.meta.env.VITE_BOT_DELAY_MS)||(current.phase==='after'?cardPlayDuration+transitionDuration(current.phase):current.phase==='play'?cardPlayDuration+100:automaticCommand(current,actor!)?transitionDuration(current.phase):700));}
  });
  onDestroy(()=>{unsubscribe();clearTimeout(timer);});
 </script>

@@ -42,7 +42,7 @@ export function scoreRound(s:State){
  const penalties:Record<string,number>={},recoveries:Record<string,number>={};const totals=Object.values(s.standing);const best=Math.min(...totals),worst=Math.max(...totals);const cutoff=[...totals].sort((a,b)=>b-a)[Math.floor(s.players.length/2)-1];
  for(const p of s.players){const error=p.won-p.bid!;let cost=s.round*Math.abs(error);if(s.arcana===11&&error<0)cost*=2;if(s.arcana===16&&s.standing[p.id]===best)cost*=2;if(s.arcana===17&&s.standing[p.id]>=cutoff&&Math.abs(error)===1)cost=0;penalties[p.id]=cost;}
  for(const p of s.players){let recovery=0;const exact=p.won===p.bid;if(s.arcana===6&&exact&&p.choice&&player(s,p.choice).won===player(s,p.choice).bid)recovery=2;if(s.arcana===10&&exact)recovery=1;if(s.arcana===15&&s.standing[p.id]===worst&&p.choice)recovery=Math.floor(penalties[p.choice]/2);if(s.arcana===19&&exact)recovery=s.standing[p.id]===worst?10:5;if(s.arcana===21&&exact)recovery=Math.max(0,...p.penalties.slice(0,4));recoveries[p.id]=recovery;p.penalties.push(penalties[p.id]);p.recoveries.push(recovery);p.score=Math.max(0,p.score+penalties[p.id]-recovery);}
- s.history.push({round:s.round,arcana:s.arcana,penalties,recoveries});s.phase=s.round===5?'ended':'round-end';s.turn=s.owner;
+ s.history.push({round:s.round,arcana:s.arcana,penalties,recoveries});resetDone(s);s.phase=s.round===5?'ended':'round-end';s.turn=s.owner;
 }
 export function apply(previous:State|undefined,event:Event):State{
  requireRule(event.version===1,'Unsupported event version');if(!previous){requireRule(event.sequence===1,'Missing creation');return createState(event.actor,event.command);}
@@ -72,7 +72,8 @@ export function apply(previous:State|undefined,event:Event):State{
  else if(p.imp===8){requireRule(s.trickNumber<s.physical,'No next trick');s.nextLeader=target;}
  else if(p.imp===9){const options=available(s,opponent);if(options.length){const exposed=options[random(s,options.length)];if(!s.exposed.includes(exposed))s.exposed.push(exposed);}}
  else throw Error('No after-win power');p.used=true;s.afterRevealed=true;}
- else if(c.type==='continue'){if(s.phase==='after'){requireRule(s.winner===id,'Winner continues');if(s.trickNumber===s.physical)scoreRound(s);else{s.trickNumber++;beginTrick(s);}}else if(s.phase==='round-end'){const best=Math.min(...s.players.map(p=>p.score));s.dealer=order(s).find(id=>player(s,id).score===best)!;startRound(s);}else throw Error('Cannot continue now');}
+ // value:1 records per-seat readiness; unvalued continuations preserve existing transcripts.
+ else if(c.type==='continue'){if(s.phase==='after'){requireRule(s.winner===id,'Winner continues');if(s.trickNumber===s.physical)scoreRound(s);else{s.trickNumber++;beginTrick(s);}}else if(s.phase==='round-end'){if(c.value!==undefined){requireRule(c.value===1,'Invalid readiness signal');requireRule(!p.done,'Already ready');p.done=true;}if(c.value===undefined){const best=Math.min(...s.players.map(p=>p.score));s.dealer=order(s).find(id=>player(s,id).score===best)!;startRound(s);}}else throw Error('Cannot continue now');}
  else throw Error('Unsupported command');
  }
  s.revision=event.sequence;return s;

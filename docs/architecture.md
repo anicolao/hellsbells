@@ -17,3 +17,11 @@ Computer imps are driven by the owner’s connected browser. They choose only fr
 `bun test tests/engine` covers all ten imps and 22 Arcana, including complete hands at each player count, five-round replay, card restrictions, scoring, recoveries, ties, and replacement interactions. `firebase emulators:exec --project demo-hellsbells --only auth,firestore "bun test"` also exercises Firestore permissions, immutable logs, concurrency, membership, and stale revisions.
 
 `bun run test:play` plays all five rounds through the actual card and token controls, reloads the completed table, and checks mobile rendering. It requires a running development server and the local emulators. `VITE_BOT_DELAY_MS` shortens presentation delays for browser testing; it does not change rules or event interpretation.
+
+## Local motion review
+
+Run `bun run dev -- --port 5202`, then open `/dev/animations`. The lab uses the same table, card, fan, transition decisions, and motion calculations as live play, with deterministic local fixtures and no Firebase connection. Select an outcome and player count, play/pause at different speeds, or scrub the timeline forward and backward. Real decision scenarios remain paused until a card, contract token, or imp is chosen. Reset restores the fixture.
+
+`bun run test:animations` checks scrubbing, decision pauses, both Empress choices, and fan bounds for 3–5 players at desktop, phone, and landscape sizes. Set `LAB_URL` to use another local server. Live no-choice stages append the existing continuation events after their animation; the event schema and existing games remain compatible.
+
+At round end, `continue` with `value: 1` records one seat’s readiness in `done`. These independent signals retry revision races. Once everyone is ready, a brief presentation delay lets the final seal land before an unvalued `continue` deals the next round. Existing unvalued continuation events retain their original interpretation during replay. Readiness resets when the new round starts.
