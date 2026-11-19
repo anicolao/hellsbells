@@ -77,3 +77,18 @@ body:has(.animation-lab){overflow:hidden}.animation-lab{overflow:hidden}
 @media(max-width:800px){.game-table .draft-cards{gap:12px}.game-table .draft-cards>.card-control,.game-table .draft-cards>.game-card{width:min(calc((100cqw - 12px)/2),calc((100cqh - 55px)*.625));flex-basis:min(calc((100cqw - 12px)/2),calc((100cqh - 55px)*.625))}.lobby-decks{gap:10px}.lobby-decks figure{width:min(calc((100cqw - 20px)/3),calc((100cqh - 120px)*.625))}.lobby-decks figcaption{font-size:.5rem}.lobby-decks figcaption small{font-size:.4rem}}
 @media(max-height:600px){.game-table[data-phase='draft'] .table-stage{padding:4px 0}.game-table[data-phase='draft'] .table-prompt{margin-bottom:20px}.game-table[data-phase='draft'] .draft-cards>.card-control,.game-table[data-phase='draft'] .draft-cards>.game-card{width:min(420px,calc((100cqw - 24px)/2),calc((100cqh - 36px)*.625));flex-basis:min(420px,calc((100cqw - 24px)/2),calc((100cqh - 36px)*.625))}}
 @media(max-height:600px){.game-table[data-phase='lobby'] .invite-note{margin-top:8px;font-size:.6rem;line-height:1.2}.game-table[data-phase='lobby'] .capacity-tokens{margin-top:8px}.lobby-decks figcaption{margin-top:6px}}
+/* Setup actions fit their allotted area; captions do not inherit a rotated card's narrow width. */
+.game-table .decision-pile{width:min(240px,100%);transform:none;display:flex;flex-direction:column;align-items:center;gap:6px}
+.game-table .decision-pile>.card-control{width:clamp(24px,calc((var(--setup-area-height) - 70px)*.625),125px);flex-shrink:0;transform:rotate(-5deg)}
+.game-table .decision-pile>span{margin:0;max-width:100%;text-align:center;line-height:1.25}
+.game-table .decision-followup p{margin:0;line-height:1.25}
+@media(max-height:600px){
+ .game-table .decision-pile{flex-direction:row;justify-content:center;gap:12px}
+ .game-table .decision-pile>.card-control{width:clamp(24px,calc((var(--setup-area-height) - 30px)*.625),90px)}
+ .game-table .decision-pile>span{max-width:180px;text-align:left;font-size:.55rem}
+ .decision-trick .table-stage .trick-table{width:40%;left:0;right:auto;transform-origin:0 0}
+ .decision-trick .decision-followup{left:40%;top:23px;bottom:0;border:0;justify-content:center;padding:0}
+ .decision-trick .contract-choices figure{gap:3px}
+ .decision-trick .contract-token{width:clamp(24px,calc((var(--setup-area-height) - 60px)*.9),48px)}
+}
+.game-table .table-middle{grid-template-rows:minmax(0,1fr)}
