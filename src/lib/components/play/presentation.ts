@@ -56,3 +56,9 @@ export function handAcceptsInput(s:State,id:string,armed=false):boolean{
  if(s.phase==='play')return s.turn===id;
  return seereCanLead(s,id)||s.phase==='after'&&s.winner===id&&armed&&p.imp===1&&!p.used;
 }
+
+/** Preserve work across unrelated events; clear it when this player's decision changes. */
+export function handDecisionKey(s:State,id:string):string{
+ const p=player(s,id);
+ return JSON.stringify([id,s.round,s.phase,s.arcana,s.phase==='discard'?null:s.turn,s.trickNumber,s.winner,p.hand,p.reserved,p.done,p.used,p.adjusted,p.bid,s.pending,s.afterRevealed]);
+}
