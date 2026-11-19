@@ -118,27 +118,15 @@ body:has(.animation-lab){overflow:hidden}.animation-lab{overflow:hidden}
  .game-table .own-imp.has-seat-marker{--seat-marker-size:clamp(14px,calc(var(--setup-area-height) - 82px),36px)}
 }
 
-/* Public cards remain attached to the seat that currently holds them. */
-.play-shell .game-table{--opponent-row:clamp(84px,calc(var(--table-height)*.16),150px);--own-revealed-row:76px}
-.play-shell .game-table:has(.opponent>.revealed-hand){--revealed-row:116px;--opponent-row:calc(clamp(84px,calc(var(--table-height)*.16),150px) + var(--revealed-row))}
-.game-table:has(.opponent>.revealed-hand) .opponent{padding-bottom:var(--revealed-row);box-sizing:border-box}
-.opponent>.revealed-hand{position:absolute;left:0;bottom:0;height:var(--revealed-row)}
-.play-shell .game-table:has(>.own-reveals){grid-template-rows:auto var(--opponent-row) minmax(0,1fr) var(--own-revealed-row) minmax(0,1fr)}
-.game-table>.own-reveals{grid-column:1;grid-row:4;display:flex;justify-content:flex-end;min-height:0}
-.own-reveals>.revealed-hand{width:min(220px,34vw)}
-.game-table:has(>.own-reveals)>.hand-fan{grid-row:5}
+/* Public cards overlay the table without consuming any layout space. */
+.opponent>.revealed-hand{position:absolute;left:0;top:100%;z-index:0}
+.game-table .own-imp{position:relative}
+.own-imp>.own-reveals{position:absolute;right:0;top:100%;width:min(220px,34vw);height:0;z-index:0}
+.own-reveals>.revealed-hand{width:100%}
+.game-table .table-stage{z-index:1}
+.revealed-hand:has(.revealed-card:hover),.revealed-hand:has(.revealed-card:focus),.own-reveals:has(.revealed-card:hover),.own-reveals:has(.revealed-card:focus){z-index:200}
 .opponent:has(.revealed-card:focus),.opponent:has(.revealed-card:hover){z-index:25}
-@media(max-width:800px){
- .play-shell .game-table{--opponent-row:clamp(76px,calc(var(--table-height)*.17),120px)}
- .play-shell .game-table:has(.opponent>.revealed-hand){--revealed-row:88px;--opponent-row:calc(clamp(76px,calc(var(--table-height)*.17),120px) + var(--revealed-row))}
-}
-@media(max-height:600px){
- .play-shell .game-table{--opponent-row:clamp(30px,calc(var(--table-height)*.15),70px);--own-revealed-row:56px}
- .play-shell .game-table:has(.opponent>.revealed-hand){--revealed-row:56px;--opponent-row:calc(clamp(30px,calc(var(--table-height)*.15),70px) + var(--revealed-row))}
- .game-table:has(.opponent>.revealed-hand):not(:has(>.own-reveals)){grid-template-rows:auto var(--opponent-row) minmax(0,1fr) minmax(0,1fr)}
- .game-table .revealed-hand{--reveal-size:28px!important}
-}
-
-.play-shell .game-table:has(.opponent>.revealed-hand):not(:has(>.own-reveals)){grid-template-rows:auto var(--opponent-row) minmax(0,1fr) minmax(0,1fr)}
-.revealed-hand:has(.revealed-card:hover),.revealed-hand:has(.revealed-card:focus){z-index:200}
-.own-reveals:has(.revealed-card:hover),.own-reveals:has(.revealed-card:focus){position:relative;z-index:200}
+@media(max-height:600px){.game-table .revealed-hand{--reveal-size:28px!important}}
+/* Empty foreground space lets visible public cards receive inspection gestures. */
+.game-table .hand-fan,.game-table .table-stage{pointer-events:none}
+.game-table .hand-fan .fan-card,.game-table .table-stage>.card-control,.game-table .table-stage button,.game-table .table-stage a,.game-table .table-stage .game-card,.game-table .table-stage .score-ledger{pointer-events:auto}
