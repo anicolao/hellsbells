@@ -14,7 +14,7 @@
  let clock=$state(0),version=$state(0),anchors=$state<Anchors>({}),oldHand=$state<string[]|null>(null);
  const audio=new BellAudio();let previousTime=-1;
  export async function unlockAudio(){await audio.unlock();}
- $effect(()=>{const log=events,latest=game,seed=initial;untrack(()=>{if(!timeline||seed&&timeline.seed!==seed&&time!==null){timeline=new PresentationTimeline(seed??latest);if(seed)timeline.append(log);version++;}else{timeline.append(log,clock);version++;}});});
+ $effect(()=>{const log=events,latest=game,seed=initial;untrack(()=>{if(!timeline||seed&&timeline.seed!==seed&&time!==null){timeline=new PresentationTimeline(seed??latest);if(seed)timeline.append(log);version++;}else{if(root&&log.some(event=>event.sequence>timeline!.latest.revision))settledAnchors=measure();timeline.append(log,clock);version++;}});});
  const sample=$derived.by(()=>{void version;return timeline?.sample(time??clock)??{game,frame:null,elapsed:0,progress:1,effect:1,busy:false};});
  // Keep the table's state identity stable between event transitions. A ticking
  // presentation clock must not restart the table's automatic phase timers.
@@ -42,9 +42,12 @@
   return a;
  }
  // Capture the existing DOM before the reducer's new state is painted; measure destinations after it.
- let measuredKey='';
+ let measuredKey='',settledAnchors:Anchors={};
  $effect.pre(()=>{const key=frame?.key??'',captureKey=`${uid}:${key}`,revision=sample.game.revision;if(!root)return;untrack(()=>{
-  if(captureKey!==measuredKey){anchors=measure();oldHand=[...root.querySelectorAll<HTMLElement>('[data-fan-card]')].map(n=>n.dataset.fanCard!);measuredKey=captureKey;}
+  if(!frame&&captureKey!==measuredKey){settledAnchors=measure();}
+  if(captureKey!==measuredKey){anchors={...settledAnchors,...measure()};const before=frame?.before.players.find(p=>p.id===uid)?.hand,after=frame?.after.players.find(p=>p.id===uid)?.hand;
+   const changed=before&&after&&(before.length!==after.length||before.some(card=>!after.includes(card)));
+   oldHand=changed?[...before].sort((a,b)=>cards[a].suit.localeCompare(cards[b].suit)||cards[a].rank-cards[b].rank):null;measuredKey=captureKey;}
   void tick().then(()=>{if(!frame||frame.key!==key)return;const after=measure(),m=frame.motion,source=anchors;const seat=(id:string|undefined)=>source[`seat:${id}`]??after[`seat:${id}`]??after.centre;const hand=(id:string|undefined,c:string|undefined,a:Anchors)=>a[`hand:${id}:${c}`]??seat(id);
    anchors={...source,...after,'actor-seat':seat(m.actor),'target-seat':seat(m.target),'actor-hand':source['actor-hand']??hand(m.actor,m.given??m.played,source),'target-hand':source['target-hand']??hand(m.target,m.received??m.played,source),'received-hand':hand(m.actor,m.received,after),'given-target':hand(m.target,m.given,after),'returned-hand':hand(m.target,m.returned,after),'trick-original':source[`trick:${m.returned}`]??after.centre,'trick-slot':after[`trick:${m.played}`]??after.centre,'new-public':after[`public:${m.revealed[0]}`]??seat(m.target)};
    m.inspected.forEach((_,i)=>anchors[`inspection-${i}`]={...after.centre,x:root.clientWidth/2+(i-(m.inspected.length-1)/2)*(after.centre.width+10)-after.centre.width/2});

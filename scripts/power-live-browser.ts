@@ -32,8 +32,18 @@ try{
  const flights=pages.map(p=>p.evaluate(()=>new Promise<{x:number;y:number}>(resolve=>{
   function watch(){const n=document.querySelector('.power-fx-card[data-power-card="play"]');if(n){const r=n.getBoundingClientRect();resolve({x:r.x+r.width/2,y:r.y+r.height/2});}else requestAnimationFrame(watch);}watch();
  })));
+ // A hovered spectator card must keep its pose throughout someone else's
+ // flight. Capture every animation frame, rather than just its endpoints.
+ const observer=pages[2];await observer.locator('.fan-card').last().dispatchEvent('pointerenter');
+ await observer.waitForTimeout(250);
+ const steadyHand=observer.evaluate(()=>new Promise<{moved:boolean;reflowed:boolean}>(resolve=>{
+  const snapshot=()=>[...document.querySelectorAll<HTMLElement>('.fan-card')].map(n=>{const b=n.getBoundingClientRect();return [n.dataset.fanCard,b.x,b.y,b.width,b.height];});
+  const before=JSON.stringify(snapshot()),started=performance.now();let moved=false,reflowed=false;
+  function sample(){moved ||= JSON.stringify(snapshot())!==before;reflowed ||= !!document.querySelector('.fan-card.reflowing');if(performance.now()-started<1400)requestAnimationFrame(sample);else resolve({moved,reflowed});}sample();
+ }));
  await candidate.evaluate((n:HTMLButtonElement)=>n.click());
  const starts=await Promise.all(flights);
  for(let i=0;i<3;i++){const source=sources[i]!;expect(Math.hypot(starts[i].x-source.x-source.width/2,starts[i].y-source.y-source.height/2)).toBeLessThan(25);}
+ const stability=await steadyHand;expect(stability.moved).toBe(false);expect(stability.reflowed).toBe(false);
  if(errors.length)throw Error(errors.join('\n'));console.log('Live /play: three independent authenticated seats received a committed Valefor exchange; same presenter, private faces, no historical bell on load, and input resumed.',id);
 }finally{await browser.close();}
