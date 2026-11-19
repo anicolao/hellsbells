@@ -1,0 +1,99 @@
+{
+  "players": 4,
+  "cohort": "easy",
+  "namespace": "hellsbells-multi-heldout-v1-4-easy",
+  "games": 900,
+  "wins": 853,
+  "ties": 17,
+  "uniqueWinRate": 0.9477777777777778,
+  "wilson95": [
+    0.9312461519410625,
+    0.9605030218079661
+  ],
+  "meanPoints": 2.3455555555555554,
+  "seats": [
+    {
+      "games": 225,
+      "wins": 210,
+      "ties": 7
+    },
+    {
+      "games": 225,
+      "wins": 215,
+      "ties": 4
+    },
+    {
+      "games": 225,
+      "wins": 213,
+      "ties": 4
+    },
+    {
+      "games": 225,
+      "wins": 215,
+      "ties": 2
+    }
+  ],
+  "samples": 128,
+  "models": [
+    {
+      "role": "bid",
+      "path": "models/rl-v3-4-bid.json",
+      "sha256": "4b197b8b2ddd7ca5e4a23204ace896fa04ff3d21c411172f9ccea3072e360b5f"
+    },
+    {
+      "role": "discard",
+      "path": "models/rl-v3-4-discard.json",
+      "sha256": "c350c0c2dc752654a7a2f69b5f3b48ef5c5a724b3cff14becce42caef0b0f8df"
+    },
+    {
+      "role": "strategy",
+      "path": "models/rl-v3-4-strategy.json",
+      "sha256": "e47152e9c7cec08e1d7149d760616c7abe4dad30944244621afdf4a0c500e90c"
+    }
+  ],
+  "sources": [
+    {
+      "path": "src/lib/engine/engine.ts",
+      "sha256": "65999600cb3d570d89a10eb2527e5e9196b22a6e30a7e9e3c644dffb523b655e"
+    },
+    {
+      "path": "src/lib/engine/bot.ts",
+      "sha256": "502d8b6c9580b5cb7eef893d680d16cda85164ed7bf7384d59a2f0b13d015cf0"
+    },
+    {
+      "path": "src/lib/engine/rl/network.ts",
+      "sha256": "ff80a6e3b1691d49f41be26c5d41f855a2cd96ee477aef149a888511a3bb5471"
+    },
+    {
+      "path": "src/lib/engine/rl/discard.ts",
+      "sha256": "3547d066123a814e41673c94cef6b304452fd6462f4f8ac486f2c76b3fc9076b"
+    },
+    {
+      "path": "src/lib/engine/rl/policy.ts",
+      "sha256": "7e079b7feefe3a1521cec22d3a39a4f15f9caa345f551cd891ccc0418c0401a7"
+    },
+    {
+      "path": "src/lib/engine/rl/search-v3.ts",
+      "sha256": "7465152435703142ec56b11c0e6e55f438b42093d1f7e7ccbb1a766402137365"
+    },
+    {
+      "path": "src/lib/engine/rl/tactics.ts",
+      "sha256": "6a9ef0150f0fb854528279bea349529ccc043f604d76618c1aced73b27c261ac"
+    },
+    {
+      "path": "src/lib/engine/rl/transfer.ts",
+      "sha256": "d79b251ffff6beb6c6bd6297bf01d3a6418277f29ec7e9838ba45f8e43e77a5e"
+    },
+    {
+      "path": "scripts/rl/multi-common.ts",
+      "sha256": "5dfc26744fa9a2c60061dd774554ebda8f563850c48efacb4c14ca75c7786c37"
+    },
+    {
+      "path": "scripts/rl/league.ts",
+      "sha256": "20a7f54ba7c5a87691d4da958f5644eee49abca3d22c8a76951de8bc7eeccd30"
+    }
+  ],
+  "sourceRevision": "06ee0700efecd9a1a713542b208784ef169d26e6",
+  "opponents": "registered easy bots",
+  "winCriterion": "sole lowest final score; shared wins excluded"
+}
