@@ -1,5 +1,5 @@
 export type Phase='lobby'|'draft'|'magician'|'discard'|'arcana'|'prebid'|'bid'|'adjust'|'play'|'after'|'round-end'|'ended';
-export type Player={id:string;name:string;bot:boolean;botPolicy?:'easy'|'rl-v1'|'rl-v2';options:number[];imp:number;hand:string[];discard:string[];reserved:string|null;bid:number|null;won:number;score:number;penalties:number[];recoveries:number[];used:boolean;adjusted:boolean;choice:string|null;done:boolean};
+export type Player={id:string;name:string;bot:boolean;botPolicy?:'easy'|'rl-v1'|'rl-v2'|'rl-v3';options:number[];imp:number;hand:string[];discard:string[];reserved:string|null;bid:number|null;won:number;score:number;penalties:number[];recoveries:number[];used:boolean;adjusted:boolean;choice:string|null;done:boolean};
 export type Play={player:string;card:string;concealed:boolean};
 export type Pending={owner:string;index:number;original:string;returnTo:string;concealed:boolean;led:string|null};
 export type Inspection={viewer:string;target:string;cards:string[]};
