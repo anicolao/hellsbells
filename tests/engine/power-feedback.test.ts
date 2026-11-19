@@ -25,3 +25,13 @@ test('recall and forced draw wait for their own events',()=>{
 });
 test('Bael reveal is a separate real completed-trick event',()=>{const d=makePowerScene(3,5),t=new PresentationTimeline(d.before);t.append(d.events);const reveal=t.frames.find(f=>f.motion.kind==='reveal')!;expect(reveal).toBeDefined();expect(reveal.event.id).not.toBe(d.events[0].id);expect(reveal.motion.bell).toBe(false);expect(reveal.after.phase).toBe('after');});
 test('live append queues behind the current effect without replaying history',()=>{const d=makePowerScene(6,3),t=new PresentationTimeline(d.before);expect(t.sample(0).busy).toBe(false);t.append([d.events[0]],500);const end=t.end;t.append(d.events.slice(1),600);expect(t.frames[1].start).toBe(end);t.prune(t.end);expect(t.frames).toHaveLength(0);expect(t.sample(t.end).game).toEqual(t.latest);});
+test('forced draws originate at the viewer’s hand and opponents’ imps',()=>{
+ const d=makePowerScene(6,3),t=new PresentationTimeline(d.before);t.append(d.events);
+ const f=t.frames.find(f=>f.motion.kind==='draw')!;
+ const hand={x:300,y:600,width:150,height:240},seat={x:900,y:100,width:80,height:128};
+ const a={...anchors,'target-hand':hand,'target-seat':seat};
+ const own=powerSprites(f,.30,f.motion.target!,a).find(s=>s.key==='draw')!;
+ const peer=powerSprites(f,.30,f.motion.actor,a).find(s=>s.key==='draw')!;
+ expect(own.box.x).toBe(hand.x);expect(own.box.y).toBe(hand.y);
+ expect(peer.box.x).toBe(seat.x);expect(peer.box.y).toBe(seat.y);
+});

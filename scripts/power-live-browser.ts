@@ -24,5 +24,16 @@ try{
  // The production table's automatic collection timer must keep advancing
  // while the presenter's animation clock ticks.
  await Promise.all(pages.map(p=>expect(p.locator('.game-table')).toHaveAttribute('data-phase','play',{timeout:8000})));
+ // Observe the first paint of a real play, from each seat, before the flight
+ // has travelled. The owner's source must be its hand; peers use its imp.
+ const candidate=host.locator('.hand-card .card-control:not(.disabled) button').first();
+ const cardId=await candidate.evaluate(n=>(n.closest('[data-fan-card]') as HTMLElement).dataset.fanCard!);
+ const sources=await Promise.all(pages.map((p,i)=>p.locator(i===0?`[data-fan-card="${cardId}"] .game-card`:`.opponent[data-seat="${identities[0].uid}"] .opponent-portrait .game-card`).boundingBox()));
+ const flights=pages.map(p=>p.evaluate(()=>new Promise<{x:number;y:number}>(resolve=>{
+  function watch(){const n=document.querySelector('.power-fx-card[data-power-card="play"]');if(n){const r=n.getBoundingClientRect();resolve({x:r.x+r.width/2,y:r.y+r.height/2});}else requestAnimationFrame(watch);}watch();
+ })));
+ await candidate.evaluate((n:HTMLButtonElement)=>n.click());
+ const starts=await Promise.all(flights);
+ for(let i=0;i<3;i++){const source=sources[i]!;expect(Math.hypot(starts[i].x-source.x-source.width/2,starts[i].y-source.y-source.height/2)).toBeLessThan(25);}
  if(errors.length)throw Error(errors.join('\n'));console.log('Live /play: three independent authenticated seats received a committed Valefor exchange; same presenter, private faces, no historical bell on load, and input resumed.',id);
 }finally{await browser.close();}

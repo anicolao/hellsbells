@@ -12,8 +12,8 @@ export function powerSprites(frame:PresentationFrame,f:number,viewer:string,a:An
  function flight(key:string,card:string|undefined,from:string,to:string,start=0,end=.69,back=false,arc=40,flip=0){if(!card||f<start||f>end||!a[from]||!a[to])return;const t=portion(f,start,end);result.push({key,card,back,box:travel(a[from],a[to],t,arc),angle:(a[from].angle??0)*(1-ease(t))+(a[to].angle??0)*ease(t)+Math.sin(t*Math.PI)*5,flip});}
  if(m.kind==='reveal'){m.revealed.forEach((card,i)=>{const t=portion(f,.08+i*.04,.75),box=a[`trick:${card}`]??a.centre;result.push({key:card,card,back:t<.5,box,angle:0,flip:turnAngle(t)});});return result;}
  if(m.kind==='draw'){
-  const base=a['target-seat'];if(base&&f<.34)for(let i=0;i<4;i++){const spread=Math.sin(portion(f,0,.34)*Math.PI);result.push({key:`shuffle-${i}`,card:m.played!,back:true,box:{...base,x:base.x+(i-1.5)*8*spread,y:base.y-8*spread},angle:(i-1.5)*11*spread,flip:0});}
-  flight('draw',m.played,'target-seat','trick-slot',.30,.75,m.concealed,55);return result;
+  const origin=viewer===m.target?'target-hand':'target-seat',base=a[origin];if(base&&f<.34)for(let i=0;i<4;i++){const spread=Math.sin(portion(f,0,.34)*Math.PI);result.push({key:`shuffle-${i}`,card:m.played!,back:true,box:{...base,x:base.x+(i-1.5)*8*spread,y:base.y-8*spread},angle:(i-1.5)*11*spread,flip:0});}
+  flight('draw',m.played,origin,'trick-slot',.30,.75,m.concealed,55);return result;
  }
  if(m.kind==='replacement'){flight('replacement',m.played,'target-hand','trick-slot',0,.69,m.concealed,50);return result;}
  if(m.kind==='play'){flight('play',m.played,'actor-hand','trick-slot',0,.69,m.concealed,45);return result;}
