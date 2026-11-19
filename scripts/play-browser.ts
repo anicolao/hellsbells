@@ -1,4 +1,4 @@
-import {chromium} from '@playwright/test';
+import {chromium,expect} from '@playwright/test';
 import {mkdir} from 'node:fs/promises';
 const browser=await chromium.launch({headless:true,executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE??'/Users/anicolao/Library/Caches/ms-playwright/chromium-1254/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing'});
 const context=await browser.newContext({viewport:{width:1440,height:1100}});const page=await context.newPage();const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
@@ -20,5 +20,5 @@ try{
   if(phase==='round-end'){const ready=page.getByRole('button',{name:'Ready for next round',exact:true});if(await ready.count()&&await ready.isEnabled())await ready.click({timeout:1500});}
   if(i===2999)throw Error('Game did not complete');}catch(e){if(!(e instanceof Error)||!e.message.includes('Timeout'))throw e;}await page.waitForTimeout(130);
  }
- await page.screenshot({path:'tmp/qa/play/final.png'});await page.reload();await page.locator('.game-table').waitFor();await page.screenshot({path:'tmp/qa/play/resumed.png'});await page.setViewportSize({width:390,height:844});await page.screenshot({path:'tmp/qa/play/mobile.png'});if(errors.length)throw Error(JSON.stringify(errors));console.log('Full game and persistence checked',page.url());
+ await page.locator('.flying-card').waitFor({state:'hidden'});await page.locator('.collecting-card').first().waitFor({state:'hidden'});const completedUrl=page.url();console.log('Completed table URL',completedUrl);await expect(page).toHaveURL(/\/play\/\?game=[A-F0-9]{8}$/);await page.screenshot({path:'tmp/qa/play/final.png'});await page.reload();await expect(page).toHaveURL(completedUrl);await page.locator('.game-table').waitFor();await page.screenshot({path:'tmp/qa/play/resumed.png'});await page.setViewportSize({width:390,height:844});await page.screenshot({path:'tmp/qa/play/mobile.png'});if(errors.length)throw Error(JSON.stringify(errors));console.log('Full game and persistence checked',page.url());
 }catch(e){await page.screenshot({path:'tmp/qa/play/failure.png'});console.log((await page.locator('body').innerText()).slice(-1800));throw e;}finally{await browser.close();}
