@@ -117,3 +117,11 @@ body:has(.animation-lab){overflow:hidden}.animation-lab{overflow:hidden}
  .game-table .opponent-tricks{width:28px;align-self:center}
  .game-table .own-imp.has-seat-marker{--seat-marker-size:clamp(14px,calc(var(--setup-area-height) - 82px),36px)}
 }
+
+/* Public cards remain attached to the seat that currently holds them. */
+.play-shell .game-table:has(.opponent>.revealed-hand){--revealed-row:116px;grid-template-rows:auto calc(clamp(84px,calc(var(--table-height)*.16),150px) + var(--revealed-row)) minmax(0,1fr) minmax(0,1fr)}
+.game-table .opponent.has-revealed{padding-bottom:var(--revealed-row);box-sizing:border-box}
+.opponent>.revealed-hand{position:absolute;left:0;bottom:0;height:var(--revealed-row)}
+.own-player-status>.revealed-hand{width:100%;max-width:190px}
+@media(max-width:800px){.play-shell .game-table:has(.opponent>.revealed-hand){--revealed-row:88px;grid-template-rows:auto calc(clamp(76px,calc(var(--table-height)*.17),120px) + var(--revealed-row)) minmax(0,1fr) minmax(0,1fr)}}
+@media(max-height:600px){.play-shell .game-table:has(.opponent>.revealed-hand){--revealed-row:56px;grid-template-rows:auto calc(clamp(30px,calc(var(--table-height)*.15),70px) + var(--revealed-row)) minmax(0,1fr) minmax(0,1fr)}.opponent>.revealed-hand{--reveal-size:30px!important}}

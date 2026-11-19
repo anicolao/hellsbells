@@ -96,7 +96,7 @@ After winning a trick, choose another player to lead the next trick. Ownership o
 
 #### Andromalius — Caught Red-Handed
 
-After every trick you win, you may expose one random available card from an opponent’s remaining hand. It stays face up until played, even if exchanged. This power is repeatable.
+After every trick you win, you may expose one random, previously unexposed available card from an opponent’s remaining hand. It stays face up until played, even if exchanged. This power is repeatable.
 
 ### Replacement interactions
 

@@ -34,7 +34,8 @@
     "rl:report:v3": "bun scripts/rl/report-multi.ts",
     "test:interactions": "bun scripts/interaction-browser.ts",
     "test:seating": "bun scripts/seating-browser.ts",
-    "test:join": "bun scripts/join-browser.ts"
+    "test:join": "bun scripts/join-browser.ts",
+    "test:exposure": "bun scripts/exposure-browser.ts"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "5.2.8",

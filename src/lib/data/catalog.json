@@ -76,7 +76,7 @@
       "id": "imp-9",
       "name": "Andromalius",
       "power": "Caught Red-Handed",
-      "rule": "After every trick you win, you may expose one random available card from an opponent’s remaining hand. It stays face up until played, even if exchanged. This power is repeatable.",
+      "rule": "After every trick you win, you may expose one random, previously unexposed available card from an opponent’s remaining hand. It stays face up until played, even if exchanged. This power is repeatable.",
       "art": 9,
       "kind": "imp"
     }

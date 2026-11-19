@@ -3,7 +3,7 @@
  import {base} from '$app/paths';
  import {imps,arcana,minor,type GameCard as Card} from '$lib/data/game';
  import type {State,Command,Player} from '$lib/engine/types';
- import {cards,available,player,allowedBids,bidMax} from '$lib/engine/engine';
+ import {revealOptions,cards,available,player,allowedBids,bidMax} from '$lib/engine/engine';
  import {nextActor} from '$lib/engine/bot';
  import GameCard from '../GameCard.svelte';
  import CardControl from './CardControl.svelte';
@@ -12,6 +12,7 @@
  import SeatMarkers from './SeatMarkers.svelte';
  import CollectTrick from './CollectTrick.svelte';
  import FlyingCard from './FlyingCard.svelte';
+ import RevealedCards from './RevealedCards.svelte';
  import HandFan from './HandFan.svelte';
  import {clockwiseOpponents,beforePlayPower,playableHandCards,setupDecision,handDecisionKey,handAcceptsInput,seereCanLead,seereLeadCards,decisionDuration,decisionStages,displayedWon,collectionLanding,cardPlayDuration,flightEnd,type CardBox,remainingBalance,adjustments,afterPower,automaticCommand,transitionDuration,collectionPose} from './presentation';
  import ContractToken from './ContractToken.svelte';
@@ -94,14 +95,15 @@
  else if(armed&&game.phase==='play'&&me.imp===6)act({type:'shax',target:p.id});
  else if(armed&&game.phase==='after')act({type:'power',target:p.id,...(selection[0]?{card:selection[0]}:{})});}
  function roundPick(){if(game.phase==='lobby')act({type:'start'});else if(game.phase==='discard'&&selection.length===game.round)act({type:'discard',cards:selection});else if(['magician','arcana'].includes(game.phase))act({type:'arcana',...(selection[0]?{card:selection[0]}:{})});else if(game.phase==='prebid')act({type:'prebid'});else if(game.phase==='round-end'&&!me.done)act({type:'continue',value:1});}
- function powerReady(){if(game.pending)return false;if(game.phase==='play')return beforePlayPower(game,uid);return !me.used&&((game.phase==='prebid'&&myTurn&&me.imp===7)||afterPower(game,uid))||game.phase==='after'&&game.winner===uid&&me.imp===9&&!game.afterRevealed;}
+ function powerReady(){if(game.pending)return false;if(game.phase==='play')return beforePlayPower(game,uid);return !me.used&&((game.phase==='prebid'&&myTurn&&me.imp===7)||afterPower(game,uid))||game.phase==='after'&&game.winner===uid&&me.imp===9&&afterPower(game,uid);}
  const stageDone=$derived(game.phase==='discard'&&me.done||game.phase==='draft'&&me.imp>=0||game.phase==='bid'&&me.bid!==null||game.phase==='adjust'&&(me.done||game.standing[uid]!==Math.max(...Object.values(game.standing))));
 </script>
 <div bind:this={tableElement} bind:clientHeight={tableHeight} bind:clientWidth={tableWidth} style:--table-height={`${tableHeight}px`} style:--setup-area-height={`${playAreaHeight}px`} style:--play-card-width={`${cardSize}px`} style:--trick-overlap={`${trickOverlap}px`} style:--trick-gap={`${trickGap}px`} class="game-table" class:waiting={busy} class:auto-transition={!!automatic} class:has-decision={game.phase==='after'&&!automatic} class:playing-trick={game.phase==='play'||game.phase==='after'} class:decision-trick={compactTrick} style:--decision-shrink={decisionMotion.shrink} style:--decision-reveal={decisionMotion.reveal} style:--motion={moving} data-phase={game.phase} data-arcana={game.arcana}>
  <div class="table-topline"><span>ROUND {game.round||'—'} / 5</span><a href={`${base}/play/?game=${roomId}`} title="Share this table">{roomId}</a><div class="trick-status"><span>{game.phase==='play'||game.phase==='after'?`TRICK ${game.trickNumber} / ${game.physical}`:'HELL’S BELLS'}</span>{#if ['play','after','adjust'].includes(game.phase)}{@const balance=remainingBalance(game)}<span class="bid-balance" aria-label={`${balance.label}: ${balance.needed} tricks still needed for bids, ${balance.tricks} tricks left`}>{balance.label} · {balance.tricks} LEFT</span>{/if}</div></div>
- <div class="opponent-rail" role="group" aria-label="Opponents in clockwise order from your seat">{#each opponents as p,i (p.id)}<div data-clockwise-offset={i+1} data-seat={p.id} data-bot-policy={p.botPolicy??'human'} class="opponent" class:active={game.turn===p.id}>
- <div class="opponent-portrait"><CardControl card={imps[p.imp>=0?p.imp:0]} back={p.imp<0} disabled={busy||!!queuedLead||playProgress<1||!decisionReady} label={`Choose ${p.name}`} onpick={()=>target(p)}/></div><div class="seat-caption"><b>{p.name}{#if p.bot&&p.botPolicy&&p.botPolicy!=='easy'}<small class="bot-kind">TRAINED</small>{/if}</b><div class="seat-score"><span class="seat-points">{p.score} <small>POINTS</small></span><SeatMarkers name={p.name} dealer={game.dealer===p.id} leader={game.leader===p.id} show={showSeatMarkers} reserve/></div></div>
+ <div class="opponent-rail" role="group" aria-label="Opponents in clockwise order from your seat">{#each opponents as p,i (p.id)}<div data-clockwise-offset={i+1} data-seat={p.id} data-bot-policy={p.botPolicy??'human'} class="opponent" class:has-revealed={p.hand.some(id=>game.exposed.includes(id))} class:active={game.turn===p.id}>
+ <div class="opponent-portrait"><CardControl card={imps[p.imp>=0?p.imp:0]} back={p.imp<0} disabled={busy||!!queuedLead||playProgress<1||!decisionReady||armed&&game.phase==='after'&&me.imp===9&&!revealOptions(game,p).length} label={`Choose ${p.name}`} onpick={()=>target(p)}/></div><div class="seat-caption"><b>{p.name}{#if p.bot&&p.botPolicy&&p.botPolicy!=='easy'}<small class="bot-kind">TRAINED</small>{/if}</b><div class="seat-score"><span class="seat-points">{p.score} <small>POINTS</small></span><SeatMarkers name={p.name} dealer={game.dealer===p.id} leader={game.leader===p.id} show={showSeatMarkers} reserve/></div></div>
  {#if game.round>0}<div class="opponent-tricks"><TrickStack playerId={p.id} name={p.name} won={won(p.id)} bid={visibleBid(p)} landed={collecting&&game.winner===p.id&&moving>=collectionLanding}/></div>{/if}
+ <RevealedCards owner={p.name} playerId={p.id} hand={p.hand} exposed={game.exposed}/>
  </div>{/each}
  {#if game.phase==='lobby'&&game.owner===uid}{#each Array(Math.max(0,game.capacity-game.players.length)) as _,i}<div class="empty-seat"><span>♬</span><small>OPEN SEAT</small></div>{/each}{/if}</div>
  <div class="table-middle" bind:clientHeight={playAreaHeight}>
@@ -126,12 +128,12 @@
  {:else if (game.phase==='round-end'||game.phase==='ended')}<ScoreHistory {game} {uid} {labReady} {labReadyPlayer}/>{#if game.phase==='round-end'}<div class="next-round-card ready-deck"><CardControl card={arcana[game.round===4?15:game.arcana]} back selected={me.done} disabled={busy||me.done} label={me.done?'You are ready':'Ready for next round'} onpick={roundPick}/><span>{game.players.every(p=>p.done)?'EVERYONE READY':me.done?'WAITING FOR THE OTHER IMPS':'READY FOR NEXT ROUND'}</span></div>{:else}<a data-sveltekit-reload class="new-table" href={`${base}/play/`}>Return to the belfry ↗</a>{/if}
  {/if}
  </section>
- {#if me.imp>=0}<aside class="own-imp" class:has-seat-marker={ownSeatMarker} data-seat={uid}><div class="imp-portrait"><CardControl card={imps[me.imp]} selected={armed} disabled={!powerReady()||busy||!!queuedLead||!decisionReady} label={`Use ${imps[me.imp].power}`} onpick={()=>armed=!armed}/><span>{me.used&&me.imp!==9?'POWER SPENT':armed?'POWER READY':imps[me.imp].power}</span></div>{#if game.round>0}<div class="own-player-status"><b class="own-name">{me.name}</b><div class="own-tricks"><TrickStack playerId={uid} name={me.name} won={won(uid)} bid={visibleBid(me)} landed={collecting&&game.winner===uid&&moving>=collectionLanding}/></div><span class="own-points">{me.score} <small>POINTS</small></span><SeatMarkers name={me.name} dealer={game.dealer===uid} leader={game.leader===uid} show={showSeatMarkers} reserve/></div>{/if}</aside>{/if}
+ {#if me.imp>=0}<aside class="own-imp" class:has-seat-marker={ownSeatMarker} data-seat={uid}><div class="imp-portrait"><CardControl card={imps[me.imp]} selected={armed} disabled={!powerReady()||busy||!!queuedLead||!decisionReady} label={`Use ${imps[me.imp].power}`} onpick={()=>armed=!armed}/><span>{me.used&&me.imp!==9?'POWER SPENT':armed?'POWER READY':imps[me.imp].power}</span></div>{#if game.round>0}<div class="own-player-status"><b class="own-name">{me.name}</b><div class="own-tricks"><TrickStack playerId={uid} name={me.name} won={won(uid)} bid={visibleBid(me)} landed={collecting&&game.winner===uid&&moving>=collectionLanding}/></div><span class="own-points">{me.score} <small>POINTS</small></span><RevealedCards owner={me.name} playerId={me.id} hand={me.hand} exposed={game.exposed}/><SeatMarkers name={me.name} dealer={game.dealer===uid} leader={game.leader===uid} show={showSeatMarkers} reserve/></div>{/if}</aside>{/if}
  </div>
  {#if armed}<p class="power-cue">{me.imp===5?'Choose an earlier card':me.imp===6||game.phase==='after'||game.phase==='prebid'?'Choose an opponent':'Play a card with your power'}</p>{/if}
  <HandFan preview={!(['magician','arcana'].includes(game.phase)&&!myTurn)} {cardSize} {previousHand} {playProgress} compact={game.phase==='after'&&!automatic} {hand} {selection} reserved={me.reserved} disabled={id=>busy||!!queuedLead||playProgress<1||!handAcceptsInput(game,uid,armed)||(mayLead&&!legal.includes(id))||(game.phase==='play'&&(!myTurn||!legal.includes(id)))} onpick={pickCard}/>
  {#if game.inspections.some(i=>i.viewer===uid)&&stowedVision!==`${game.round}:${game.inspections.filter(i=>i.viewer===uid).length}`}{@const vision=game.inspections.filter(i=>i.viewer===uid).at(-1)!}<div class="vision"><span>SEEN · {player(game,vision.target).name}</span>{#each vision.cards as id}<div><CardControl card={cards[id]} label="Stow inspected cards" onpick={()=>stowedVision=`${game.round}:${game.inspections.filter(i=>i.viewer===uid).length}`}/></div>{/each}</div>{/if}
  {#if collecting&&collection}<CollectTrick sources={collection.sources} target={collection.target} progress={moving}/>{/if}
  {#if flight}<FlyingCard card={cards[flight.card]} from={flight.from} to={flight.to} back={flight.back} progress={playProgress}/>{/if}
- <div class="public-cards">{#each game.exposed.filter(id=>game.players.some(p=>p.id!==uid&&p.hand.includes(id))) as id}<div><GameCard card={cards[id]}/></div>{/each}</div>
+
 </div>

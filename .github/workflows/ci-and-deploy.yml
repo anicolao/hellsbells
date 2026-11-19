@@ -30,7 +30,7 @@ jobs:
         timeout-minutes: 8
         run: |
           VITE_USE_FIREBASE_EMULATORS=true VITE_BOT_DELAY_MS=90 nix develop --command bun run dev -- --port 5201 > /tmp/hellsbells-dev.log 2>&1 &
-          nix develop --command firebase emulators:exec --project demo-hellsbells --only auth,firestore "bun run test:play && bun run test:animations && bun run test:rl-play && bun run test:setup && bun run test:interactions && bun run test:seating && bun run test:join"
+          nix develop --command firebase emulators:exec --project demo-hellsbells --only auth,firestore "bun run test:play && bun run test:animations && bun run test:rl-play && bun run test:setup && bun run test:interactions && bun run test:seating && bun run test:join && bun run test:exposure"
         env:
           PLAY_URL: http://127.0.0.1:5201/play/
           LAB_URL: http://127.0.0.1:5201/dev/animations
