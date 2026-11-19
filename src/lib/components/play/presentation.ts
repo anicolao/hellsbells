@@ -8,6 +8,7 @@ export function automaticCommand(s:State,id:string):Command|null{
  const p=player(s,id);
  if(s.phase==='prebid'&&(p.imp!==7||p.used||!s.players.some(q=>q.id!==id&&q.hand.length)))return {type:'prebid'};
  if(s.phase==='arcana'&&s.arcana===15&&s.standing[id]!==Math.max(...Object.values(s.standing)))return {type:'arcana'};
+ if(s.phase==='play'&&!s.pending&&s.forced.includes(id))return {type:'play'};
  if(s.phase==='after'&&!adjustments(s,id).length&&!afterPower(s,id))return {type:'continue'};
  return null;
 }
@@ -53,7 +54,7 @@ export function handAcceptsInput(s:State,id:string,armed=false):boolean{
  const p=player(s,id);
  if(s.phase==='discard')return !p.done;
  if(s.phase==='magician'||s.phase==='arcana')return s.turn===id&&[0,1,9].includes(s.arcana);
- if(s.phase==='play')return s.turn===id;
+ if(s.phase==='play')return s.turn===id&&(!!s.pending||!s.forced.includes(id));
  return seereCanLead(s,id)||s.phase==='after'&&s.winner===id&&armed&&p.imp===1&&!p.used;
 }
 

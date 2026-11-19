@@ -2,6 +2,7 @@ import {startRound,apply,eventFor} from '$lib/engine/engine';
 import {botCommand,nextActor} from '$lib/engine/bot';
 import type {State,Command} from '$lib/engine/types';
 export const scenarios=[
+ {id:'shax',name:'Shax · automatic random play',hint:'The forced player has no hand input. Scrub the random draw, then advance to see the actual card fly into the trick. Add ?scenario=shax&realtime=1 for automatic playback.'},
  {id:'discard',name:'Discards · preserve your selection',hint:'Select two cards, then use Resolve another player. Your selection survives their discard and is cleared only after you submit yours.'},
  {id:'magician-wait',name:'Magician · waiting for your turn',hint:'Hand cards stay inactive while another player resolves the effect. They cannot look selected or queue a hidden choice.'},
  {id:'magician',name:'Magician · deliberate exchange',hint:'The round card is information only. Select a hand card and use the central pile to exchange, or explicitly keep your hand.'},
@@ -26,6 +27,7 @@ export function fixture(kind:string,count=3):State{if(kind==='score-history'||ki
  step('you',{type:'create',name:'You',capacity:count,seed:'animation-lab-4'});for(let i=1;i<count;i++)step(`seat-${i}`,{type:'join',name:['Belial','Paimon','Vassago','Orobas'][i-1]});step('you',{type:'start'});
  for(let i=0;i<1000&&s!.phase!=='play';i++){const actor=nextActor(s!)!;step(actor,botCommand(s!,actor));}
  const state=s!;state.players.forEach((p,i)=>{p.imp=i===0?2:0;p.used=false;});
+ if(kind==='shax'){state.phase='play';state.turn='you';state.leader='you';state.forced=['you'];return state;}
  if(kind==='discard'){state.round=1;startRound(state,10);return state;}
  if(kind==='magician'||kind==='magician-wait'){state.phase='magician';state.arcana=1;state.turn=kind==='magician-wait'?'seat-1':'you';for(const p of state.players){p.hand.push(...p.discard);p.discard=[];p.done=false;p.bid=null;}return state;}
  if(kind==='prebid'||kind==='balam'){state.phase='prebid';state.turn='you';state.players.forEach(p=>{p.bid=null;p.done=false;});if(kind==='balam')state.players[0].imp=7;}
