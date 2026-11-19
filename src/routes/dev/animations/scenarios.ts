@@ -3,12 +3,12 @@ import {botCommand,nextActor} from '$lib/engine/bot';
 import type {State,Command} from '$lib/engine/types';
 export const scenarios=[
  {id:'hand-wait',name:'Inspect your hand · waiting to play',hint:'Your hand is read-only while another player acts, but hovering still lifts cards so you can read them. Clicks never select or play them.'},
- {id:'shax-power',name:'Shax · keep an eligible imp decision',hint:'Your card is random, but Bael is still available. Use your imp then draw, or draw without it. Hand cards are never choices.'},
+ {id:'shax-power',name:'Shax · keep an eligible imp decision',hint:'An opponent has used Shax and led. Your card is random, but Bael is still available. Use your imp then draw, or draw without it. Hand cards are never choices.'},
  {id:'shax-recall',name:'Shax → Agares · replacement by choice',hint:'Agares has returned your random Shax card. Choose a different legal replacement; normal follow-suit restrictions apply.'},
  {id:'priestess',name:'High Priestess · inspect or explicitly decline',hint:'Choose an opponent’s imp to inspect. The pile explicitly declines the inspection; round artwork cannot pass it.'},
  {id:'hermit',name:'Hermit · reserve or explicitly decline',hint:'Select a card to reserve, or explicitly decline the reservation. The pile names the action it will take.'},
  {id:'fool',name:'Fool · exchange or explicitly decline',hint:'Select a card to exchange, or explicitly decline. The round card never submits the choice.'},
- {id:'shax',name:'Shax · automatic random play',hint:'The forced player has no hand input. Scrub the random draw, then advance to see the actual card fly into the trick. Add ?scenario=shax&realtime=1 for automatic playback.'},
+ {id:'shax',name:'Shax · automatic random play',hint:'An opponent has used Shax and led; you have Balam, with no on-play power. The forced player has no hand input. Scrub the random draw, then advance to see the actual card fly into the trick. Add ?scenario=shax&realtime=1 for automatic playback.'},
  {id:'discard',name:'Discards · preserve your selection',hint:'Select two cards, then use Resolve another player. Your selection survives their discard and is cleared only after you submit yours.'},
  {id:'magician-wait',name:'Magician · waiting for your turn',hint:'Hand cards stay inactive while another player resolves the effect. They cannot look selected or queue a hidden choice.'},
  {id:'magician',name:'Magician · deliberate exchange',hint:'The round card is information only. Select a hand card and use the central pile to exchange, or explicitly keep your hand.'},
@@ -36,7 +36,7 @@ export function fixture(kind:string,count=3):State{if(kind==='score-history'||ki
  if(['priestess','hermit','fool'].includes(kind)){state.phase='arcana';state.arcana=kind==='priestess'?2:kind==='hermit'?9:0;state.turn='you';state.players.forEach(p=>p.done=false);return state;}
  if(kind==='hand-wait'){state.phase='play';state.turn='seat-1';state.leader='seat-1';return state;}
  if(kind==='shax-recall'){state.phase='play';state.arcana=1;const shax=state.players.at(-1)!,agares=state.players[1];shax.imp=6;agares.imp=5;state.turn=shax.id;state.leader=shax.id;step(shax.id,{type:'shax',target:'you'});const lead=shax.hand.find(c=>state.players[0].hand.filter(x=>cards[x].suit===cards[c].suit).length>=2)!;step(shax.id,{type:'play',card:lead});step('you',{type:'play'});step(agares.id,{type:'recall',card:s!.trick.find(p=>p.player==='you')!.card});return s!;}
- if(kind==='shax'||kind==='shax-power'){if(kind==='shax-power')state.players[0].imp=3;state.phase='play';state.turn='you';state.leader='you';state.forced=['you'];return state;}
+ if(kind==='shax'||kind==='shax-power'){const shax=state.players.at(-1)!;state.players.forEach((p,i)=>p.imp=i===0?(kind==='shax-power'?3:7):p.id===shax.id?6:[4,1,9][i-1]);state.phase='play';state.arcana=1;state.turn=shax.id;state.leader=shax.id;step(shax.id,{type:'shax',target:'you'});step(shax.id,{type:'play',card:shax.hand[0]});return s!;}
  if(kind==='discard'){state.round=1;startRound(state,10);return state;}
  if(kind==='magician'||kind==='magician-wait'){state.phase='magician';state.arcana=1;state.turn=kind==='magician-wait'?'seat-1':'you';for(const p of state.players){p.hand.push(...p.discard);p.discard=[];p.done=false;p.bid=null;}return state;}
  if(kind==='prebid'||kind==='balam'){state.phase='prebid';state.turn='you';state.players.forEach(p=>{p.bid=null;p.done=false;});if(kind==='balam')state.players[0].imp=7;}
