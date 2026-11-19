@@ -119,9 +119,26 @@ body:has(.animation-lab){overflow:hidden}.animation-lab{overflow:hidden}
 }
 
 /* Public cards remain attached to the seat that currently holds them. */
-.play-shell .game-table:has(.opponent>.revealed-hand){--revealed-row:116px;grid-template-rows:auto calc(clamp(84px,calc(var(--table-height)*.16),150px) + var(--revealed-row)) minmax(0,1fr) minmax(0,1fr)}
-.game-table .opponent.has-revealed{padding-bottom:var(--revealed-row);box-sizing:border-box}
+.play-shell .game-table{--opponent-row:clamp(84px,calc(var(--table-height)*.16),150px);--own-revealed-row:76px}
+.play-shell .game-table:has(.opponent>.revealed-hand){--revealed-row:116px;--opponent-row:calc(clamp(84px,calc(var(--table-height)*.16),150px) + var(--revealed-row))}
+.game-table:has(.opponent>.revealed-hand) .opponent{padding-bottom:var(--revealed-row);box-sizing:border-box}
 .opponent>.revealed-hand{position:absolute;left:0;bottom:0;height:var(--revealed-row)}
-.own-player-status>.revealed-hand{width:100%;max-width:190px}
-@media(max-width:800px){.play-shell .game-table:has(.opponent>.revealed-hand){--revealed-row:88px;grid-template-rows:auto calc(clamp(76px,calc(var(--table-height)*.17),120px) + var(--revealed-row)) minmax(0,1fr) minmax(0,1fr)}}
-@media(max-height:600px){.play-shell .game-table:has(.opponent>.revealed-hand){--revealed-row:56px;grid-template-rows:auto calc(clamp(30px,calc(var(--table-height)*.15),70px) + var(--revealed-row)) minmax(0,1fr) minmax(0,1fr)}.opponent>.revealed-hand{--reveal-size:30px!important}}
+.play-shell .game-table:has(>.own-reveals){grid-template-rows:auto var(--opponent-row) minmax(0,1fr) var(--own-revealed-row) minmax(0,1fr)}
+.game-table>.own-reveals{grid-column:1;grid-row:4;display:flex;justify-content:flex-end;min-height:0}
+.own-reveals>.revealed-hand{width:min(220px,34vw)}
+.game-table:has(>.own-reveals)>.hand-fan{grid-row:5}
+.opponent:has(.revealed-card:focus),.opponent:has(.revealed-card:hover){z-index:25}
+@media(max-width:800px){
+ .play-shell .game-table{--opponent-row:clamp(76px,calc(var(--table-height)*.17),120px)}
+ .play-shell .game-table:has(.opponent>.revealed-hand){--revealed-row:88px;--opponent-row:calc(clamp(76px,calc(var(--table-height)*.17),120px) + var(--revealed-row))}
+}
+@media(max-height:600px){
+ .play-shell .game-table{--opponent-row:clamp(30px,calc(var(--table-height)*.15),70px);--own-revealed-row:56px}
+ .play-shell .game-table:has(.opponent>.revealed-hand){--revealed-row:56px;--opponent-row:calc(clamp(30px,calc(var(--table-height)*.15),70px) + var(--revealed-row))}
+ .game-table:has(.opponent>.revealed-hand):not(:has(>.own-reveals)){grid-template-rows:auto var(--opponent-row) minmax(0,1fr) minmax(0,1fr)}
+ .game-table .revealed-hand{--reveal-size:28px!important}
+}
+
+.play-shell .game-table:has(.opponent>.revealed-hand):not(:has(>.own-reveals)){grid-template-rows:auto var(--opponent-row) minmax(0,1fr) minmax(0,1fr)}
+.revealed-hand:has(.revealed-card:hover),.revealed-hand:has(.revealed-card:focus){z-index:200}
+.own-reveals:has(.revealed-card:hover),.own-reveals:has(.revealed-card:focus){position:relative;z-index:200}

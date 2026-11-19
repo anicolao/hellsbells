@@ -1,16 +1,16 @@
 <script lang="ts">
  import {cards} from '$lib/engine/engine';
  import GameCard from '../GameCard.svelte';
- let {owner,playerId,hand,exposed}:{owner:string;playerId:string;hand:string[];exposed:string[]}=$props();
+ let {owner,playerId,hand,exposed,maxSize=64}:{owner:string;playerId:string;hand:string[];exposed:string[];maxSize?:number}=$props();
  const revealed=$derived(hand.filter(id=>exposed.includes(id)).sort((a,b)=>cards[a].suit.localeCompare(cards[b].suit)||cards[a].rank-cards[b].rank));
  let width=$state(160);
- const size=$derived(Math.min(64,Math.max(30,width*.55)));
+ const size=$derived(Math.min(maxSize,Math.max(30,width*.55)));
  const spacing=$derived(revealed.length>1?Math.min(size*.66,(width-size)/Math.max(1,revealed.length-1)):0);
 </script>
 {#if revealed.length}
  <div class="revealed-hand" bind:clientWidth={width} style:--reveal-size={`${size}px`} role="group" aria-label={`${owner}’s exposed cards · visible to everyone`} data-revealed-owner={playerId}>
   {#each revealed as id,i (id)}
-   <button type="button" class="revealed-card" style:left={`calc(50% + ${(i-(revealed.length-1)/2)*spacing}px)`} style:z-index={i+1} style:transform-origin={`${revealed.length>1?i/(revealed.length-1)*100:50}% top`} aria-label={`${cards[id].name} · exposed in ${owner}’s hand`} title={`${owner} · ${cards[id].name} · visible to everyone`} data-exposed-card={id}>
+   <button type="button" class="revealed-card" onclick={e=>e.currentTarget.focus({preventScroll:true})} style:left={`calc(50% + ${(i-(revealed.length-1)/2)*spacing}px)`} style:z-index={i+1} style:transform-origin={`${revealed.length>1?i/(revealed.length-1)*100:50}% top`} aria-label={`${cards[id].name} · exposed in ${owner}’s hand`} title={`${owner} · ${cards[id].name} · visible to everyone`} data-exposed-card={id}>
     <GameCard card={cards[id]}/>
    </button>
   {/each}
