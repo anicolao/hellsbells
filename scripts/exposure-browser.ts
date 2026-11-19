@@ -16,6 +16,8 @@ try{
    const tableBox=await page.locator('.game-table').boundingBox();for(const card of await page.locator('.hand-fan .game-card').all()){const r=await card.boundingBox();if(!r||!tableBox||r.y+r.height>tableBox.y+tableBox.height+1)throw Error('Hand card is hidden behind the lab controls');}
    if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth||document.documentElement.scrollHeight>innerHeight))throw Error('Exposure layout scrolls');
    if(seat<2)await page.screenshot({path:`tmp/qa/exposure/${count}-seat${seat}-${viewport.width}.png`});
+   const geometry=()=>page.locator('.table-middle,.hand-fan,.hand-fan .game-card,.opponent').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return [r.x,r.y,r.width,r.height];}));
+   const withCards=await geometry();await page.getByRole('button',{name:'Hide exposed cards',exact:true}).click();await settled();expect(await geometry()).toEqual(withCards);await page.getByRole('button',{name:'Reset',exact:true}).click();await settled();
   }
  }
  await page.setViewportSize({width:1440,height:1000});await page.goto(`${root}?scenario=andromalius&players=3`);await page.locator('[data-ready=true]').waitFor();await page.getByRole('slider',{name:'Animation timeline'}).fill('1');await page.getByRole('button',{name:'Use Caught Red-Handed',exact:true}).click();
