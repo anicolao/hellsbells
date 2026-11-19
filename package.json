@@ -25,7 +25,8 @@
     "rl:train:league": "bun scripts/rl/train-league.ts",
     "rl:train:tactics": "bun scripts/rl/train-tactics.ts",
     "rl:verify:v2": "bun scripts/rl/verify-league.ts",
-    "rl:train:planner": "bun scripts/rl/train-planner.ts"
+    "rl:train:planner": "bun scripts/rl/train-planner.ts",
+    "test:setup": "bun scripts/setup-browser.ts"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "5.2.8",
