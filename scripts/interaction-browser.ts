@@ -12,5 +12,6 @@ try{
  await page.locator('.round-area .game-card').click();await expect(page.locator('.fan-card .selected')).toHaveCount(1);await expect(page.locator('.game-table')).toHaveAttribute('data-phase','magician');
  await page.locator('.decision-pile button').click();await expect(page.locator('.decision-pile')).toHaveCount(0);await expect(page.locator('.game-table')).toHaveAttribute('data-phase','magician');
  await page.screenshot({path:'tmp/qa/interactions/magician.png'});
+ await scene('magician-wait');await expect(page.locator('.fan-card button:enabled')).toHaveCount(0);await page.locator('.fan-card').last().hover();await expect(page.locator('.fan-card.raised')).toHaveCount(0);await expect(page.locator('.table-prompt')).toContainText('Belial is resolving The Magician');
  if(errors.length)throw Error(errors.join('\n'));console.log('Round artwork cannot submit or decline a decision; explicit exchange remains functional.');
 }catch(error){await page.screenshot({path:'tmp/qa/interactions/failure.png'});throw error;}finally{await browser.close();}

@@ -47,3 +47,12 @@ export function readyPose(progress:number){const t=Math.max(0,Math.min(1,progres
 
 export function seereCanLead(s:State,id:string){const p=player(s,id);return s.phase==='after'&&s.winner===id&&p.imp===8&&!p.used&&s.trickNumber<s.physical&&!s.nextLeader;}
 export function seereLeadCards(s:State,id:string){if(!seereCanLead(s,id))return [];return legalCards(apply(s,eventFor(s,id,{type:'continue'})),id);}
+
+/** Only offer hand controls when a click has a defined action. */
+export function handAcceptsInput(s:State,id:string,armed=false):boolean{
+ const p=player(s,id);
+ if(s.phase==='discard')return !p.done;
+ if(s.phase==='magician'||s.phase==='arcana')return s.turn===id&&[0,1,9].includes(s.arcana);
+ if(s.phase==='play')return s.turn===id;
+ return seereCanLead(s,id)||s.phase==='after'&&s.winner===id&&armed&&p.imp===1&&!p.used;
+}
