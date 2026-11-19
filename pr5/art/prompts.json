@@ -1,0 +1,13 @@
+{
+  "generator": "Built-in image_gen",
+  "assets": [
+    {
+      "file": "static/art/belfry.png",
+      "prompt": "Use case: illustration-story. Asset type: wide hero illustration for Hell's Bells, a playful sophisticated tarot trick-taking tabletop rulebook. Landscape 3:2. A small mischievous vermilion horned imp in an oversized dark coat stands on a precarious tower of old books ringing a huge suspended ornate brass bell, two tiny imps below playing tarot at a round table, curling charcoal smoke and little stars, ink-black gothic belfry in the distance. High-end editorial storybook illustration, hand-inked etched contours, textured gouache and antique lithograph on warm pale parchment, limited vermilion, ochre brass, charcoal and dusty cream. Whimsical and charming rather than frightening. Strong clear silhouette, expressive faces, exquisite material texture. Composition bell and imp on right two thirds, left third quieter cream background. No text, no letters, no watermark, no modern objects."
+    },
+    {
+      "file": "static/art/imps.png",
+      "prompt": "Use case: illustration-story. Asset type: character portrait atlas for a tarot card game. Exactly 5 columns and 2 rows of equally sized portrait panels, edge to edge, no gutters, total landscape image. Ten distinct charming little horned imps, one centered bust per panel, comfortably within its panel. Top row left to right: musician imp holding violin; thief imp holding a stolen gold coin; storm imp with lightning; invisible imp wrapped in ghostly cloak; scholarly mind-reader imp with spectacles. Bottom row left to right: wandering imp with walking staff; trickster imp tossing a die; seer imp with a crystal ball; swift imp with tiny wings; investigator imp with magnifying glass. Each distinct personality and silhouette, no extra faces. Antique engraved ink and textured gouache storybook illustration, parchment backgrounds, muted crimson, ochre brass, charcoal, dusty teal, delicate hatching. Sophisticated and whimsical, consistent light and scale. No text, no letters, no borders, no watermark. Each panel self-contained with no overlap."
+    }
+  ]
+}
