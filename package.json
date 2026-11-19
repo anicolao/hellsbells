@@ -35,7 +35,8 @@
     "test:interactions": "bun scripts/interaction-browser.ts",
     "test:seating": "bun scripts/seating-browser.ts",
     "test:join": "bun scripts/join-browser.ts",
-    "test:exposure": "bun scripts/exposure-browser.ts"
+    "test:exposure": "bun scripts/exposure-browser.ts",
+    "test:powers": "bun scripts/power-feedback-browser.ts && bun scripts/power-live-browser.ts"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "5.2.8",

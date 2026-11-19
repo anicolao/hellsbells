@@ -16,6 +16,12 @@
  export async function unlockAudio(){await audio.unlock();}
  $effect(()=>{const log=events,latest=game,seed=initial;untrack(()=>{if(!timeline||seed&&timeline.seed!==seed&&time!==null){timeline=new PresentationTimeline(seed??latest);if(seed)timeline.append(log);version++;}else{timeline.append(log,clock);version++;}});});
  const sample=$derived.by(()=>{void version;return timeline?.sample(time??clock)??{game,frame:null,elapsed:0,progress:1,effect:1,busy:false};});
+ // Keep the table's state identity stable between event transitions. A ticking
+ // presentation clock must not restart the table's automatic phase timers.
+ const displayedGame=$derived(sample.game);
+ const feedbackActive=$derived(sample.busy);
+ const tableBusy=$derived(busy||feedbackActive||time!==null);
+ function dispatch(command:Command){if(!sample.busy&&sample.game.revision===game.revision)send(command);}
  const frame=$derived(sample.frame),motion=$derived(frame?.motion);
  const sprites=$derived(frame?powerSprites(frame,sample.effect,uid,anchors):[]);
  const announce=$derived(motion?.bell?Math.min(portion(sample.elapsed,0,120),1-portion(sample.elapsed,700,bellDuration)):0);
@@ -47,7 +53,7 @@
  onMount(()=>{let raf=0;const start=performance.now();function step(now:number){clock=now-start;raf=requestAnimationFrame(step);}raf=requestAnimationFrame(step);const unlock=()=>void audio.unlock().catch(()=>{});document.addEventListener('pointerdown',unlock);document.addEventListener('keydown',unlock);return()=>{cancelAnimationFrame(raf);audio.dispose();document.removeEventListener('pointerdown',unlock);document.removeEventListener('keydown',unlock);};});
 </script>
 <div class="game-presentation" bind:this={root} data-power={motion?.imp} data-animation={motion?.kind} data-presenting={sample.busy}>
- <Table game={sample.game} {uid} {roomId} busy={busy||sample.busy||time!==null} send={c=>{if(!sample.busy&&sample.game.revision===game.revision)send(c);}} feedbackActive={sample.busy} feedbackHand={sample.busy?oldHand:null} feedbackProgress={sample.effect} concealedCards={frame?.mask??[]}/>
+ <Table game={displayedGame} {uid} {roomId} busy={tableBusy} send={dispatch} {feedbackActive} feedbackHand={sample.busy?oldHand:null} feedbackProgress={sample.effect} concealedCards={frame?.mask??[]}/>
  {#if announce>0&&motion}<div class="bell-announcement" style:opacity={announce} role="status"><img src={`${base}/art/cards/power-token.webp`} alt="" style:transform={`rotate(${Math.sin(sample.elapsed/48)*15*Math.exp(-sample.elapsed/420)}deg)`}/><strong>{imps[motion.imp].name}</strong><span>{sample.game.players.find(p=>p.id===motion.actor)?.name}</span></div>{/if}
  <div class="effect-cards" aria-hidden="true">{#each sprites as s (s.key)}<div class="power-fx-card" data-face={s.back?'back':'front'} data-power-card={s.key} style:left={`${s.box.x}px`} style:top={`${s.box.y}px`} style:width={`${s.box.width}px`} style:height={`${s.box.height}px`} style:transform={`rotate(${s.angle}deg) rotateY(${s.flip}deg)`}><GameCard card={cards[s.card]} back={s.back}/></div>{/each}</div>
  {#if motion&&sample.effect>0&&sample.effect<1}

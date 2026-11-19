@@ -21,5 +21,8 @@ try{
  await expect(pages[2].locator('.power-fx-card[data-face=back]')).toHaveCount(2);await expect(pages[2].locator('.power-fx-card[data-face=front]')).toHaveCount(0);
  await Promise.all(pages.map(p=>expect(p.locator('.game-presentation')).toHaveAttribute('data-presenting','false',{timeout:7000})));
  await expect(host.locator(`[data-fan-card="${given}"]:not(.ghost)`)).toHaveCount(0);
+ // The production table's automatic collection timer must keep advancing
+ // while the presenter's animation clock ticks.
+ await Promise.all(pages.map(p=>expect(p.locator('.game-table')).toHaveAttribute('data-phase','play',{timeout:8000})));
  if(errors.length)throw Error(errors.join('\n'));console.log('Live /play: three independent authenticated seats received a committed Valefor exchange; same presenter, private faces, no historical bell on load, and input resumed.',id);
 }finally{await browser.close();}
