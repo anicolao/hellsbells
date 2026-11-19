@@ -63,3 +63,13 @@ export function handDecisionKey(s:State,id:string):string{
  const p=player(s,id);
  return JSON.stringify([id,s.round,s.phase,s.arcana,s.phase==='discard'?null:s.turn,s.trickNumber,s.winner,p.hand,p.reserved,p.done,p.used,p.adjusted,p.bid,s.pending,s.afterRevealed]);
 }
+
+/** Name the effect being submitted, including the cost of passing it. */
+export function setupDecision(s:State,selection:string[]){
+ if(s.phase==='discard')return {label:'Discard selected cards',caption:`DISCARD ${s.round} ${s.round===1?'CARD':'CARDS'}`};
+ if(s.phase==='prebid')return {label:'Decline Balam’s power',caption:'DECLINE BALAM’S POWER'};
+ const effect=s.arcana===1?'The Magician':s.arcana===0?'The Fool':s.arcana===9?'The Hermit':'The High Priestess';
+ if(s.arcana===2)return {label:`Decline ${effect}’s inspection`,caption:'DECLINE INSPECTION'};
+ if(s.arcana===9)return selection.length?{label:'Reserve selected card',caption:'RESERVE SELECTED CARD'}:{label:`Decline ${effect}’s reservation`,caption:'DECLINE RESERVATION'};
+ return selection.length?{label:'Exchange selected card',caption:'EXCHANGE SELECTED CARD'}:{label:`Decline ${effect}’s exchange`,caption:'DECLINE EXCHANGE'};
+}
