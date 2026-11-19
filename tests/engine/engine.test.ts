@@ -67,3 +67,26 @@ describe('derived public suit knowledge',()=>{
  test('Bael exchanges invalidate both participants suit knowledge',()=>{let s=after(1,8);s.voids={a:['Pentacles'],b:['Pentacles'],c:['Pentacles']};s=step(s,'a',{type:'power',target:'b',card:s.players[0].hand[0]});expect(s.voids).toEqual({a:[],b:[],c:['Pentacles']});});
  test('knowledge resets each round and before the Hermit reserved card becomes available',()=>{let s=after(3,9);s.voids={b:['Wands']};s.trickNumber=s.physical-1;s=step(s,'a',{type:'continue'});expect(s.voids).toEqual({});s.voids={b:['Wands']};startRound(s,8);expect(s.voids).toEqual({});});
 });
+
+describe('Andromalius reveals without replacement',()=>{
+ test('each new win exposes another card from the same hand, then rejects an exhausted target',()=>{
+  let s=after(9);const total=s.players[1].hand.length;
+  for(let i=0;i<total;i++){s.phase='after';s.winner='a';s.turn='a';s.afterRevealed=false;const event=eventFor(s,'a',{type:'power',target:'b'});expect(event.command.value).toBe(1);s=apply(s,event);expect(s.exposed).toHaveLength(i+1);expect(new Set(s.exposed).size).toBe(i+1);expect(()=>step(s,'a',{type:'power',target:'b'})).toThrow();}
+  s.afterRevealed=false;const before=JSON.stringify(s);expect(()=>step(s,'a',{type:'power',target:'b'})).toThrow('no unrevealed');expect(JSON.stringify(s)).toBe(before);
+ });
+ test('reserved cards stay excluded and exposed knowledge follows exchanged cards',()=>{
+  let s=after(9,9);s.players[1].reserved=s.players[1].hand[0];s.exposed=s.players[1].hand.slice(1);expect(()=>step(s,'a',{type:'power',target:'b'})).toThrow('no unrevealed');
+  s.trickNumber=s.physical;s=step(s,'a',{type:'power',target:'b'});expect(s.exposed).toContain(s.players[1].reserved!);
+  const moved=s.players[1].hand.pop()!;s.players[2].hand.push(moved);s.afterRevealed=false;s.players[2].hand=[moved];expect(()=>step(s,'a',{type:'power',target:'c'})).toThrow('no unrevealed');
+ });
+ test('exposure persists through a real Valefor exchange and cannot be selected again from the new owner',()=>{
+  let s=after(1);const known=s.players[1].hand[0];s.players[1].hand=[known];s.exposed=[known];
+  s=step(s,'a',{type:'power',target:'b',card:s.players[0].hand[0]});expect(s.players[0].hand).toContain(known);expect(s.players[1].hand).not.toContain(known);expect(s.exposed).toContain(known);
+  s.players[2].imp=9;s.phase='after';s.winner='c';s.turn='c';s.afterRevealed=false;s.players[0].hand=[known];expect(()=>step(s,'c',{type:'power',target:'a'})).toThrow('no unrevealed');
+ });
+ test('unmarked historical activations preserve their original random draw and RNG',()=>{
+  let s=after(9);s.exposed=[...s.players[1].hand];const oldRng=s.rng;const expectedRng=(Math.imul(oldRng,1664525)+1013904223)>>>0;
+  const event=eventFor(s,'a',{type:'power',target:'b'});delete event.command.value;
+  const next=apply(s,event);expect(next.exposed).toEqual(s.exposed);expect(next.rng).toBe(expectedRng);expect(next.afterRevealed).toBe(true);
+ });
+});

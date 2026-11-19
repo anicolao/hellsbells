@@ -9,6 +9,7 @@ export function player(s:State,id:string){const p=s.players.find(p=>p.id===id);r
 export function clockwise(s:State,id:string){return s.players[(s.players.findIndex(p=>p.id===id)+1)%s.players.length].id;}
 export function order(s:State,from=s.dealer){const a:string[]=[];let id=from;for(let i=0;i<s.players.length;i++){id=clockwise(s,id);a.push(id);}return a;}
 export function available(s:State,p:Player){return p.hand.filter(id=>id!==p.reserved||s.trickNumber===s.physical);}
+export function revealOptions(s:State,p:Player){return available(s,p).filter(card=>!s.exposed.includes(card));}
 export function trump(s:State){return roundCards[s.arcana].suit;}
 export function bidMax(s:State){return s.physical+(s.arcana===13?1:0);}
 function newPlayer(id:string,name:string,bot=false):Player{return {id,name,bot,options:[],imp:-1,hand:[],discard:[],reserved:null,bid:null,won:0,score:0,penalties:[],recoveries:[],used:false,adjusted:false,choice:null,done:false};}
@@ -81,7 +82,8 @@ export function apply(previous:State|undefined,event:Event):State{
  if(p.imp===1){requireRule(c.card&&available(s,p).includes(c.card)&&available(s,opponent).length,'Choose an available exchange');const other=available(s,opponent)[random(s,available(s,opponent).length)];p.hand[p.hand.indexOf(c.card)]=other;opponent.hand[opponent.hand.indexOf(other)]=c.card;if(s.voids){s.voids[id]=[];s.voids[target]=[];}}
  else if(p.imp===4)inspect(s,id,target,2);
  else if(p.imp===8){requireRule(s.trickNumber<s.physical,'No next trick');s.nextLeader=target;}
- else if(p.imp===9){const options=available(s,opponent);if(options.length){const exposed=options[random(s,options.length)];if(!s.exposed.includes(exposed))s.exposed.push(exposed);}}
+ // value:1 selects without replacement; unmarked historical events keep their original RNG outcomes.
+ else if(p.imp===9){const options=c.value===1?revealOptions(s,opponent):available(s,opponent);if(c.value===1)requireRule(options.length,'That player has no unrevealed available cards');if(options.length){const exposed=options[random(s,options.length)];if(!s.exposed.includes(exposed))s.exposed.push(exposed);}}
  else throw Error('No after-win power');p.used=true;s.afterRevealed=true;}
  // value:1 records per-seat readiness; unvalued continuations preserve existing transcripts.
  else if(c.type==='continue'){if(s.phase==='after'){requireRule(s.winner===id,'Winner continues');if(c.card)requireRule(p.imp===8&&!p.used&&s.trickNumber<s.physical&&!s.nextLeader,'Cannot lead while passing this power');if(s.trickNumber===s.physical)scoreRound(s);else{s.trickNumber++;if(s.arcana===9&&s.trickNumber===s.physical)s.voids={};beginTrick(s);if(c.card)return apply(s,{...event,command:{type:'play',card:c.card,royal:c.royal,low:c.low}});}}else if(s.phase==='round-end'){if(c.value!==undefined){requireRule(c.value===1,'Invalid readiness signal');requireRule(!p.done,'Already ready');p.done=true;}if(c.value===undefined){const best=Math.min(...s.players.map(p=>p.score));s.dealer=order(s).find(id=>player(s,id).score===best)!;startRound(s);}}else throw Error('Cannot continue now');}
@@ -90,5 +92,5 @@ export function apply(previous:State|undefined,event:Event):State{
  s.revision=event.sequence;return s;
 }
 export function replay(events:Event[]){return events.reduce<State|undefined>((s,e)=>apply(s,e),undefined);}
-export function eventFor(s:State|undefined,actor:string,command:Command,id='command'):Event{return {version:1,sequence:(s?.revision??0)+1,actor,command,id};}
+export function eventFor(s:State|undefined,actor:string,command:Command,id='command'):Event{if(command.type==='power'&&s?.players.find(p=>p.id===actor)?.imp===9&&command.value===undefined)command={...command,value:1};return {version:1,sequence:(s?.revision??0)+1,actor,command,id};}
 export function allowedBids(s:State,id:string){return Array.from({length:bidMax(s)+1},(_,i)=>i).filter(value=>s.arcana===18||id!==s.dealer||s.players.reduce((sum,p)=>sum+(p.bid??0),0)+value!==bidMax(s));}

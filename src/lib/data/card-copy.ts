@@ -9,7 +9,7 @@ export const cardCopy: Record<string, string> = {
   'imp-6': 'On your turn, choose an opponent still to play. They play a random card, ignoring card-choice restrictions.',
   'imp-7': 'Before bidding, secretly inspect three random cards from an opponent’s hand.',
   'imp-8': 'After winning a trick, choose another player to lead the next trick.',
-  'imp-9': 'After each trick you win, expose one random card from an opponent’s hand. It stays visible until played.',
+  'imp-9': 'After each trick you win, expose one random unrevealed card from an opponent’s hand. It stays visible until played.',
   'arcana-0': 'After discarding, each player may discard one more card and draw a random reserve card.',
   'arcana-1': 'Before discarding, each player may exchange one chosen hand card for a random reserve card.',
   'arcana-2': 'Before bidding, each player may secretly inspect two random cards from another player’s hand.',
