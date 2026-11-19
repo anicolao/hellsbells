@@ -2,7 +2,7 @@
  import {cards} from '$lib/engine/engine';
  import {fanPose,playStages} from './presentation';
  import CardControl from './CardControl.svelte';
- let {hand,selection=[],reserved=null,disabled=()=>false,onpick,compact=false,previousHand=null,playProgress=1,cardSize=null}:{cardSize?:number|null;previousHand?:string[]|null;playProgress?:number;compact?:boolean;hand:string[];selection?:string[];reserved?:string|null;disabled?:(id:string)=>boolean;onpick:(id:string)=>void}=$props();
+ let {preview=true,hand,selection=[],reserved=null,disabled=()=>false,onpick,compact=false,previousHand=null,playProgress=1,cardSize=null}:{preview?:boolean;cardSize?:number|null;previousHand?:string[]|null;playProgress?:number;compact?:boolean;hand:string[];selection?:string[];reserved?:string|null;disabled?:(id:string)=>boolean;onpick:(id:string)=>void}=$props();
  let width=$state(900),height=$state(900),active=$state('');
  const cardWidth=$derived(cardSize??Math.min(compact?130:175,Math.max(80,width*.23),height*(height<600?.13:.19)));
  const shown=$derived(previousHand&&playProgress<1?previousHand:hand);
@@ -12,7 +12,7 @@
 <svelte:window bind:innerHeight={height}/>
 <div class="hand-fan" bind:clientWidth={width} style:--card-width={`${cardWidth}px`} style:height={`${cardWidth*1.6+52}px`} role="group" aria-label="Your hand">
  {#each shown as id,i (id)}{@const before=fanPose(previousHand?.indexOf(id)??i,previousHand?.length??hand.length,width,cardWidth)}{@const after=fanPose(hand.indexOf(id),hand.length,width,cardWidth)}{@const x=before.x+(after.x-before.x)*reflow}{@const angle=before.angle+(after.angle-before.angle)*reflow}{@const dip=before.dip+(after.dip-before.dip)*reflow}
- <div role="group" aria-label={cards[id].name} class="fan-card hand-card" data-fan-card={id} class:ghost={!hand.includes(id)} aria-hidden={!hand.includes(id)} class:reflowing={!!previousHand&&playProgress<1} class:raised={active===id&&!previousHand&&!disabled(id)} class:reserved={reserved===id} style:left={`calc(50% + ${x}px)`} style:--angle={`${angle}deg`} style:--dip={`${dip}px`} style:z-index={active===id?100:i+1} onpointerenter={()=>active=id} onpointerleave={()=>active=''} onfocusin={()=>active=id} onfocusout={()=>active=''}>
+ <div role="group" aria-label={cards[id].name} class="fan-card hand-card" data-fan-card={id} class:ghost={!hand.includes(id)} aria-hidden={!hand.includes(id)} class:reflowing={!!previousHand&&playProgress<1} class:raised={active===id&&!previousHand&&preview} class:reserved={reserved===id} style:left={`calc(50% + ${x}px)`} style:--angle={`${angle}deg`} style:--dip={`${dip}px`} style:z-index={active===id?100:i+1} onpointerenter={()=>active=id} onpointerleave={()=>active=''} onfocusin={()=>active=id} onfocusout={()=>active=''}>
  <CardControl card={cards[id]} selected={selection.includes(id)} drag disabled={!hand.includes(id)||disabled(id)} onpick={()=>onpick(id)}/>
  </div>{/each}
 </div>

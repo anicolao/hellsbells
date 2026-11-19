@@ -2,6 +2,7 @@ import {startRound,apply,eventFor,cards} from '$lib/engine/engine';
 import {botCommand,nextActor} from '$lib/engine/bot';
 import type {State,Command} from '$lib/engine/types';
 export const scenarios=[
+ {id:'hand-wait',name:'Inspect your hand · waiting to play',hint:'Your hand is read-only while another player acts, but hovering still lifts cards so you can read them. Clicks never select or play them.'},
  {id:'shax-power',name:'Shax · keep an eligible imp decision',hint:'Your card is random, but Bael is still available. Use your imp then draw, or draw without it. Hand cards are never choices.'},
  {id:'shax-recall',name:'Shax → Agares · replacement by choice',hint:'Agares has returned your random Shax card. Choose a different legal replacement; normal follow-suit restrictions apply.'},
  {id:'priestess',name:'High Priestess · inspect or explicitly decline',hint:'Choose an opponent’s imp to inspect. The pile explicitly declines the inspection; round artwork cannot pass it.'},
@@ -33,6 +34,7 @@ export function fixture(kind:string,count=3):State{if(kind==='score-history'||ki
  for(let i=0;i<1000&&s!.phase!=='play';i++){const actor=nextActor(s!)!;step(actor,botCommand(s!,actor));}
  const state=s!;state.players.forEach((p,i)=>{p.imp=i===0?2:0;p.used=false;});
  if(['priestess','hermit','fool'].includes(kind)){state.phase='arcana';state.arcana=kind==='priestess'?2:kind==='hermit'?9:0;state.turn='you';state.players.forEach(p=>p.done=false);return state;}
+ if(kind==='hand-wait'){state.phase='play';state.turn='seat-1';state.leader='seat-1';return state;}
  if(kind==='shax-recall'){state.phase='play';state.arcana=1;const shax=state.players.at(-1)!,agares=state.players[1];shax.imp=6;agares.imp=5;state.turn=shax.id;state.leader=shax.id;step(shax.id,{type:'shax',target:'you'});const lead=shax.hand.find(c=>state.players[0].hand.filter(x=>cards[x].suit===cards[c].suit).length>=2)!;step(shax.id,{type:'play',card:lead});step('you',{type:'play'});step(agares.id,{type:'recall',card:s!.trick.find(p=>p.player==='you')!.card});return s!;}
  if(kind==='shax'||kind==='shax-power'){if(kind==='shax-power')state.players[0].imp=3;state.phase='play';state.turn='you';state.leader='you';state.forced=['you'];return state;}
  if(kind==='discard'){state.round=1;startRound(state,10);return state;}
