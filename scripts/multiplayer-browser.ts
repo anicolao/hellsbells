@@ -4,8 +4,8 @@ const root=process.env.PLAY_URL??'http://127.0.0.1:5201/play/';
 const contexts=await Promise.all([0,1,2].map(()=>browser.newContext({viewport:{width:1440,height:1100}})));const pages=await Promise.all(contexts.map(c=>c.newPage()));
 try{
  for(const p of pages)p.setDefaultTimeout(1500);
- const host=pages[0];await host.goto(root);await host.waitForFunction(()=>!(document.querySelector('[aria-label="Create a table for friends"]') as HTMLButtonElement)?.disabled);await host.getByRole('button',{name:'Create a table for friends'}).click();await host.locator('.game-table').waitFor({timeout:30000});const invite=host.url();
- await Promise.all(pages.slice(1).map(p=>p.goto(invite)));await Promise.all(pages.slice(1).map(p=>p.locator('.game-table').waitFor()));await host.getByRole('button',{name:'Deal the game'}).click();
+ const host=pages[0];await host.goto(root);await host.getByRole('textbox',{name:'Your name'}).fill('Host');await host.waitForFunction(()=>!(document.querySelector('[aria-label="Create a table for friends"]') as HTMLButtonElement)?.disabled);await host.getByRole('button',{name:'Create a table for friends'}).click();await host.locator('.game-table').waitFor({timeout:30000});const invite=host.url();
+ await Promise.all(pages.slice(1).map(async(p,i)=>{await p.goto(invite);await p.getByRole('textbox',{name:'Your name'}).fill(`Guest ${i+1}`);await p.getByText('Take this seat ↗',{exact:true}).click();}));await Promise.all(pages.slice(1).map(p=>p.locator('.game-table').waitFor()));await host.getByRole('button',{name:'Deal the game'}).click();
  for(const p of pages){await p.locator('.draft-cards button').first().waitFor();await p.locator('.draft-cards button').first().click();}
  await Promise.all(pages.map(p=>p.waitForFunction(()=>document.querySelector('.game-table')?.getAttribute('data-phase')!=='draft')));
  for(let i=0;i<100;i++){

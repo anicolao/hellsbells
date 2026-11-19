@@ -4,7 +4,7 @@ import type {State,Event,Command} from '$lib/engine/types';
 export type Room={owner:string;members:string[];bots:string[];capacity:number;revision:number;phase:string;version:1};
 export const gamePath=(id:string)=>`games/${id}`;
 function metadata(s:State):Room{return {owner:s.owner,members:s.players.map(p=>p.id),bots:s.players.filter(p=>p.bot).map(p=>p.id),capacity:s.capacity,revision:s.revision,phase:s.phase,version:1};}
-export async function createGame(db:Firestore,uid:string,name:string,capacity=4){const id=crypto.randomUUID().slice(0,8).toUpperCase();const event=eventFor(undefined,uid,{type:'create',seed:crypto.randomUUID(),capacity,name},crypto.randomUUID());const state=apply(undefined,event);await runTransaction(db,async tx=>{const room=doc(db,gamePath(id));if((await tx.get(room)).exists())throw Error('Please deal again');tx.set(room,metadata(state));tx.set(doc(room,'events','1'),{...event,createdAt:serverTimestamp()});});return id;}
+export async function createGame(db:Firestore,uid:string,name:string,capacity=4,id=crypto.randomUUID().slice(0,8).toUpperCase()){if(!/^[A-F0-9]{8}$/.test(id))throw Error('Invalid table code');const event=eventFor(undefined,uid,{type:'create',seed:crypto.randomUUID(),capacity,name},crypto.randomUUID());const state=apply(undefined,event);await runTransaction(db,async tx=>{const room=doc(db,gamePath(id));const existing=await tx.get(room);if(existing.exists()){if(existing.data().owner===uid)return;throw Error('This table already belongs to someone else. Launch a new table.');}tx.set(room,metadata(state));tx.set(doc(room,'events','1'),{...event,createdAt:serverTimestamp()});});return id;}
 export async function joinGame(db:Firestore,uid:string,id:string,name:string){
  const room=doc(db,gamePath(id));
  for(let attempt=0;attempt<5;attempt++){
@@ -36,3 +36,9 @@ export async function append(db:Firestore,uid:string,id:string,state:State,actor
   }
  }
 }
+
+/** A guest arriving before the host waits without creating or claiming the table. */
+export function waitForGame(db:Firestore,id:string,ready:()=>void,error:(error:Error)=>void){
+ return onSnapshot(doc(db,gamePath(id)),snapshot=>{if(snapshot.exists())ready();},error);
+}
+export async function hasSeat(db:Firestore,uid:string,id:string){const room=await getDoc(doc(db,gamePath(id)));return room.exists()&&(room.data() as Room).members.includes(uid);}
