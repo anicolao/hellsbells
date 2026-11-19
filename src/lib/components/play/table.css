@@ -93,3 +93,27 @@ body:has(.animation-lab){overflow:hidden}.animation-lab{overflow:hidden}
 }
 .game-table .table-middle{grid-template-rows:minmax(0,1fr)}
 .game-table .forced-draw>span{margin-top:1px;line-height:1}
+/* Preserve the original centered seat spacing; markers use the available caption space. */
+.game-table .opponent-rail{--seat-marker-size:clamp(24px,calc(var(--table-height)*.16 - 48px),54px)}
+.game-table .opponent-tricks{display:block;width:58px}
+.seat-score{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:.8rem;color:#eed5a2}
+.seat-points{white-space:nowrap}.seat-points small{font-size:.5rem;margin-left:4px}
+.game-table .own-imp.has-seat-marker{--seat-marker-size:clamp(14px,calc(var(--setup-area-height) - 164px),54px)}
+.game-table .own-imp.has-seat-marker>.imp-portrait{max-width:min(160px,calc((var(--setup-area-height) - 24px)*.625))}
+@media(max-width:800px){
+ .game-table .opponent-rail{--seat-marker-size:clamp(14px,calc(var(--table-height)*.17 - 84px),32px)}
+ .game-table .seat-caption{display:contents}
+ .game-table .seat-caption>b{grid-column:1/-1;grid-row:1}
+ .game-table .seat-score{grid-column:2;grid-row:2;align-self:end;gap:3px;font-size:.5rem}
+ .seat-score .seat-points small{display:inline;font-size:.3rem;margin-left:1px}
+ .game-table .opponent-tricks{width:32px;align-self:start}
+ .game-table .own-imp.has-seat-marker{--seat-marker-size:36px}
+ .game-table .own-imp.has-seat-marker>.imp-portrait{max-width:min(62px,calc((var(--setup-area-height) - 24px)*.625))}
+}
+@media(max-height:600px){
+ .game-table .opponent-rail{--seat-marker-size:clamp(14px,calc(var(--table-height)*.15 - 32px),30px)}
+ .game-table .seat-caption{display:flex;flex-direction:column}
+ .game-table .seat-score{font-size:.5rem;gap:2px}
+ .game-table .opponent-tricks{width:28px;align-self:center}
+ .game-table .own-imp.has-seat-marker{--seat-marker-size:clamp(14px,calc(var(--setup-area-height) - 82px),36px)}
+}

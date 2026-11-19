@@ -2,6 +2,8 @@ import {startRound,apply,eventFor,cards} from '$lib/engine/engine';
 import {botCommand,nextActor} from '$lib/engine/bot';
 import type {State,Command} from '$lib/engine/types';
 export const scenarios=[
+ {id:'seating',name:'Clockwise seating · dealer and opening lead',hint:'Your hand is below the opponent row. Clockwise order runs from the leftmost opponent across to the rightmost and back to you. Change View from to check every seat; Next play follows the real turn order.'},
+ {id:'seating-later',name:'Clockwise seating · later trick',hint:'The dealer stays fixed and the lead marker follows the new trick leader. On small screens the markers disappear after the opening trick to leave the cards clear.'},
  {id:'hand-wait',name:'Inspect your hand · waiting to play',hint:'Your hand is read-only while another player acts, but hovering still lifts cards so you can read them. Clicks never select or play them.'},
  {id:'shax-power',name:'Shax · keep an eligible imp decision',hint:'An opponent has used Shax and led. Your card is random, but Bael is still available. Use your imp then draw, or draw without it. Hand cards are never choices.'},
  {id:'shax-recall',name:'Shax → Agares · replacement by choice',hint:'Agares has returned your random Shax card. Choose a different legal replacement; normal follow-suit restrictions apply.'},
@@ -33,6 +35,7 @@ export function fixture(kind:string,count=3):State{if(kind==='score-history'||ki
  step('you',{type:'create',name:'You',capacity:count,seed:'animation-lab-4'});for(let i=1;i<count;i++)step(`seat-${i}`,{type:'join',name:['Belial','Paimon','Vassago','Orobas'][i-1]});step('you',{type:'start'});
  for(let i=0;i<1000&&s!.phase!=='play';i++){const actor=nextActor(s!)!;step(actor,botCommand(s!,actor));}
  const state=s!;state.players.forEach((p,i)=>{p.imp=i===0?2:0;p.used=false;});
+ if(kind==='seating'||kind==='seating-later'){state.players.forEach((p,i)=>{p.imp=[7,6,3,4,0][i];p.name=['Alex','Andrew','Shelby','Charles','Morgan'][i];});if(kind==='seating-later'){for(let i=0;i<80&&s!.trickNumber<2;i++){const actor=nextActor(s!)!;step(actor,botCommand(s!,actor));}}return s!;}
  if(['priestess','hermit','fool'].includes(kind)){state.phase='arcana';state.arcana=kind==='priestess'?2:kind==='hermit'?9:0;state.turn='you';state.players.forEach(p=>p.done=false);return state;}
  if(kind==='hand-wait'){state.phase='play';state.turn='seat-1';state.leader='seat-1';return state;}
  if(kind==='shax-recall'){state.phase='play';state.arcana=1;const shax=state.players.at(-1)!,agares=state.players[1];shax.imp=6;agares.imp=5;state.turn=shax.id;state.leader=shax.id;step(shax.id,{type:'shax',target:'you'});const lead=shax.hand.find(c=>state.players[0].hand.filter(x=>cards[x].suit===cards[c].suit).length>=2)!;step(shax.id,{type:'play',card:lead});step('you',{type:'play'});step(agares.id,{type:'recall',card:s!.trick.find(p=>p.player==='you')!.card});return s!;}

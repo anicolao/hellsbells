@@ -88,3 +88,6 @@ export function beforePlayPower(s:State,id:string):boolean{
  if(p.imp===2||p.imp===5)return s.trick.length>0;
  return p.imp===6&&s.players.some(q=>q.id!==id&&!s.trick.some(play=>play.player===q.id));
 }
+
+/** Other seats run clockwise from the viewer, regardless of the host or dealer. */
+export function clockwiseOpponents(s:State,id:string){const index=s.players.findIndex(p=>p.id===id);if(index<0)throw Error('Unknown viewing seat');return Array.from({length:s.players.length-1},(_,i)=>s.players[(index+i+1)%s.players.length]);}
