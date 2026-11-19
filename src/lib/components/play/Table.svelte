@@ -12,7 +12,7 @@
  import CollectTrick from './CollectTrick.svelte';
  import FlyingCard from './FlyingCard.svelte';
  import HandFan from './HandFan.svelte';
- import {seereCanLead,seereLeadCards,decisionDuration,decisionStages,displayedWon,collectionLanding,cardPlayDuration,flightEnd,type CardBox,remainingBalance,adjustments,afterPower,automaticCommand,transitionDuration,collectionPose} from './presentation';
+ import {handAcceptsInput,seereCanLead,seereLeadCards,decisionDuration,decisionStages,displayedWon,collectionLanding,cardPlayDuration,flightEnd,type CardBox,remainingBalance,adjustments,afterPower,automaticCommand,transitionDuration,collectionPose} from './presentation';
  import ContractToken from './ContractToken.svelte';
  let {game,uid,busy,send,roomId,labProgress=null,onDecline,labArrival=null,labDecision=null,labReady=null,labReadyPlayer=null}:{game:State;uid:string;busy:boolean;send:(c:Command)=>void;roomId:string;labProgress?:number|null;onDecline?:()=>void;labArrival?:number|null;labDecision?:number|null;labReady?:number|null;labReadyPlayer?:string|null}=$props();
  let mounted=$state(false);
@@ -67,7 +67,7 @@
  const hand=$derived([...me.hand].sort((a,b)=>cards[a].suit.localeCompare(cards[b].suit)||cards[a].rank-cards[b].rank));
  const mayLead=$derived(seereCanLead(game,uid));
  const legal=$derived(game.phase==='play'?legalCards(game,uid,game.pending?.original,armed&&me.imp===0||game.forced.includes(uid)):mayLead?seereLeadCards($state.snapshot(game),uid):[]);
- const prompt=$derived(game.phase==='lobby'?'Gather your fellow imps':game.phase==='draft'?'Choose your imp':game.phase==='discard'?`Discard ${game.round} ${game.round===1?'card':'cards'}`:game.phase==='magician'?'Exchange a card, or keep your hand':game.phase==='arcana'?game.arcana===9?'Reserve your final card':game.arcana===6||game.arcana===15?'Choose an opponent':game.arcana===2?'Read an opponent’s hand':'Exchange a card, or keep your hand':game.phase==='prebid'?'Ready to Bid!':game.phase==='bid'?'Make your promise':game.phase==='adjust'?'Last place may adjust their promise':game.phase==='after'?game.winner===uid?'You win the trick':`${player(game,game.winner!).name} wins the trick`:game.phase==='play'?(game.pending?'Choose a replacement':`${player(game,game.turn).name} to play`):game.phase==='round-end'?'The round is scored':'The final bell');
+ const prompt=$derived(game.phase==='lobby'?'Gather your fellow imps':game.phase==='draft'?'Choose your imp':game.phase==='discard'?`Discard ${game.round} ${game.round===1?'card':'cards'}`:game.phase==='magician'?(myTurn?'Exchange a card, or keep your hand':`${player(game,game.turn).name} is resolving The Magician`):game.phase==='arcana'?!myTurn?`${player(game,game.turn).name} is resolving ${arcana[game.arcana].name}`:game.arcana===9?'Reserve your final card':game.arcana===6||game.arcana===15?'Choose an opponent':game.arcana===2?'Read an opponent’s hand':'Exchange a card, or keep your hand':game.phase==='prebid'?'Ready to Bid!':game.phase==='bid'?'Make your promise':game.phase==='adjust'?'Last place may adjust their promise':game.phase==='after'?game.winner===uid?'You win the trick':`${player(game,game.winner!).name} wins the trick`:game.phase==='play'?(game.pending?'Choose a replacement':`${player(game,game.turn).name} to play`):game.phase==='round-end'?'The round is scored':'The final bell');
  const cardSize=$derived(Math.max(28,Math.min(220,tableWidth*.23,(playAreaHeight-76)/1.6)));
  const trickGap=$derived(tableWidth<800?5:20);
  const trickOverlap=$derived(Math.max(0,(cardSize*game.players.length+trickGap*(game.players.length-1)-stageWidth)/Math.max(1,game.players.length-1)));
@@ -75,7 +75,7 @@
  $effect(()=>{if(game.revision!==lastRevision){lastRevision=game.revision;selection=[];armed=false;queuedLead=null;}});
  function decline(){if(!decisionReady)return;if(onDecline)onDecline();else passed=game.revision;}
  function act(c:Command){if(!busy&&!queuedLead&&playProgress>=1&&decisionReady)send(c);}
- function pickCard(id:string){if(game.phase==='discard'){selection=selection.includes(id)?selection.filter(x=>x!==id):selection.length<game.round?[...selection,id]:selection;}
+ function pickCard(id:string){if(!handAcceptsInput(game,uid,armed))return;if(game.phase==='discard'){selection=selection.includes(id)?selection.filter(x=>x!==id):selection.length<game.round?[...selection,id]:selection;}
  else if(mayLead&&legal.includes(id)&&!busy&&playProgress>=1){queuedLead={type:'continue',card:id,royal,low};selection=[id];armed=false;progress=0;passed=game.revision;}
  else if(game.phase==='play'&&myTurn)act({type:'play',card:id,power:armed,royal,low});
  else if(['magician','arcana'].includes(game.phase)&&myTurn&&[0,1,9].includes(game.arcana))selection=[id];
@@ -122,7 +122,7 @@
  {#if me.imp>=0}<aside class="own-imp"><div class="imp-portrait"><CardControl card={imps[me.imp]} selected={armed} disabled={!powerReady()||busy||!!queuedLead||!decisionReady} label={`Use ${imps[me.imp].power}`} onpick={()=>armed=!armed}/><span>{me.used&&me.imp!==9?'POWER SPENT':armed?'POWER READY':imps[me.imp].power}</span></div>{#if game.round>0}<div class="own-player-status"><b class="own-name">{me.name}</b><div class="own-tricks"><TrickStack playerId={uid} name={me.name} won={won(uid)} bid={visibleBid(me)} landed={collecting&&game.winner===uid&&moving>=collectionLanding}/></div><span class="own-points">{me.score} <small>POINTS</small></span></div>{/if}</aside>{/if}
  </div>
  {#if armed}<p class="power-cue">{me.imp===5?'Choose an earlier card':me.imp===6||game.phase==='after'||game.phase==='prebid'?'Choose an opponent':'Play a card with your power'}</p>{/if}
- <HandFan {cardSize} {previousHand} {playProgress} compact={game.phase==='after'&&!automatic} {hand} {selection} reserved={me.reserved} disabled={id=>busy||!!queuedLead||playProgress<1||stageDone||(mayLead&&!legal.includes(id))||(game.phase==='play'&&(!myTurn||!legal.includes(id)))} onpick={pickCard}/>
+ <HandFan {cardSize} {previousHand} {playProgress} compact={game.phase==='after'&&!automatic} {hand} {selection} reserved={me.reserved} disabled={id=>busy||!!queuedLead||playProgress<1||!handAcceptsInput(game,uid,armed)||(mayLead&&!legal.includes(id))||(game.phase==='play'&&(!myTurn||!legal.includes(id)))} onpick={pickCard}/>
  {#if game.inspections.some(i=>i.viewer===uid)&&stowedVision!==`${game.round}:${game.inspections.filter(i=>i.viewer===uid).length}`}{@const vision=game.inspections.filter(i=>i.viewer===uid).at(-1)!}<div class="vision"><span>SEEN · {player(game,vision.target).name}</span>{#each vision.cards as id}<div><CardControl card={cards[id]} label="Stow inspected cards" onpick={()=>stowedVision=`${game.round}:${game.inspections.filter(i=>i.viewer===uid).length}`}/></div>{/each}</div>{/if}
  {#if collecting&&collection}<CollectTrick sources={collection.sources} target={collection.target} progress={moving}/>{/if}
  {#if flight}<FlyingCard card={cards[flight.card]} from={flight.from} to={flight.to} back={flight.back} progress={playProgress}/>{/if}
