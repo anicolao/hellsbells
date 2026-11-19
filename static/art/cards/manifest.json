@@ -478,5 +478,21 @@
     "height": 1024,
     "hasAlpha": false,
     "output": "/art/cards/agares.webp"
+  },
+  {
+    "id": "dealer-button",
+    "source": "static/art/v2/dealer-button.png",
+    "width": 1254,
+    "height": 1254,
+    "hasAlpha": true,
+    "output": "/art/cards/dealer-button.webp"
+  },
+  {
+    "id": "leads-indicator",
+    "source": "static/art/v2/leads-indicator.png",
+    "width": 1247,
+    "height": 1261,
+    "hasAlpha": true,
+    "output": "/art/cards/leads-indicator.webp"
   }
 ]
