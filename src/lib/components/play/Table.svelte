@@ -12,7 +12,7 @@
  import CollectTrick from './CollectTrick.svelte';
  import FlyingCard from './FlyingCard.svelte';
  import HandFan from './HandFan.svelte';
- import {handAcceptsInput,seereCanLead,seereLeadCards,decisionDuration,decisionStages,displayedWon,collectionLanding,cardPlayDuration,flightEnd,type CardBox,remainingBalance,adjustments,afterPower,automaticCommand,transitionDuration,collectionPose} from './presentation';
+ import {handDecisionKey,handAcceptsInput,seereCanLead,seereLeadCards,decisionDuration,decisionStages,displayedWon,collectionLanding,cardPlayDuration,flightEnd,type CardBox,remainingBalance,adjustments,afterPower,automaticCommand,transitionDuration,collectionPose} from './presentation';
  import ContractToken from './ContractToken.svelte';
  let {game,uid,busy,send,roomId,labProgress=null,onDecline,labArrival=null,labDecision=null,labReady=null,labReadyPlayer=null}:{game:State;uid:string;busy:boolean;send:(c:Command)=>void;roomId:string;labProgress?:number|null;onDecline?:()=>void;labArrival?:number|null;labDecision?:number|null;labReady?:number|null;labReadyPlayer?:string|null}=$props();
  let mounted=$state(false);
@@ -60,7 +60,7 @@
  function visibleBid(p:Player){return game.arcana===18&&game.phase==='bid'&&p.id!==uid?'?':game.phase==='adjust'?game.initialBids[p.id]:p.bid??'—';}
 
  $effect(()=>{if(!mounted||labProgress!==null&&!queuedLead||!automatic||busy||arrival<1)return;const revision=game.revision,phase=game.phase;progress=0;let frame=0;const start=performance.now();function step(now:number){progress=Math.min(1,(now-start)/(queuedLead?600:transitionDuration(phase)));if(progress<1)frame=requestAnimationFrame(step);else if(game.revision===revision&&(phase==='round-end'?game.owner:game.turn)===uid)send(automatic!);}frame=requestAnimationFrame(step);return()=>cancelAnimationFrame(frame);});
- let selection=$state<string[]>([]),armed=$state(false),low=$state(false),royal=$state(false),lastRevision=$state(0),stowedVision=$state('');
+ let selection=$state<string[]>([]),armed=$state(false),low=$state(false),royal=$state(false),lastDecision=$state(''),stowedVision=$state('');
  const me=$derived(player(game,uid));
  const myTurn=$derived(game.turn===uid);
  const canAct=$derived(!busy&&(myTurn||['draft','discard','adjust'].includes(game.phase)||game.phase==='bid'&&game.arcana===18));
@@ -72,7 +72,7 @@
  const trickGap=$derived(tableWidth<800?5:20);
  const trickOverlap=$derived(Math.max(0,(cardSize*game.players.length+trickGap*(game.players.length-1)-stageWidth)/Math.max(1,game.players.length-1)));
  const adjustment=$derived(game.phase==='adjust'?Array.from({length:bidMax(game)+1},(_,i)=>i).filter(v=>Math.abs(v-me.bid!)<=(game.arcana===20?2:1)):adjustments(game,uid));
- $effect(()=>{if(game.revision!==lastRevision){lastRevision=game.revision;selection=[];armed=false;queuedLead=null;}});
+ $effect(()=>{const key=roomId+handDecisionKey(game,uid);if(key!==lastDecision){lastDecision=key;selection=[];armed=false;queuedLead=null;}});
  function decline(){if(!decisionReady)return;if(onDecline)onDecline();else passed=game.revision;}
  function act(c:Command){if(!busy&&!queuedLead&&playProgress>=1&&decisionReady)send(c);}
  function pickCard(id:string){if(!handAcceptsInput(game,uid,armed))return;if(game.phase==='discard'){selection=selection.includes(id)?selection.filter(x=>x!==id):selection.length<game.round?[...selection,id]:selection;}

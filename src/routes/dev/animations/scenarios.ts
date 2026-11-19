@@ -2,6 +2,7 @@ import {startRound,apply,eventFor} from '$lib/engine/engine';
 import {botCommand,nextActor} from '$lib/engine/bot';
 import type {State,Command} from '$lib/engine/types';
 export const scenarios=[
+ {id:'discard',name:'Discards · preserve your selection',hint:'Select two cards, then use Resolve another player. Your selection survives their discard and is cleared only after you submit yours.'},
  {id:'magician-wait',name:'Magician · waiting for your turn',hint:'Hand cards stay inactive while another player resolves the effect. They cannot look selected or queue a hidden choice.'},
  {id:'magician',name:'Magician · deliberate exchange',hint:'The round card is information only. Select a hand card and use the central pile to exchange, or explicitly keep your hand.'},
  {id:'play',name:'Play a card · into the trick',hint:'The actual card flies from its slot into the trick; only after it lands does the fan close the gap. Scrub both stages.'},
@@ -25,6 +26,7 @@ export function fixture(kind:string,count=3):State{if(kind==='score-history'||ki
  step('you',{type:'create',name:'You',capacity:count,seed:'animation-lab-4'});for(let i=1;i<count;i++)step(`seat-${i}`,{type:'join',name:['Belial','Paimon','Vassago','Orobas'][i-1]});step('you',{type:'start'});
  for(let i=0;i<1000&&s!.phase!=='play';i++){const actor=nextActor(s!)!;step(actor,botCommand(s!,actor));}
  const state=s!;state.players.forEach((p,i)=>{p.imp=i===0?2:0;p.used=false;});
+ if(kind==='discard'){state.round=1;startRound(state,10);return state;}
  if(kind==='magician'||kind==='magician-wait'){state.phase='magician';state.arcana=1;state.turn=kind==='magician-wait'?'seat-1':'you';for(const p of state.players){p.hand.push(...p.discard);p.discard=[];p.done=false;p.bid=null;}return state;}
  if(kind==='prebid'||kind==='balam'){state.phase='prebid';state.turn='you';state.players.forEach(p=>{p.bid=null;p.done=false;});if(kind==='balam')state.players[0].imp=7;}
  else if(kind!=='hand'){
