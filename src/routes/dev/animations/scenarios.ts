@@ -1,7 +1,8 @@
-import {startRound,apply,eventFor} from '$lib/engine/engine';
+import {startRound,apply,eventFor,cards} from '$lib/engine/engine';
 import {botCommand,nextActor} from '$lib/engine/bot';
 import type {State,Command} from '$lib/engine/types';
 export const scenarios=[
+ {id:'shax-recall',name:'Shax → Agares · replacement by choice',hint:'Agares has returned your random Shax card. Choose a different legal replacement; normal follow-suit restrictions apply.'},
  {id:'priestess',name:'High Priestess · inspect or explicitly decline',hint:'Choose an opponent’s imp to inspect. The pile explicitly declines the inspection; round artwork cannot pass it.'},
  {id:'hermit',name:'Hermit · reserve or explicitly decline',hint:'Select a card to reserve, or explicitly decline the reservation. The pile names the action it will take.'},
  {id:'fool',name:'Fool · exchange or explicitly decline',hint:'Select a card to exchange, or explicitly decline. The round card never submits the choice.'},
@@ -31,6 +32,7 @@ export function fixture(kind:string,count=3):State{if(kind==='score-history'||ki
  for(let i=0;i<1000&&s!.phase!=='play';i++){const actor=nextActor(s!)!;step(actor,botCommand(s!,actor));}
  const state=s!;state.players.forEach((p,i)=>{p.imp=i===0?2:0;p.used=false;});
  if(['priestess','hermit','fool'].includes(kind)){state.phase='arcana';state.arcana=kind==='priestess'?2:kind==='hermit'?9:0;state.turn='you';state.players.forEach(p=>p.done=false);return state;}
+ if(kind==='shax-recall'){state.phase='play';state.arcana=1;const shax=state.players.at(-1)!,agares=state.players[1];shax.imp=6;agares.imp=5;state.turn=shax.id;state.leader=shax.id;step(shax.id,{type:'shax',target:'you'});const lead=shax.hand.find(c=>state.players[0].hand.filter(x=>cards[x].suit===cards[c].suit).length>=2)!;step(shax.id,{type:'play',card:lead});step('you',{type:'play'});step(agares.id,{type:'recall',card:s!.trick.find(p=>p.player==='you')!.card});return s!;}
  if(kind==='shax'){state.phase='play';state.turn='you';state.leader='you';state.forced=['you'];return state;}
  if(kind==='discard'){state.round=1;startRound(state,10);return state;}
  if(kind==='magician'||kind==='magician-wait'){state.phase='magician';state.arcana=1;state.turn=kind==='magician-wait'?'seat-1':'you';for(const p of state.players){p.hand.push(...p.discard);p.discard=[];p.done=false;p.bid=null;}return state;}

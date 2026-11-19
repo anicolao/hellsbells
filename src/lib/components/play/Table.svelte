@@ -3,7 +3,7 @@
  import {base} from '$app/paths';
  import {imps,arcana,minor,type GameCard as Card} from '$lib/data/game';
  import type {State,Command,Player} from '$lib/engine/types';
- import {cards,available,legalCards,player,allowedBids,bidMax} from '$lib/engine/engine';
+ import {cards,available,player,allowedBids,bidMax} from '$lib/engine/engine';
  import {nextActor} from '$lib/engine/bot';
  import GameCard from '../GameCard.svelte';
  import CardControl from './CardControl.svelte';
@@ -12,7 +12,7 @@
  import CollectTrick from './CollectTrick.svelte';
  import FlyingCard from './FlyingCard.svelte';
  import HandFan from './HandFan.svelte';
- import {setupDecision,handDecisionKey,handAcceptsInput,seereCanLead,seereLeadCards,decisionDuration,decisionStages,displayedWon,collectionLanding,cardPlayDuration,flightEnd,type CardBox,remainingBalance,adjustments,afterPower,automaticCommand,transitionDuration,collectionPose} from './presentation';
+ import {playableHandCards,setupDecision,handDecisionKey,handAcceptsInput,seereCanLead,seereLeadCards,decisionDuration,decisionStages,displayedWon,collectionLanding,cardPlayDuration,flightEnd,type CardBox,remainingBalance,adjustments,afterPower,automaticCommand,transitionDuration,collectionPose} from './presentation';
  import ContractToken from './ContractToken.svelte';
  let {game,uid,busy,send,roomId,labProgress=null,onDecline,labArrival=null,labDecision=null,labReady=null,labReadyPlayer=null}:{game:State;uid:string;busy:boolean;send:(c:Command)=>void;roomId:string;labProgress?:number|null;onDecline?:()=>void;labArrival?:number|null;labDecision?:number|null;labReady?:number|null;labReadyPlayer?:string|null}=$props();
  let mounted=$state(false);
@@ -67,7 +67,7 @@
  const canAct=$derived(!busy&&(myTurn||['draft','discard','adjust'].includes(game.phase)||game.phase==='bid'&&game.arcana===18));
  const hand=$derived([...me.hand].sort((a,b)=>cards[a].suit.localeCompare(cards[b].suit)||cards[a].rank-cards[b].rank));
  const mayLead=$derived(seereCanLead(game,uid));
- const legal=$derived(game.phase==='play'?legalCards(game,uid,game.pending?.original,armed&&me.imp===0||game.forced.includes(uid)):mayLead?seereLeadCards($state.snapshot(game),uid):[]);
+ const legal=$derived(game.phase==='play'?playableHandCards(game,uid,armed):mayLead?seereLeadCards($state.snapshot(game),uid):[]);
  const forcedDraw=$derived(game.phase==='play'&&!game.pending&&game.forced.includes(game.turn));
  const prompt=$derived(game.phase==='lobby'?'Gather your fellow imps':game.phase==='draft'?'Choose your imp':game.phase==='discard'?`Discard ${game.round} ${game.round===1?'card':'cards'}`:game.phase==='magician'?(myTurn?'The Magician · exchange a card, or decline':`${player(game,game.turn).name} is resolving The Magician`):game.phase==='arcana'?!myTurn?`${player(game,game.turn).name} is resolving ${arcana[game.arcana].name}`:game.arcana===9?'Reserve your final card, or decline':game.arcana===6||game.arcana===15?'Choose an opponent':game.arcana===2?'Choose an opponent to inspect, or decline':'Exchange a card, or decline':game.phase==='prebid'?(myTurn&&me.imp===7?'Balam · choose an opponent to inspect, or decline':'Ready to Bid!'):game.phase==='bid'?'Make your promise':game.phase==='adjust'?'Last place may adjust their promise':game.phase==='after'?game.winner===uid?'You win the trick':`${player(game,game.winner!).name} wins the trick`:game.phase==='play'?(forcedDraw?`${player(game,game.turn).name} draws a random card · Shax`:game.pending?'Choose a replacement':`${player(game,game.turn).name} to play`):game.phase==='round-end'?'The round is scored':'The final bell');
  const cardSize=$derived(Math.max(28,Math.min(220,tableWidth*.23,(playAreaHeight-76)/1.6)));

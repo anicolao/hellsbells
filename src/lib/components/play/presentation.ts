@@ -73,3 +73,10 @@ export function setupDecision(s:State,selection:string[]){
  if(s.arcana===9)return selection.length?{label:'Reserve selected card',caption:'RESERVE SELECTED CARD'}:{label:`Decline ${effect}’s reservation`,caption:'DECLINE RESERVATION'};
  return selection.length?{label:'Exchange selected card',caption:'EXCHANGE SELECTED CARD'}:{label:`Decline ${effect}’s exchange`,caption:'DECLINE EXCHANGE'};
 }
+
+/** A recalled Shax card is replaced by choice under normal replacement legality. */
+export function playableHandCards(s:State,id:string,armed=false):string[]{
+ if(s.phase!=='play'||s.turn!==id)return [];
+ const ignore=!s.pending&&(armed&&player(s,id).imp===0||s.forced.includes(id));
+ return legalCards(s,id,s.pending?.original,ignore);
+}
