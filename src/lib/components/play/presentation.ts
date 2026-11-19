@@ -8,7 +8,7 @@ export function automaticCommand(s:State,id:string):Command|null{
  const p=player(s,id);
  if(s.phase==='prebid'&&(p.imp!==7||p.used||!s.players.some(q=>q.id!==id&&q.hand.length)))return {type:'prebid'};
  if(s.phase==='arcana'&&s.arcana===15&&s.standing[id]!==Math.max(...Object.values(s.standing)))return {type:'arcana'};
- if(s.phase==='play'&&!s.pending&&s.forced.includes(id))return {type:'play'};
+ if(s.phase==='play'&&!s.pending&&s.forced.includes(id)&&!beforePlayPower(s,id))return {type:'play'};
  if(s.phase==='after'&&!adjustments(s,id).length&&!afterPower(s,id))return {type:'continue'};
  return null;
 }
@@ -79,4 +79,12 @@ export function playableHandCards(s:State,id:string,armed=false):string[]{
  if(s.phase!=='play'||s.turn!==id)return [];
  const ignore=!s.pending&&(armed&&player(s,id).imp===0||s.forced.includes(id));
  return legalCards(s,id,s.pending?.original,ignore);
+}
+
+/** Forced cards remain random, but eligible imp powers are still genuine choices. */
+export function beforePlayPower(s:State,id:string):boolean{
+ const p=player(s,id);if(s.phase!=='play'||s.turn!==id||s.pending||p.used)return false;
+ if(p.imp===0||p.imp===3)return true;
+ if(p.imp===2||p.imp===5)return s.trick.length>0;
+ return p.imp===6&&s.players.some(q=>q.id!==id&&!s.trick.some(play=>play.player===q.id));
 }
