@@ -1,0 +1,1657 @@
+{
+  "version": 3,
+  "policy": "rl-v3",
+  "playerCounts": [
+    3,
+    4,
+    5
+  ],
+  "algorithm": "count-specific counterfactual action-value RL and episodic cross-entropy policy search, with sampled-deal planning",
+  "runtime": "1.3.10",
+  "models": [
+    {
+      "players": 3,
+      "role": "bid",
+      "path": "models/rl-v3-3-bid.json",
+      "sha256": "5e767416e35ee9aa22bd42dd871ad2b61d327ae8a99d905e958755d68cca9db1",
+      "inputs": 152,
+      "outputs": 18,
+      "training": {
+        "algorithm": "count-specific counterfactual action-value RL with easy/prior/self-play league",
+        "namespace": "hellsbells-multi-bid-train-v2-3",
+        "episodes": 1400,
+        "seed": 514904,
+        "players": 3,
+        "mode": "bid",
+        "development": {
+          "easy": {
+            "namespace": "hellsbells-multi-development-v2-3",
+            "games": 180,
+            "wins": 161,
+            "ties": 6,
+            "uniqueWinRate": 0.8944444444444445,
+            "meanPoints": 8.033333333333333,
+            "wilson95": [
+              0.841026520679669,
+              0.9313775489106741
+            ],
+            "seats": [
+              {
+                "games": 60,
+                "wins": 54,
+                "ties": 2
+              },
+              {
+                "games": 60,
+                "wins": 56,
+                "ties": 0
+              },
+              {
+                "games": 60,
+                "wins": 51,
+                "ties": 4
+              }
+            ]
+          },
+          "transfer": {
+            "namespace": "hellsbells-multi-development-v2-3",
+            "games": 180,
+            "wins": 73,
+            "ties": 5,
+            "uniqueWinRate": 0.40555555555555556,
+            "meanPoints": 23.855555555555554,
+            "wilson95": [
+              0.33652509104749945,
+              0.47853308947312273
+            ],
+            "seats": [
+              {
+                "games": 60,
+                "wins": 26,
+                "ties": 1
+              },
+              {
+                "games": 60,
+                "wins": 21,
+                "ties": 3
+              },
+              {
+                "games": 60,
+                "wins": 26,
+                "ties": 1
+              }
+            ]
+          }
+        },
+        "initialization": {
+          "source": "multi-warm/3/bid",
+          "sha256": "fd057d283fc91821bce37f4ea84e1e7d7eb28a53c761263eab9c2b26222ddd9a",
+          "training": {
+            "algorithm": "count-specific counterfactual action-value RL with easy/prior/self-play league",
+            "namespace": "hellsbells-multi-bid-train-v1-3",
+            "episodes": 800,
+            "seed": 514904,
+            "players": 3,
+            "mode": "bid",
+            "development": {
+              "easy": {
+                "namespace": "hellsbells-multi-development-v1-3",
+                "games": 180,
+                "wins": 161,
+                "ties": 1,
+                "uniqueWinRate": 0.8944444444444445,
+                "meanPoints": 9.622222222222222,
+                "wilson95": [
+                  0.841026520679669,
+                  0.9313775489106741
+                ],
+                "seats": [
+                  {
+                    "games": 60,
+                    "wins": 54,
+                    "ties": 1
+                  },
+                  {
+                    "games": 60,
+                    "wins": 55,
+                    "ties": 0
+                  },
+                  {
+                    "games": 60,
+                    "wins": 52,
+                    "ties": 0
+                  }
+                ]
+              },
+              "transfer": {
+                "namespace": "hellsbells-multi-development-v1-3",
+                "games": 180,
+                "wins": 63,
+                "ties": 5,
+                "uniqueWinRate": 0.35,
+                "meanPoints": 25.283333333333335,
+                "wilson95": [
+                  0.2841147190492368,
+                  0.4221541558952807
+                ],
+                "seats": [
+                  {
+                    "games": 60,
+                    "wins": 26,
+                    "ties": 1
+                  },
+                  {
+                    "games": 60,
+                    "wins": 21,
+                    "ties": 4
+                  },
+                  {
+                    "games": 60,
+                    "wins": 16,
+                    "ties": 0
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Bootstrap comparison used current self-play; only refinement and held-out runs use an independent frozen transfer baseline."
+        }
+      }
+    },
+    {
+      "players": 3,
+      "role": "discard",
+      "path": "models/rl-v3-3-discard.json",
+      "sha256": "cb78da2c8c0f299bff2335762426ad0247e061991b169abf1243a75816246736",
+      "inputs": 152,
+      "outputs": 6,
+      "training": {
+        "algorithm": "count-specific counterfactual action-value RL with easy/prior/self-play league",
+        "namespace": "hellsbells-multi-discard-train-v2-3",
+        "episodes": 0,
+        "seed": 514904,
+        "players": 3,
+        "mode": "discard",
+        "development": {
+          "easy": {
+            "namespace": "hellsbells-multi-development-v2-3",
+            "games": 180,
+            "wins": 161,
+            "ties": 6,
+            "uniqueWinRate": 0.8944444444444445,
+            "meanPoints": 8.033333333333333,
+            "wilson95": [
+              0.841026520679669,
+              0.9313775489106741
+            ],
+            "seats": [
+              {
+                "games": 60,
+                "wins": 54,
+                "ties": 2
+              },
+              {
+                "games": 60,
+                "wins": 56,
+                "ties": 0
+              },
+              {
+                "games": 60,
+                "wins": 51,
+                "ties": 4
+              }
+            ]
+          },
+          "transfer": {
+            "namespace": "hellsbells-multi-development-v2-3",
+            "games": 180,
+            "wins": 73,
+            "ties": 5,
+            "uniqueWinRate": 0.40555555555555556,
+            "meanPoints": 23.855555555555554,
+            "wilson95": [
+              0.33652509104749945,
+              0.47853308947312273
+            ],
+            "seats": [
+              {
+                "games": 60,
+                "wins": 26,
+                "ties": 1
+              },
+              {
+                "games": 60,
+                "wins": 21,
+                "ties": 3
+              },
+              {
+                "games": 60,
+                "wins": 26,
+                "ties": 1
+              }
+            ]
+          }
+        },
+        "initialization": {
+          "source": "multi-warm/3/discard",
+          "sha256": "d137d415d770523afd47d625f6b6cd1de3b214d38987eea41c3018d1defc6f34",
+          "training": {
+            "algorithm": "count-specific counterfactual action-value RL with easy/prior/self-play league",
+            "namespace": "hellsbells-multi-discard-train-v1-3",
+            "episodes": 0,
+            "seed": 514904,
+            "players": 3,
+            "mode": "discard",
+            "development": {
+              "easy": {
+                "namespace": "hellsbells-multi-development-v1-3",
+                "games": 180,
+                "wins": 161,
+                "ties": 1,
+                "uniqueWinRate": 0.8944444444444445,
+                "meanPoints": 9.622222222222222,
+                "wilson95": [
+                  0.841026520679669,
+                  0.9313775489106741
+                ],
+                "seats": [
+                  {
+                    "games": 60,
+                    "wins": 54,
+                    "ties": 1
+                  },
+                  {
+                    "games": 60,
+                    "wins": 55,
+                    "ties": 0
+                  },
+                  {
+                    "games": 60,
+                    "wins": 52,
+                    "ties": 0
+                  }
+                ]
+              },
+              "transfer": {
+                "namespace": "hellsbells-multi-development-v1-3",
+                "games": 180,
+                "wins": 61,
+                "ties": 7,
+                "uniqueWinRate": 0.3388888888888889,
+                "meanPoints": 24.416666666666668,
+                "wilson95": [
+                  0.2737500545777787,
+                  0.410760959251518
+                ],
+                "seats": [
+                  {
+                    "games": 60,
+                    "wins": 24,
+                    "ties": 1
+                  },
+                  {
+                    "games": 60,
+                    "wins": 18,
+                    "ties": 3
+                  },
+                  {
+                    "games": 60,
+                    "wins": 19,
+                    "ties": 3
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Bootstrap comparison used current self-play; only refinement and held-out runs use an independent frozen transfer baseline."
+        }
+      }
+    },
+    {
+      "players": 3,
+      "role": "strategy",
+      "path": "models/rl-v3-3-strategy.json",
+      "sha256": "acf943443677ba29879dea95d3491c57705ccfe227516adf475b19facdf36f7c",
+      "training": {
+        "algorithm": "episodic cross-entropy policy search in count-specific league",
+        "players": 3,
+        "seed": 914706,
+        "namespace": "hellsbells-multi-tactics-train-v1-3",
+        "generation": 6,
+        "development": {
+          "easy": {
+            "namespace": "hellsbells-multi-tactics-development-v1-3",
+            "games": 180,
+            "wins": 161,
+            "ties": 4,
+            "uniqueWinRate": 0.8944444444444445,
+            "meanPoints": 7.783333333333333,
+            "wilson95": [
+              0.841026520679669,
+              0.9313775489106741
+            ],
+            "seats": [
+              {
+                "games": 60,
+                "wins": 52,
+                "ties": 3
+              },
+              {
+                "games": 60,
+                "wins": 55,
+                "ties": 0
+              },
+              {
+                "games": 60,
+                "wins": 54,
+                "ties": 1
+              }
+            ]
+          },
+          "transfer": {
+            "namespace": "hellsbells-multi-tactics-development-v1-3",
+            "games": 180,
+            "wins": 70,
+            "ties": 3,
+            "uniqueWinRate": 0.3888888888888889,
+            "meanPoints": 23.738888888888887,
+            "wilson95": [
+              0.32070200813682553,
+              0.46171938071096524
+            ],
+            "seats": [
+              {
+                "games": 60,
+                "wins": 27,
+                "ties": 2
+              },
+              {
+                "games": 60,
+                "wins": 22,
+                "ties": 1
+              },
+              {
+                "games": 60,
+                "wins": 21,
+                "ties": 0
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "players": 4,
+      "role": "bid",
+      "path": "models/rl-v3-4-bid.json",
+      "sha256": "4b197b8b2ddd7ca5e4a23204ace896fa04ff3d21c411172f9ccea3072e360b5f",
+      "inputs": 152,
+      "outputs": 18,
+      "training": {
+        "algorithm": "count-specific counterfactual action-value RL with easy/prior/self-play league",
+        "namespace": "hellsbells-multi-bid-train-v2-4",
+        "episodes": 0,
+        "seed": 514905,
+        "players": 4,
+        "mode": "bid",
+        "development": {
+          "easy": {
+            "namespace": "hellsbells-multi-development-v2-4",
+            "games": 180,
+            "wins": 159,
+            "ties": 5,
+            "uniqueWinRate": 0.8833333333333333,
+            "meanPoints": 5.116666666666666,
+            "wilson95": [
+              0.8282312959914844,
+              0.9224149124836376
+            ],
+            "seats": [
+              {
+                "games": 45,
+                "wins": 43,
+                "ties": 0
+              },
+              {
+                "games": 45,
+                "wins": 39,
+                "ties": 3
+              },
+              {
+                "games": 45,
+                "wins": 38,
+                "ties": 1
+              },
+              {
+                "games": 45,
+                "wins": 39,
+                "ties": 1
+              }
+            ]
+          },
+          "transfer": {
+            "namespace": "hellsbells-multi-development-v2-4",
+            "games": 180,
+            "wins": 70,
+            "ties": 5,
+            "uniqueWinRate": 0.3888888888888889,
+            "meanPoints": 11.6,
+            "wilson95": [
+              0.32070200813682553,
+              0.46171938071096524
+            ],
+            "seats": [
+              {
+                "games": 45,
+                "wins": 18,
+                "ties": 1
+              },
+              {
+                "games": 45,
+                "wins": 19,
+                "ties": 2
+              },
+              {
+                "games": 45,
+                "wins": 15,
+                "ties": 1
+              },
+              {
+                "games": 45,
+                "wins": 18,
+                "ties": 1
+              }
+            ]
+          }
+        },
+        "initialization": {
+          "source": "multi-warm/4/bid",
+          "sha256": "ddbb2ec8ef28c19553a4d2cfe6ca0a2fca753ddcd8095b043a855ac6d3832769",
+          "training": {
+            "algorithm": "count-specific counterfactual action-value RL with easy/prior/self-play league",
+            "namespace": "hellsbells-multi-bid-train-v1-4",
+            "episodes": 1400,
+            "seed": 514905,
+            "players": 4,
+            "mode": "bid",
+            "development": {
+              "easy": {
+                "namespace": "hellsbells-multi-development-v1-4",
+                "games": 180,
+                "wins": 150,
+                "ties": 3,
+                "uniqueWinRate": 0.8333333333333334,
+                "meanPoints": 6.544444444444444,
+                "wilson95": [
+                  0.7720468899777125,
+                  0.8806889434789155
+                ],
+                "seats": [
+                  {
+                    "games": 45,
+                    "wins": 39,
+                    "ties": 1
+                  },
+                  {
+                    "games": 45,
+                    "wins": 44,
+                    "ties": 0
+                  },
+                  {
+                    "games": 45,
+                    "wins": 35,
+                    "ties": 1
+                  },
+                  {
+                    "games": 45,
+                    "wins": 32,
+                    "ties": 1
+                  }
+                ]
+              },
+              "transfer": {
+                "namespace": "hellsbells-multi-development-v1-4",
+                "games": 180,
+                "wins": 44,
+                "ties": 6,
+                "uniqueWinRate": 0.24444444444444444,
+                "meanPoints": 15.75,
+                "wilson95": [
+                  0.18743177857666718,
+                  0.3121374157732515
+                ],
+                "seats": [
+                  {
+                    "games": 45,
+                    "wins": 13,
+                    "ties": 2
+                  },
+                  {
+                    "games": 45,
+                    "wins": 9,
+                    "ties": 1
+                  },
+                  {
+                    "games": 45,
+                    "wins": 9,
+                    "ties": 2
+                  },
+                  {
+                    "games": 45,
+                    "wins": 13,
+                    "ties": 1
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Bootstrap comparison used current self-play; only refinement and held-out runs use an independent frozen transfer baseline."
+        }
+      }
+    },
+    {
+      "players": 4,
+      "role": "discard",
+      "path": "models/rl-v3-4-discard.json",
+      "sha256": "c350c0c2dc752654a7a2f69b5f3b48ef5c5a724b3cff14becce42caef0b0f8df",
+      "inputs": 152,
+      "outputs": 6,
+      "training": {
+        "algorithm": "count-specific counterfactual action-value RL with easy/prior/self-play league",
+        "namespace": "hellsbells-multi-discard-train-v2-4",
+        "episodes": 1400,
+        "seed": 514905,
+        "players": 4,
+        "mode": "discard",
+        "development": {
+          "easy": {
+            "namespace": "hellsbells-multi-development-v2-4",
+            "games": 180,
+            "wins": 154,
+            "ties": 6,
+            "uniqueWinRate": 0.8555555555555555,
+            "meanPoints": 5.383333333333334,
+            "wilson95": [
+              0.7967685455528166,
+              0.899483010134253
+            ],
+            "seats": [
+              {
+                "games": 45,
+                "wins": 43,
+                "ties": 0
+              },
+              {
+                "games": 45,
+                "wins": 41,
+                "ties": 1
+              },
+              {
+                "games": 45,
+                "wins": 36,
+                "ties": 2
+              },
+              {
+                "games": 45,
+                "wins": 34,
+                "ties": 3
+              }
+            ]
+          },
+          "transfer": {
+            "namespace": "hellsbells-multi-development-v2-4",
+            "games": 180,
+            "wins": 76,
+            "ties": 10,
+            "uniqueWinRate": 0.4222222222222222,
+            "meanPoints": 11.322222222222223,
+            "wilson95": [
+              0.3524311397608574,
+              0.4952638324325962
+            ],
+            "seats": [
+              {
+                "games": 45,
+                "wins": 19,
+                "ties": 2
+              },
+              {
+                "games": 45,
+                "wins": 23,
+                "ties": 3
+              },
+              {
+                "games": 45,
+                "wins": 18,
+                "ties": 3
+              },
+              {
+                "games": 45,
+                "wins": 16,
+                "ties": 2
+              }
+            ]
+          }
+        },
+        "initialization": {
+          "source": "multi-warm/4/discard",
+          "sha256": "bc1d4e93e5e10481790573e129c4042e0ce63efef24c2c1bce496f6c6a63078f",
+          "training": {
+            "algorithm": "count-specific counterfactual action-value RL with easy/prior/self-play league",
+            "namespace": "hellsbells-multi-discard-train-v1-4",
+            "episodes": 1200,
+            "seed": 514905,
+            "players": 4,
+            "mode": "discard",
+            "development": {
+              "easy": {
+                "namespace": "hellsbells-multi-development-v1-4",
+                "games": 180,
+                "wins": 152,
+                "ties": 2,
+                "uniqueWinRate": 0.8444444444444444,
+                "meanPoints": 6.033333333333333,
+                "wilson95": [
+                  0.784363054834744,
+                  0.8901306397371049
+                ],
+                "seats": [
+                  {
+                    "games": 45,
+                    "wins": 40,
+                    "ties": 1
+                  },
+                  {
+                    "games": 45,
+                    "wins": 42,
+                    "ties": 1
+                  },
+                  {
+                    "games": 45,
+                    "wins": 38,
+                    "ties": 0
+                  },
+                  {
+                    "games": 45,
+                    "wins": 32,
+                    "ties": 0
+                  }
+                ]
+              },
+              "transfer": {
+                "namespace": "hellsbells-multi-development-v1-4",
+                "games": 180,
+                "wins": 78,
+                "ties": 7,
+                "uniqueWinRate": 0.43333333333333335,
+                "meanPoints": 12.372222222222222,
+                "wilson95": [
+                  0.36308054508099713,
+                  0.5063722882276773
+                ],
+                "seats": [
+                  {
+                    "games": 45,
+                    "wins": 21,
+                    "ties": 0
+                  },
+                  {
+                    "games": 45,
+                    "wins": 19,
+                    "ties": 2
+                  },
+                  {
+                    "games": 45,
+                    "wins": 16,
+                    "ties": 2
+                  },
+                  {
+                    "games": 45,
+                    "wins": 22,
+                    "ties": 3
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Bootstrap comparison used current self-play; only refinement and held-out runs use an independent frozen transfer baseline."
+        }
+      }
+    },
+    {
+      "players": 4,
+      "role": "strategy",
+      "path": "models/rl-v3-4-strategy.json",
+      "sha256": "e47152e9c7cec08e1d7149d760616c7abe4dad30944244621afdf4a0c500e90c",
+      "training": {
+        "algorithm": "episodic cross-entropy policy search in count-specific league",
+        "players": 4,
+        "seed": 914707,
+        "namespace": "hellsbells-multi-tactics-train-v1-4",
+        "generation": 7,
+        "development": {
+          "easy": {
+            "namespace": "hellsbells-multi-tactics-development-v1-4",
+            "games": 180,
+            "wins": 154,
+            "ties": 7,
+            "uniqueWinRate": 0.8555555555555555,
+            "meanPoints": 4.95,
+            "wilson95": [
+              0.7967685455528166,
+              0.899483010134253
+            ],
+            "seats": [
+              {
+                "games": 45,
+                "wins": 38,
+                "ties": 3
+              },
+              {
+                "games": 45,
+                "wins": 39,
+                "ties": 2
+              },
+              {
+                "games": 45,
+                "wins": 40,
+                "ties": 1
+              },
+              {
+                "games": 45,
+                "wins": 37,
+                "ties": 1
+              }
+            ]
+          },
+          "transfer": {
+            "namespace": "hellsbells-multi-tactics-development-v1-4",
+            "games": 180,
+            "wins": 62,
+            "ties": 8,
+            "uniqueWinRate": 0.34444444444444444,
+            "meanPoints": 14.21111111111111,
+            "wilson95": [
+              0.27892731457327735,
+              0.4164626298136297
+            ],
+            "seats": [
+              {
+                "games": 45,
+                "wins": 14,
+                "ties": 0
+              },
+              {
+                "games": 45,
+                "wins": 16,
+                "ties": 2
+              },
+              {
+                "games": 45,
+                "wins": 14,
+                "ties": 2
+              },
+              {
+                "games": 45,
+                "wins": 18,
+                "ties": 4
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "players": 5,
+      "role": "bid",
+      "path": "models/rl-v3-5-bid.json",
+      "sha256": "85cdfc56df8d9f1afe5955d7bf2d0d631366a1a3d94b7f3cc22a0d515b67dfcd",
+      "inputs": 152,
+      "outputs": 18,
+      "training": {
+        "algorithm": "count-specific counterfactual action-value RL with easy/prior/self-play league",
+        "namespace": "hellsbells-multi-bid-train-v2-5",
+        "episodes": 800,
+        "seed": 514906,
+        "players": 5,
+        "mode": "bid",
+        "development": {
+          "easy": {
+            "namespace": "hellsbells-multi-development-v2-5",
+            "games": 180,
+            "wins": 168,
+            "ties": 7,
+            "uniqueWinRate": 0.9333333333333333,
+            "meanPoints": 2.4611111111111112,
+            "wilson95": [
+              0.8871002756924606,
+              0.9614563078011558
+            ],
+            "seats": [
+              {
+                "games": 36,
+                "wins": 35,
+                "ties": 1
+              },
+              {
+                "games": 36,
+                "wins": 32,
+                "ties": 3
+              },
+              {
+                "games": 36,
+                "wins": 35,
+                "ties": 1
+              },
+              {
+                "games": 36,
+                "wins": 32,
+                "ties": 1
+              },
+              {
+                "games": 36,
+                "wins": 34,
+                "ties": 1
+              }
+            ]
+          },
+          "transfer": {
+            "namespace": "hellsbells-multi-development-v2-5",
+            "games": 180,
+            "wins": 103,
+            "ties": 9,
+            "uniqueWinRate": 0.5722222222222222,
+            "meanPoints": 7.927777777777778,
+            "wilson95": [
+              0.49917743380385027,
+              0.6422486634450858
+            ],
+            "seats": [
+              {
+                "games": 36,
+                "wins": 22,
+                "ties": 0
+              },
+              {
+                "games": 36,
+                "wins": 18,
+                "ties": 2
+              },
+              {
+                "games": 36,
+                "wins": 19,
+                "ties": 1
+              },
+              {
+                "games": 36,
+                "wins": 25,
+                "ties": 3
+              },
+              {
+                "games": 36,
+                "wins": 19,
+                "ties": 3
+              }
+            ]
+          }
+        },
+        "initialization": {
+          "source": "multi-warm/5/bid",
+          "sha256": "c6d19a8884c1d61e08a2fd23045fc8bede4abda5b8f43c43c145fac77b9ead55",
+          "training": {
+            "algorithm": "count-specific counterfactual action-value RL with easy/prior/self-play league",
+            "namespace": "hellsbells-multi-bid-train-v1-5",
+            "episodes": 200,
+            "seed": 514906,
+            "players": 5,
+            "mode": "bid",
+            "development": {
+              "easy": {
+                "namespace": "hellsbells-multi-development-v1-5",
+                "games": 180,
+                "wins": 169,
+                "ties": 3,
+                "uniqueWinRate": 0.9388888888888889,
+                "meanPoints": 2.9944444444444445,
+                "wilson95": [
+                  0.8938978709273628,
+                  0.965537643123864
+                ],
+                "seats": [
+                  {
+                    "games": 36,
+                    "wins": 33,
+                    "ties": 0
+                  },
+                  {
+                    "games": 36,
+                    "wins": 33,
+                    "ties": 0
+                  },
+                  {
+                    "games": 36,
+                    "wins": 34,
+                    "ties": 1
+                  },
+                  {
+                    "games": 36,
+                    "wins": 34,
+                    "ties": 1
+                  },
+                  {
+                    "games": 36,
+                    "wins": 35,
+                    "ties": 1
+                  }
+                ]
+              },
+              "transfer": {
+                "namespace": "hellsbells-multi-development-v1-5",
+                "games": 180,
+                "wins": 36,
+                "ties": 10,
+                "uniqueWinRate": 0.2,
+                "meanPoints": 10.222222222222221,
+                "wilson95": [
+                  0.14810790208917995,
+                  0.264429847799855
+                ],
+                "seats": [
+                  {
+                    "games": 36,
+                    "wins": 8,
+                    "ties": 1
+                  },
+                  {
+                    "games": 36,
+                    "wins": 6,
+                    "ties": 3
+                  },
+                  {
+                    "games": 36,
+                    "wins": 9,
+                    "ties": 0
+                  },
+                  {
+                    "games": 36,
+                    "wins": 10,
+                    "ties": 2
+                  },
+                  {
+                    "games": 36,
+                    "wins": 3,
+                    "ties": 4
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Bootstrap comparison used current self-play; only refinement and held-out runs use an independent frozen transfer baseline."
+        }
+      }
+    },
+    {
+      "players": 5,
+      "role": "discard",
+      "path": "models/rl-v3-5-discard.json",
+      "sha256": "39a0460d8d1b14128f5d9899e2816887d74f291e03579acfa63a3b65b0c58bb2",
+      "inputs": 152,
+      "outputs": 6,
+      "training": {
+        "algorithm": "count-specific counterfactual action-value RL with easy/prior/self-play league",
+        "namespace": "hellsbells-multi-discard-train-v2-5",
+        "episodes": 800,
+        "seed": 514906,
+        "players": 5,
+        "mode": "discard",
+        "development": {
+          "easy": {
+            "namespace": "hellsbells-multi-development-v2-5",
+            "games": 180,
+            "wins": 174,
+            "ties": 3,
+            "uniqueWinRate": 0.9666666666666667,
+            "meanPoints": 1.738888888888889,
+            "wilson95": [
+              0.9291947482669836,
+              0.9846354185722956
+            ],
+            "seats": [
+              {
+                "games": 36,
+                "wins": 35,
+                "ties": 1
+              },
+              {
+                "games": 36,
+                "wins": 34,
+                "ties": 1
+              },
+              {
+                "games": 36,
+                "wins": 36,
+                "ties": 0
+              },
+              {
+                "games": 36,
+                "wins": 35,
+                "ties": 1
+              },
+              {
+                "games": 36,
+                "wins": 34,
+                "ties": 0
+              }
+            ]
+          },
+          "transfer": {
+            "namespace": "hellsbells-multi-development-v2-5",
+            "games": 180,
+            "wins": 101,
+            "ties": 13,
+            "uniqueWinRate": 0.5611111111111111,
+            "meanPoints": 6.627777777777778,
+            "wilson95": [
+              0.48808695992673246,
+              0.6315812762069827
+            ],
+            "seats": [
+              {
+                "games": 36,
+                "wins": 21,
+                "ties": 1
+              },
+              {
+                "games": 36,
+                "wins": 18,
+                "ties": 3
+              },
+              {
+                "games": 36,
+                "wins": 19,
+                "ties": 3
+              },
+              {
+                "games": 36,
+                "wins": 23,
+                "ties": 3
+              },
+              {
+                "games": 36,
+                "wins": 20,
+                "ties": 3
+              }
+            ]
+          }
+        },
+        "initialization": {
+          "source": "multi-warm/5/discard",
+          "sha256": "20e97f55cb1ca5586c4074fda80f4a51f7f66a97e9347316a06582f84b2232eb",
+          "training": {
+            "algorithm": "count-specific counterfactual action-value RL with easy/prior/self-play league",
+            "namespace": "hellsbells-multi-discard-train-v1-5",
+            "episodes": 0,
+            "seed": 514906,
+            "players": 5,
+            "mode": "discard",
+            "development": {
+              "easy": {
+                "namespace": "hellsbells-multi-development-v1-5",
+                "games": 180,
+                "wins": 169,
+                "ties": 3,
+                "uniqueWinRate": 0.9388888888888889,
+                "meanPoints": 2.9944444444444445,
+                "wilson95": [
+                  0.8938978709273628,
+                  0.965537643123864
+                ],
+                "seats": [
+                  {
+                    "games": 36,
+                    "wins": 33,
+                    "ties": 0
+                  },
+                  {
+                    "games": 36,
+                    "wins": 33,
+                    "ties": 0
+                  },
+                  {
+                    "games": 36,
+                    "wins": 34,
+                    "ties": 1
+                  },
+                  {
+                    "games": 36,
+                    "wins": 34,
+                    "ties": 1
+                  },
+                  {
+                    "games": 36,
+                    "wins": 35,
+                    "ties": 1
+                  }
+                ]
+              },
+              "transfer": {
+                "namespace": "hellsbells-multi-development-v1-5",
+                "games": 180,
+                "wins": 93,
+                "ties": 10,
+                "uniqueWinRate": 0.5166666666666667,
+                "meanPoints": 8.016666666666667,
+                "wilson95": [
+                  0.44408004568569426,
+                  0.5885567459871371
+                ],
+                "seats": [
+                  {
+                    "games": 36,
+                    "wins": 22,
+                    "ties": 2
+                  },
+                  {
+                    "games": 36,
+                    "wins": 19,
+                    "ties": 4
+                  },
+                  {
+                    "games": 36,
+                    "wins": 18,
+                    "ties": 2
+                  },
+                  {
+                    "games": 36,
+                    "wins": 19,
+                    "ties": 1
+                  },
+                  {
+                    "games": 36,
+                    "wins": 15,
+                    "ties": 1
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Bootstrap comparison used current self-play; only refinement and held-out runs use an independent frozen transfer baseline."
+        }
+      }
+    },
+    {
+      "players": 5,
+      "role": "strategy",
+      "path": "models/rl-v3-5-strategy.json",
+      "sha256": "371d1722841bfdc214bfc60b312ca59de5072fdf0237f379670b7bf9c6b82ffc",
+      "training": {
+        "algorithm": "episodic cross-entropy policy search in count-specific league",
+        "players": 5,
+        "seed": 914708,
+        "namespace": "hellsbells-multi-tactics-train-v1-5",
+        "generation": 1,
+        "development": {
+          "easy": {
+            "namespace": "hellsbells-multi-tactics-development-v1-5",
+            "games": 180,
+            "wins": 168,
+            "ties": 6,
+            "uniqueWinRate": 0.9333333333333333,
+            "meanPoints": 1.9277777777777778,
+            "wilson95": [
+              0.8871002756924606,
+              0.9614563078011558
+            ],
+            "seats": [
+              {
+                "games": 36,
+                "wins": 33,
+                "ties": 2
+              },
+              {
+                "games": 36,
+                "wins": 34,
+                "ties": 1
+              },
+              {
+                "games": 36,
+                "wins": 33,
+                "ties": 2
+              },
+              {
+                "games": 36,
+                "wins": 35,
+                "ties": 0
+              },
+              {
+                "games": 36,
+                "wins": 33,
+                "ties": 1
+              }
+            ]
+          },
+          "transfer": {
+            "namespace": "hellsbells-multi-tactics-development-v1-5",
+            "games": 180,
+            "wins": 100,
+            "ties": 6,
+            "uniqueWinRate": 0.5555555555555556,
+            "meanPoints": 6.816666666666666,
+            "wilson95": [
+              0.4825551403258598,
+              0.6262341652502449
+            ],
+            "seats": [
+              {
+                "games": 36,
+                "wins": 21,
+                "ties": 0
+              },
+              {
+                "games": 36,
+                "wins": 17,
+                "ties": 3
+              },
+              {
+                "games": 36,
+                "wins": 23,
+                "ties": 2
+              },
+              {
+                "games": 36,
+                "wins": 22,
+                "ties": 0
+              },
+              {
+                "games": 36,
+                "wins": 17,
+                "ties": 1
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "baselines": [
+    {
+      "path": "models/rl-bid.json",
+      "sha256": "b188c6d6d9be6b4f30d4707352eb50a3cea7bf8b47ec28e033cdec7cd8c41c65"
+    },
+    {
+      "path": "models/rl-discard.json",
+      "sha256": "ba5f854f9725bb10380b20a0628f55299d18b2e2ac5b619f7b5e861b86f491c2"
+    },
+    {
+      "path": "models/rl-v2-bid.json",
+      "sha256": "5a533c85a8be4c6f96a0a8c8dc37de71895d6cfe44b15209e8b49e8bdb23af64"
+    },
+    {
+      "path": "models/rl-v2-discard.json",
+      "sha256": "1b0442c59fda9bc138723f178b1c55f240d7f639544f0ac438b3720a0ea74a2c"
+    },
+    {
+      "path": "models/rl-v2-tactics.json",
+      "sha256": "04f45f69ba7695be431959e7a5b987b98c8041590a34975c58f0a12c9bb74bd6"
+    }
+  ],
+  "inference": {
+    "samples": 128,
+    "playSamples": 20,
+    "inputs": 152,
+    "opponentSlots": 4,
+    "information": "own cards and permitted public information; no actual hidden opponent hands, reserve, RNG or committed Moon bids"
+  },
+  "acceptance": {
+    "minimumEasyUniqueWinRate": 0.9,
+    "criterion": "easy cohorts >= 90% outright wins at every count; stronger lineups are separately reported diagnostics, with no 90% guarantee; shared wins excluded",
+    "passed": true
+  },
+  "evaluation": {
+    "games": 8100,
+    "counts": [
+      {
+        "players": 3,
+        "games": 2700,
+        "wins": 2528,
+        "ties": 32,
+        "uniqueWinRate": 0.9362962962962963,
+        "cohorts": [
+          {
+            "path": "reports/rl/heldout-v3-3-easy.json",
+            "players": 3,
+            "cohort": "easy",
+            "games": 900,
+            "wins": 877,
+            "ties": 5,
+            "uniqueWinRate": 0.9744444444444444,
+            "wilson95": [
+              0.9619441426208964,
+              0.9829116816739799
+            ],
+            "seats": [
+              {
+                "games": 300,
+                "wins": 292,
+                "ties": 2
+              },
+              {
+                "games": 300,
+                "wins": 295,
+                "ties": 0
+              },
+              {
+                "games": 300,
+                "wins": 290,
+                "ties": 3
+              }
+            ]
+          },
+          {
+            "path": "reports/rl/heldout-v3-3-legacy.json",
+            "players": 3,
+            "cohort": "legacy",
+            "games": 900,
+            "wins": 837,
+            "ties": 8,
+            "uniqueWinRate": 0.93,
+            "wilson95": [
+              0.9114381264279136,
+              0.9449066136238832
+            ],
+            "seats": [
+              {
+                "games": 300,
+                "wins": 284,
+                "ties": 3
+              },
+              {
+                "games": 300,
+                "wins": 281,
+                "ties": 2
+              },
+              {
+                "games": 300,
+                "wins": 272,
+                "ties": 3
+              }
+            ]
+          },
+          {
+            "path": "reports/rl/heldout-v3-3-mixed.json",
+            "players": 3,
+            "cohort": "mixed",
+            "games": 900,
+            "wins": 814,
+            "ties": 19,
+            "uniqueWinRate": 0.9044444444444445,
+            "wilson95": [
+              0.8834826148857433,
+              0.9219682517262826
+            ],
+            "seats": [
+              {
+                "games": 300,
+                "wins": 272,
+                "ties": 5
+              },
+              {
+                "games": 300,
+                "wins": 272,
+                "ties": 9
+              },
+              {
+                "games": 300,
+                "wins": 270,
+                "ties": 5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "players": 4,
+        "games": 2700,
+        "wins": 2016,
+        "ties": 111,
+        "uniqueWinRate": 0.7466666666666667,
+        "cohorts": [
+          {
+            "path": "reports/rl/heldout-v3-4-easy.json",
+            "players": 4,
+            "cohort": "easy",
+            "games": 900,
+            "wins": 853,
+            "ties": 17,
+            "uniqueWinRate": 0.9477777777777778,
+            "wilson95": [
+              0.9312461519410625,
+              0.9605030218079661
+            ],
+            "seats": [
+              {
+                "games": 225,
+                "wins": 210,
+                "ties": 7
+              },
+              {
+                "games": 225,
+                "wins": 215,
+                "ties": 4
+              },
+              {
+                "games": 225,
+                "wins": 213,
+                "ties": 4
+              },
+              {
+                "games": 225,
+                "wins": 215,
+                "ties": 2
+              }
+            ]
+          },
+          {
+            "path": "reports/rl/heldout-v3-4-transfer.json",
+            "players": 4,
+            "cohort": "transfer",
+            "games": 900,
+            "wins": 399,
+            "ties": 46,
+            "uniqueWinRate": 0.44333333333333336,
+            "wilson95": [
+              0.41118613997554637,
+              0.47596222761452683
+            ],
+            "seats": [
+              {
+                "games": 225,
+                "wins": 100,
+                "ties": 7
+              },
+              {
+                "games": 225,
+                "wins": 100,
+                "ties": 13
+              },
+              {
+                "games": 225,
+                "wins": 105,
+                "ties": 14
+              },
+              {
+                "games": 225,
+                "wins": 94,
+                "ties": 12
+              }
+            ]
+          },
+          {
+            "path": "reports/rl/heldout-v3-4-mixed.json",
+            "players": 4,
+            "cohort": "mixed",
+            "games": 900,
+            "wins": 764,
+            "ties": 48,
+            "uniqueWinRate": 0.8488888888888889,
+            "wilson95": [
+              0.8240091463587766,
+              0.8708028649493995
+            ],
+            "seats": [
+              {
+                "games": 225,
+                "wins": 190,
+                "ties": 15
+              },
+              {
+                "games": 225,
+                "wins": 197,
+                "ties": 8
+              },
+              {
+                "games": 225,
+                "wins": 186,
+                "ties": 17
+              },
+              {
+                "games": 225,
+                "wins": 191,
+                "ties": 8
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "players": 5,
+        "games": 2700,
+        "wins": 2129,
+        "ties": 151,
+        "uniqueWinRate": 0.7885185185185185,
+        "cohorts": [
+          {
+            "path": "reports/rl/heldout-v3-5-easy.json",
+            "players": 5,
+            "cohort": "easy",
+            "games": 900,
+            "wins": 882,
+            "ties": 16,
+            "uniqueWinRate": 0.98,
+            "wilson95": [
+              0.9686074158522342,
+              0.9873122939730272
+            ],
+            "seats": [
+              {
+                "games": 180,
+                "wins": 177,
+                "ties": 3
+              },
+              {
+                "games": 180,
+                "wins": 176,
+                "ties": 4
+              },
+              {
+                "games": 180,
+                "wins": 176,
+                "ties": 3
+              },
+              {
+                "games": 180,
+                "wins": 174,
+                "ties": 5
+              },
+              {
+                "games": 180,
+                "wins": 179,
+                "ties": 1
+              }
+            ]
+          },
+          {
+            "path": "reports/rl/heldout-v3-5-transfer.json",
+            "players": 5,
+            "cohort": "transfer",
+            "games": 900,
+            "wins": 518,
+            "ties": 74,
+            "uniqueWinRate": 0.5755555555555556,
+            "wilson95": [
+              0.5430099706503705,
+              0.6074588725628652
+            ],
+            "seats": [
+              {
+                "games": 180,
+                "wins": 109,
+                "ties": 11
+              },
+              {
+                "games": 180,
+                "wins": 102,
+                "ties": 19
+              },
+              {
+                "games": 180,
+                "wins": 102,
+                "ties": 12
+              },
+              {
+                "games": 180,
+                "wins": 110,
+                "ties": 17
+              },
+              {
+                "games": 180,
+                "wins": 95,
+                "ties": 15
+              }
+            ]
+          },
+          {
+            "path": "reports/rl/heldout-v3-5-mixed.json",
+            "players": 5,
+            "cohort": "mixed",
+            "games": 900,
+            "wins": 729,
+            "ties": 61,
+            "uniqueWinRate": 0.81,
+            "wilson95": [
+              0.7830726899423803,
+              0.834292122653101
+            ],
+            "seats": [
+              {
+                "games": 180,
+                "wins": 141,
+                "ties": 15
+              },
+              {
+                "games": 180,
+                "wins": 140,
+                "ties": 13
+              },
+              {
+                "games": 180,
+                "wins": 152,
+                "ties": 13
+              },
+              {
+                "games": 180,
+                "wins": 147,
+                "ties": 12
+              },
+              {
+                "games": 180,
+                "wins": 149,
+                "ties": 8
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

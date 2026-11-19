@@ -26,7 +26,12 @@
     "rl:train:tactics": "bun scripts/rl/train-tactics.ts",
     "rl:verify:v2": "bun scripts/rl/verify-league.ts",
     "rl:train:planner": "bun scripts/rl/train-planner.ts",
-    "test:setup": "bun scripts/setup-browser.ts"
+    "test:setup": "bun scripts/setup-browser.ts",
+    "rl:train:multi": "bun scripts/rl/train-multi.ts",
+    "rl:train:multi-tactics": "bun scripts/rl/train-multi-tactics.ts",
+    "rl:evaluate:multi": "bun scripts/rl/evaluate-multi.ts",
+    "rl:verify:v3": "bun scripts/rl/verify-multi.ts",
+    "rl:report:v3": "bun scripts/rl/report-multi.ts"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "5.2.8",
