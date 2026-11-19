@@ -92,3 +92,4 @@ body:has(.animation-lab){overflow:hidden}.animation-lab{overflow:hidden}
  .decision-trick .contract-token{width:clamp(24px,calc((var(--setup-area-height) - 60px)*.9),48px)}
 }
 .game-table .table-middle{grid-template-rows:minmax(0,1fr)}
+.game-table .forced-draw>span{margin-top:1px;line-height:1}
