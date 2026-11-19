@@ -1,7 +1,9 @@
+import {powerOptions} from './powers/scenes';
 import {startRound,apply,eventFor,cards} from '$lib/engine/engine';
 import {botCommand,nextActor} from '$lib/engine/bot';
 import type {State,Command} from '$lib/engine/types';
 export const scenarios=[
+ ...powerOptions,
  {id:'andromalius',name:'Andromalius · public cards by owner',hint:'Exposed cards stay beside their current owner, including your own. Change View from to inspect every seat. Use Andromalius and choose an opponent to reveal a fresh card; a fully exposed hand is not a target.'},
  {id:'seating',name:'Clockwise seating · dealer and opening lead',hint:'Your hand is below the opponent row. Clockwise order runs from the leftmost opponent across to the rightmost and back to you. Change View from to check every seat; Next play follows the real turn order.'},
  {id:'seating-later',name:'Clockwise seating · later trick',hint:'The dealer stays fixed and the lead marker follows the new trick leader. On small screens the markers disappear after the opening trick to leave the cards clear.'},

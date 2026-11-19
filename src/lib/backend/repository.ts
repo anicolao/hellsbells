@@ -13,7 +13,7 @@ export async function joinGame(db:Firestore,uid:string,id:string,name:string){
   catch(error){const code=(error as {code?:string}).code;if(!['permission-denied','aborted'].includes(code??'')||attempt===4)throw error;const latest=await getDoc(room);if(!latest.exists()||latest.data().revision===revision)throw error;}
  }
 }
-export function watchGame(db:Firestore,id:string,update:(state:State)=>void,error:(error:Error)=>void){return onSnapshot(query(collection(db,gamePath(id),'events'),orderBy('sequence')),{includeMetadataChanges:true},snapshot=>{try{const events=snapshot.docs.map(d=>d.data() as Event);const state=replay(events);if(state)update(state);}catch(e){error(e as Error);}},error);}
+export function watchGame(db:Firestore,id:string,update:(state:State,events:Event[])=>void,error:(error:Error)=>void){return onSnapshot(query(collection(db,gamePath(id),'events'),orderBy('sequence')),{includeMetadataChanges:true},snapshot=>{try{if(snapshot.metadata.hasPendingWrites)return;const events=snapshot.docs.map(d=>d.data() as Event);const state=replay(events);if(state)update(state,events);}catch(e){error(e as Error);}},error);}
 export async function append(db:Firestore,uid:string,id:string,state:State,actor:string,command:Command){
  if(actor!==uid&&!(state.owner===uid&&state.players.some(p=>p.id===actor&&p.bot)))throw Error('This is another player’s seat');
  const room=doc(db,gamePath(id)),commandId=crypto.randomUUID();
