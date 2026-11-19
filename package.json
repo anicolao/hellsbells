@@ -31,7 +31,8 @@
     "rl:train:multi-tactics": "bun scripts/rl/train-multi-tactics.ts",
     "rl:evaluate:multi": "bun scripts/rl/evaluate-multi.ts",
     "rl:verify:v3": "bun scripts/rl/verify-multi.ts",
-    "rl:report:v3": "bun scripts/rl/report-multi.ts"
+    "rl:report:v3": "bun scripts/rl/report-multi.ts",
+    "test:interactions": "bun scripts/interaction-browser.ts"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "5.2.8",

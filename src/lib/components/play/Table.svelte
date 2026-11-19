@@ -86,7 +86,7 @@
  else if(game.phase==='prebid'&&myTurn&&me.imp===7)act({type:'prebid',target:p.id});
  else if(armed&&game.phase==='play'&&me.imp===6)act({type:'shax',target:p.id});
  else if(armed&&game.phase==='after')act({type:'power',target:p.id,...(selection[0]?{card:selection[0]}:{})});}
- function roundPick(){if(game.phase==='lobby')act({type:'start'});else if(game.phase==='discard'&&selection.length===game.round)act({type:'discard',cards:selection});else if(['magician','arcana'].includes(game.phase))act({type:'arcana',...(selection[0]?{card:selection[0]}:{})});else if(game.phase==='prebid')act({type:'prebid'});else if(game.phase==='round-end'&&!me.done)act({type:'continue',value:1});else if(game.phase==='play'&&game.arcana===4&&!game.trick.length)royal=!royal;}
+ function roundPick(){if(game.phase==='lobby')act({type:'start'});else if(game.phase==='discard'&&selection.length===game.round)act({type:'discard',cards:selection});else if(['magician','arcana'].includes(game.phase))act({type:'arcana',...(selection[0]?{card:selection[0]}:{})});else if(game.phase==='prebid')act({type:'prebid'});else if(game.phase==='round-end'&&!me.done)act({type:'continue',value:1});;}
  function powerReady(){return !me.used&&((game.phase==='prebid'&&myTurn&&me.imp===7)||(game.phase==='play'&&myTurn&&[0,2,3,5,6].includes(me.imp))||afterPower(game,uid))||game.phase==='after'&&game.winner===uid&&me.imp===9&&!game.afterRevealed;}
  const stageDone=$derived(game.phase==='discard'&&me.done||game.phase==='draft'&&me.imp>=0||game.phase==='bid'&&me.bid!==null||game.phase==='adjust'&&(me.done||game.standing[uid]!==Math.max(...Object.values(game.standing))));
 </script>
@@ -98,7 +98,7 @@
  </div>{/each}
  {#if game.phase==='lobby'&&game.owner===uid}{#each Array(Math.max(0,game.capacity-game.players.length)) as _,i}<div class="empty-seat"><span>♬</span><small>OPEN SEAT</small></div>{/each}{/if}</div>
  <div class="table-middle" bind:clientHeight={playAreaHeight}>
- {#if game.round>0}<aside class="round-area"><div class="round-card"><CardControl card={arcana[game.arcana]} selected={royal&&game.arcana===4} label={game.phase==='play'?'Royal Command':`Resolve ${arcana[game.arcana].name}`} onpick={roundPick}/></div><span>{arcana[game.arcana].name}</span></aside>{/if}
+ {#if game.round>0}<aside class="round-area"><div class="round-card">{#if game.phase==='play'&&game.arcana===4&&!game.trick.length&&myTurn}<CardControl card={arcana[game.arcana]} selected={royal} disabled={busy} label="Toggle Royal Command" onpick={()=>royal=!royal}/>{:else}<GameCard card={arcana[game.arcana]}/>{/if}</div><span>{arcana[game.arcana].name}</span></aside>{/if}
  <section bind:clientWidth={stageWidth} class="table-stage" aria-label={prompt} ondragover={e=>e.preventDefault()} ondrop={e=>{e.preventDefault();const id=e.dataTransfer?.getData('text/plain');if(id&&me.hand.includes(id))pickCard(id);}}>
  {#if automatic&&game.phase!=='after'&&game.phase!=='round-end'}<div class="phase-ripple" style:opacity={Math.sin(moving*Math.PI)}></div>{/if}
  <p class="table-prompt" aria-live="polite">{stageDone?'Waiting for the other imps':prompt}</p>
