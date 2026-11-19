@@ -54,7 +54,7 @@
   "sources": [
     {
       "path": "src/lib/engine/engine.ts",
-      "sha256": "65999600cb3d570d89a10eb2527e5e9196b22a6e30a7e9e3c644dffb523b655e"
+      "sha256": "f36cbce62ee8e2991dab927897c5a798ce5a8f27a424284c7a8f071289ac9e2c"
     },
     {
       "path": "src/lib/engine/bot.ts",
@@ -93,7 +93,7 @@
       "sha256": "20a7f54ba7c5a87691d4da958f5644eee49abca3d22c8a76951de8bc7eeccd30"
     }
   ],
-  "sourceRevision": "06ee0700efecd9a1a713542b208784ef169d26e6",
+  "sourceRevision": "37e77e007a880c334ef46140fc72650132fac2ec",
   "opponents": "registered easy bots",
   "winCriterion": "sole lowest final score; shared wins excluded"
 }
