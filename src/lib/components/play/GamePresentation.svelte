@@ -31,6 +31,12 @@
   function box(selector:string,fallback:Box=centre){const node=root.querySelector<HTMLElement>(selector);if(!node)return fallback;const b=node.getBoundingClientRect();let angle=0,scale=1;for(let el:HTMLElement|null=node;el&&el!==root;el=el.parentElement){const style=getComputedStyle(el),matrix=new DOMMatrix(style.transform);angle+=Math.atan2(matrix.b,matrix.a)*180/Math.PI+(parseFloat(style.rotate)||0);scale*=Math.hypot(matrix.a,matrix.b)*(parseFloat(style.scale)||1);}const width=(node.offsetWidth||b.width)*scale,height=(node.offsetHeight||b.height)*scale;return {x:b.x+(b.width-width)/2-r.x,y:b.y+(b.height-height)/2-r.y,width,height,angle};}
   const a:Anchors={centre,'centre-left':{...centre,x:w/2-cw-12},'centre-right':{...centre,x:w/2+12}};
   for(const p of sample.game.players){a[`seat:${p.id}`]=box(p.id===uid?'.own-imp .imp-portrait .game-card':`.opponent[data-seat="${p.id}"] .game-card`);for(const c of p.hand)a[`hand:${p.id}:${c}`]=p.id===uid?box(`[data-fan-card="${c}"] .game-card`,a[`seat:${p.id}`]):a[`seat:${p.id}`];}
+  // During the pre-update capture the reducer has already removed a played
+  // card, but its DOM node is still in the hand. Capture DOM cards directly.
+  for(const node of root.querySelectorAll<HTMLElement>('[data-fan-card]')){
+   const card=node.dataset.fanCard!;
+   a[`hand:${uid}:${card}`]=box(`[data-fan-card="${card}"] .game-card`);
+  }
   for(const play of sample.game.phase==='after'?sample.game.lastTrick:sample.game.trick)a[`trick:${play.card}`]=box(`[data-trick-card="${play.card}"] .game-card`);
   for(const c of sample.game.exposed)a[`public:${c}`]=box(`[data-exposed-card="${c}"] .game-card`);
   return a;
