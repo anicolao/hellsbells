@@ -7,6 +7,6 @@
  {#if leader}<img class="leader-marker" src={`${base}/art/cards/leads-indicator.webp`} alt={`${name} leads this trick`} title={`${name} leads this trick`} data-marker="leader"/>{/if}
 </div>{/if}
 <style>
-.seat-markers{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:5px;width:var(--seat-marker-size,54px);min-height:var(--seat-marker-size,54px);flex-shrink:0;pointer-events:none}.seat-markers img{display:block;width:auto;height:var(--seat-marker-size,54px);max-width:none;object-fit:contain;filter:drop-shadow(0 2px 3px #0008)}
+.seat-markers{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:5px;width:var(--seat-marker-size,54px);min-height:var(--seat-marker-size,54px);flex-shrink:0;pointer-events:none}.seat-markers img{display:block;width:auto;height:var(--seat-marker-size,54px);max-width:none;object-fit:contain}
 .seat-markers.both img{height:calc((var(--seat-marker-size,54px) - 5px)/2)}
 </style>

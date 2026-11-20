@@ -9,7 +9,7 @@ try{
  await mkdir('tmp/qa/card-rendering',{recursive:true});
  for(const viewport of [{width:1024,height:1366},{width:1366,height:1024}]){
   await page.setViewportSize(viewport);
-  for(const scenario of ['hand-wait','win-decision','bell-3','collect']){
+  for(const scenario of ['hand-wait','win-decision','bell-0','bell-3','collect']){
    await page.goto(`${root}?scenario=${scenario}`);await page.locator('[data-ready=true]').waitFor();await settled();
    const slider=page.getByRole('slider');
    if(await slider.isEnabled())for(const p of ['1','0','1','0','.5']){await slider.fill(p);await page.evaluate(()=>new Promise(requestAnimationFrame));}
@@ -17,9 +17,20 @@ try{
    if(label!=='before'){
     const cards=await page.locator('.game-card').evaluateAll(nodes=>nodes.map(node=>{const c=getComputedStyle(node);const image=node.querySelector<HTMLImageElement>('.frame,.card-back');return {overflow:c.overflow,width:(node as HTMLElement).offsetWidth,natural:image?.naturalWidth??0};}));
     expect(cards.every(c=>c.overflow==='visible')).toBe(true);
+    const filtered=await page.locator('.game-card').evaluateAll(nodes=>nodes.flatMap(card=>{
+     const result:string[]=[];for(let n:Element|null=card;n&&!n.classList.contains('game-table');n=n.parentElement)if(getComputedStyle(n).filter!=='none')result.push(n.className);
+     return result;
+    }));
+    expect(filtered).toEqual([]);
+    if(scenario==='bell-0'){
+     expect(await page.locator('.power-fx-card').evaluateAll(nodes=>nodes.every(n=>new DOMMatrix(getComputedStyle(n).transform).is2D))).toBe(true);
+     await expect(page.locator('.effect-cards')).toHaveCSS('perspective','none');
+    }
+
     expect(cards.every(c=>c.natural>=c.width*2)).toBe(true);
     expect(await page.locator('.played-card,.flying-card,.collecting-card').evaluateAll(nodes=>nodes.every(n=>getComputedStyle(n).willChange==='auto'))).toBe(true);
    }
+   if(await slider.isEnabled()){await slider.fill('1');await settled();await page.screenshot({path:`tmp/qa/card-rendering/${label}-${engine}-${viewport.width}-${scenario}-settled.png`});}
   }
  }
  await page.goto(`${root}?scenario=andromalius&players=5`);await page.locator('[data-ready=true]').waitFor();await settled();
