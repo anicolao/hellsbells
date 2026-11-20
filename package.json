@@ -36,6 +36,7 @@
     "test:seating": "bun scripts/seating-browser.ts",
     "test:join": "bun scripts/join-browser.ts",
     "test:exposure": "bun scripts/exposure-browser.ts",
+    "test:rendering": "BROWSER=chromium bun scripts/card-rendering-browser.ts",
     "test:sync": "bun scripts/sync-browser.ts && SYNC_SAFARI=true bun scripts/sync-browser.ts",
     "test:powers": "bun scripts/power-feedback-browser.ts && bun scripts/power-live-browser.ts"
   },
