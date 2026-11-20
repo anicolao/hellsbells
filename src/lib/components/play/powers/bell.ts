@@ -8,9 +8,27 @@ export function strikeBell(context:BaseAudioContext,destination:AudioNode,volume
  return ()=>{bus.gain.cancelScheduledValues(context.currentTime);bus.gain.setTargetAtTime(.00001,context.currentTime,.012);for(const node of nodes)try{node.stop(context.currentTime+.08);}catch{/* Already ended. */}};
 }
 export class BellAudio{
- private context:AudioContext|undefined;private stop:()=>void=()=>{};
- async unlock(){this.context??=new AudioContext();await this.context.resume();}
+ private context:AudioContext|undefined;private primed=false;private stop:()=>void=()=>{};
+ constructor(private createContext:()=>AudioContext=()=>new AudioContext()){}
+ async unlock(){
+  this.context??=this.createContext();
+  if(this.context.state==='running'&&this.primed)return;
+  // Start a silent source synchronously inside the gesture as well as resuming.
+  // This primes WebKit's audio output; awaiting resume before start loses the gesture.
+  const context=this.context,resuming=context.resume(),source=context.createBufferSource();
+  source.buffer=context.createBuffer(1,1,context.sampleRate);source.connect(context.destination);
+  source.onended=()=>source.disconnect();source.start();this.primed=true;
+  await resuming;
+ }
  ring(volume=.35){if(this.context?.state==='running'){this.stop();this.stop=strikeBell(this.context,this.context.destination,volume);}}
  silence(){this.stop();this.stop=()=>{};}
- dispose(){this.silence();void this.context?.close();this.context=undefined;}
+ dispose(){this.silence();void this.context?.close();this.context=undefined;this.primed=false;}
+}
+
+/** Release/click events also unlock touch and WebKit audio; retry on later gestures. */
+export function listenForBellUnlock(audio:Pick<BellAudio,'unlock'>,target:EventTarget){
+ const unlock=()=>void audio.unlock().catch(()=>{});
+ const events=['pointerdown','pointerup','click','touchend','keydown'];
+ for(const event of events)target.addEventListener(event,unlock,true);
+ return()=>{for(const event of events)target.removeEventListener(event,unlock,true);};
 }
