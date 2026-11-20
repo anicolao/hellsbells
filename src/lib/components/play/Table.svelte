@@ -41,11 +41,11 @@
   void tick().then(()=>{if(cancelled)return;const to=targetBox();if(!to){arrival=1;flight=null;return;}flight={card,back,from,to};const started=performance.now();function step(now:number){if(cancelled)return;arrival=Math.min(1,(now-started)/cardPlayDuration);if(arrival<1)frame=requestAnimationFrame(step);else{flight=null;previousHand=null;}}frame=requestAnimationFrame(step);});
  });return()=>{cancelled=true;cancelAnimationFrame(frame);};});
  $effect(()=>{if(!mounted||!labMode)return;const key=playKey,size=cardSize,area=stageWidth,height=tableHeight,width=tableWidth;untrack(()=>{if(!latestPlay||!key)return;const own=latestPlay.player===uid;previousHand=own?[...hand,latestPlay.card].sort((a,b)=>cards[a].suit.localeCompare(cards[b].suit)||cards[a].rank-cards[b].rank):null;void tick().then(()=>{const source=tableElement?.querySelector<HTMLElement>(own?`[data-fan-card="${latestPlay?.card}"] .game-card`:`[data-seat="${latestPlay?.player}"] .opponent-portrait .game-card`);const to=targetBox();if(source&&to&&latestPlay)flight={card:latestPlay.card,back:latestPlay.concealed,from:box(source),to};});});});
- let progress=$state(0),passed=$state(-1),queuedLead=$state<Command|null>(null);
+ let progress=$state(0),passed=$state(-1),declinedAdjustmentKey=$state(''),queuedLead=$state<Command|null>(null);
  onMount(()=>{mounted=true;});
- const automatic=$derived(passed===game.revision&&game.phase==='after'?(queuedLead??{type:'continue'}) as Command:automaticCommand(game,game.phase==='round-end'?game.owner:game.turn));
- const needsDecision=$derived(game.phase==='after'&&!automatic&&!feedbackActive);
  const decisionKey=$derived(game.phase==='after'?`${game.round}:${game.trickNumber}:${game.winner}`:'');
+ const automatic=$derived(passed===game.revision&&game.phase==='after'?(queuedLead??{type:'continue'}) as Command:game.phase==='after'&&declinedAdjustmentKey===decisionKey&&!afterPower(game,game.turn)?{type:'continue'} as Command:automaticCommand(game,game.phase==='round-end'?game.owner:game.turn));
+ const needsDecision=$derived(game.phase==='after'&&!automatic&&!feedbackActive);
  let decisionProgress=$state(0),presentedKey=$state('');
  let introductionKey='';
  $effect(()=>{if(!mounted||!needsDecision)return;presentedKey=decisionKey;});
@@ -79,9 +79,9 @@
  const cardSize=$derived(Math.max(28,Math.min(220,tableWidth*.23,(playAreaHeight-76)/1.6)));
  const trickGap=$derived(tableWidth<800?5:20);
  const trickOverlap=$derived(Math.max(0,(cardSize*game.players.length+trickGap*(game.players.length-1)-stageWidth)/Math.max(1,game.players.length-1)));
- const adjustment=$derived(game.phase==='adjust'?Array.from({length:bidMax(game)+1},(_,i)=>i).filter(v=>Math.abs(v-me.bid!)<=(game.arcana===20?2:1)):adjustments(game,uid));
+ const adjustment=$derived(game.phase==='after'&&declinedAdjustmentKey===decisionKey?[]:game.phase==='adjust'?Array.from({length:bidMax(game)+1},(_,i)=>i).filter(v=>Math.abs(v-me.bid!)<=(game.arcana===20?2:1)):adjustments(game,uid));
  $effect(()=>{const key=roomId+handDecisionKey(game,uid);if(key!==lastDecision){lastDecision=key;selection=[];armed=false;queuedLead=null;}});
- function decline(){if(!decisionReady)return;if(onDecline)onDecline();else passed=game.revision;}
+ function decline(){if(!decisionReady)return;if(game.phase==='after'&&adjustment.length){declinedAdjustmentKey=decisionKey;return;}if(onDecline)onDecline();else passed=game.revision;}
  function act(c:Command){if(!busy&&!queuedLead&&playProgress>=1&&decisionReady)send(c);}
  function pickCard(id:string){if(!handAcceptsInput(game,uid,armed))return;if(game.phase==='discard'){selection=selection.includes(id)?selection.filter(x=>x!==id):selection.length<game.round?[...selection,id]:selection;}
  else if(mayLead&&legal.includes(id)&&!busy&&playProgress>=1){queuedLead={type:'continue',card:id,royal,low};selection=[id];armed=false;progress=0;passed=game.revision;}
