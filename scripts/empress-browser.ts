@@ -2,10 +2,10 @@ import {chromium,expect} from '@playwright/test';
 import {empressHistory} from '../tests/fixtures/empress';
 import {replay} from '../src/lib/engine/engine';
 const browser=await chromium.launch({executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE??'/Users/anicolao/Library/Caches/ms-playwright/chromium-1254/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing'});
-const pages=await Promise.all([0,1,2].map(async()=>{const c=await browser.newContext({viewport:{width:1440,height:1000}});return c.newPage();}));
+const pages=await Promise.all([0,1,2].map(async()=>{const c=await browser.newContext({viewport:{width:1440,height:1000},userAgent:'Mozilla/5.0 (Macintosh) AppleWebKit/605.1.15 Version/26.5 Safari/605.1.15'});return c.newPage();}));
 const errors:string[]=[];pages.forEach(p=>p.on('pageerror',e=>errors.push(e.message)));
 try{
- const identities=await Promise.all(pages.map(async p=>{await p.goto('http://127.0.0.1:5201/play/');return p.evaluate(async()=>{const path='/src/lib/backend/firebase.ts';const {connectFirebase}=await import(path);const {uid,db}=await connectFirebase();return {uid,project:db.app.options.projectId};});}));
+ const identities=await Promise.all(pages.map(async p=>{await p.goto('http://127.0.0.1:5201/play/');await p.waitForFunction(()=>!(document.querySelector('[aria-label="Create a table for friends"]') as HTMLButtonElement)?.disabled);return p.evaluate(async()=>{const path='/src/lib/backend/firebase.ts';const {connectFirebase}=await import(path);const {auth,db}=await connectFirebase();return {uid:auth.currentUser!.uid,project:db.app.options.projectId};});}));
  if(identities.some(i=>i.project!=='demo-hellsbells'))throw Error('Live browser test requires the local demo Firebase project.');
  for(const raise of [false,true]){
  const history=empressHistory(),demo={before:replay(history)!,history},map=new Map(demo.before.players.map((p,i)=>[p.id,identities[i].uid]));
@@ -28,4 +28,4 @@ try{
  }
  if(errors.length)throw Error(errors.join('\n'));
  console.log('Real Empress first win: keeping or raising the bid preserves Andromalius activation and reveals a card.');
-}finally{await browser.close();}
+}catch(error){for(let i=0;i<pages.length;i++)console.error('Empress seat',i,pages[i].url(),(await pages[i].locator('body').innerText()).slice(-650));throw error;}finally{await browser.close();}
