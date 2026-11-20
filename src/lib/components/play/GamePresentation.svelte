@@ -8,7 +8,7 @@
  import type {State,Event,Command} from '$lib/engine/types';
  import {PresentationTimeline,bellDuration,bellTime} from './powers/transitions';
  import {powerSprites,portion,travel,type Anchors,type Box} from './powers/motion';
- import {BellAudio} from './powers/bell';
+ import {BellAudio,listenForBellUnlock} from './powers/bell';
  let {game,events,uid,busy,roomId,send,initial,time=null,playing=true,sound=true,presenting=$bindable(false)}:{game:State;events:Event[];uid:string;busy:boolean;roomId:string;send:(c:Command)=>void;initial?:State;time?:number|null;playing?:boolean;sound?:boolean;presenting?:boolean}=$props();
  let timeline:PresentationTimeline|undefined,root:HTMLDivElement;
  let clock=$state(0),version=$state(0),anchors=$state<Anchors>({}),oldHand=$state<string[]|null>(null);
@@ -59,7 +59,7 @@
   const hidden=motion.kind==='reveal'?motion.revealed:f<landing?[motion.played,motion.given,motion.received,motion.returned,...motion.revealed].filter(Boolean):[];
   for(const c of hidden)for(const n of root.querySelectorAll(`[data-fan-card="${c}"],[data-trick-card="${c}"],[data-exposed-card="${c}"]`))n.setAttribute('data-power-hidden','');
  });
- onMount(()=>{let raf=0;const start=performance.now();function step(now:number){clock=now-start;raf=requestAnimationFrame(step);}raf=requestAnimationFrame(step);const unlock=()=>void audio.unlock().catch(()=>{});document.addEventListener('pointerdown',unlock);document.addEventListener('keydown',unlock);return()=>{cancelAnimationFrame(raf);audio.dispose();document.removeEventListener('pointerdown',unlock);document.removeEventListener('keydown',unlock);};});
+ onMount(()=>{let raf=0;const start=performance.now();function step(now:number){clock=now-start;raf=requestAnimationFrame(step);}raf=requestAnimationFrame(step);const stopUnlock=listenForBellUnlock(audio,document);return()=>{cancelAnimationFrame(raf);audio.dispose();stopUnlock();};});
 </script>
 <div class="game-presentation" bind:this={root} data-power={motion?.imp} data-animation={motion?.kind} data-presenting={sample.busy}>
  <Table game={displayedGame} {uid} {roomId} busy={tableBusy} send={dispatch} {feedbackActive} feedbackHand={sample.busy?oldHand:null} feedbackProgress={sample.effect} concealedCards={frame?.mask??[]}/>
