@@ -2,7 +2,7 @@ import {describe,test,expect,beforeAll,afterAll,beforeEach} from 'bun:test';
 import {initializeTestEnvironment,assertFails,type RulesTestEnvironment} from '@firebase/rules-unit-testing';
 import {readFileSync} from 'node:fs';
 import {type Firestore,getDoc,getDocs,doc,collection,query,orderBy,updateDoc,deleteDoc,setDoc,serverTimestamp} from 'firebase/firestore';
-import {createGame,joinGame,append} from '../../src/lib/backend/repository';
+import {createGame,joinGame,append,refreshGame,watchGame} from '../../src/lib/backend/repository';
 import {apply,eventFor,replay} from '../../src/lib/engine/engine';
 import type {Event,State} from '../../src/lib/engine/types';
 import {nextActor,botCommand} from '../../src/lib/engine/bot';
@@ -25,6 +25,25 @@ suite('Firestore append-only rooms',()=>{
  });
  test('outsiders and unauthenticated clients cannot read logs',async()=>{const id=await createGame(db('a'),'a','A');await assertFails(getDocs(collection(db('outsider'),'games',id,'events')));await assertFails(getDoc(doc(env.unauthenticatedContext().firestore(),'games',id)));await assertFails(getDocs(collection(db('a'),'games')));});
  test('concurrent joins serialize without losing seats and full table rejects a fourth',async()=>{const id=await createGame(db('a'),'a','A',3);await Promise.all([joinGame(db('b'),'b',id,'B'),joinGame(db('c'),'c',id,'C')]);expect((await state('a',id)).players).toHaveLength(3);await expect(joinGame(db('d'),'d',id,'D')).rejects.toThrow();});
+ test('successful writes return their committed revision and conflicts can refresh the canonical log',async()=>{
+  const database=db('a'),id=await createGame(database,'a','A',3),old=await state('a',id);
+  expect(await append(database,'a',id,old,'a',{type:'capacity',value:4})).toBe(old.revision+1);
+  await expect(append(database,'a',id,old,'a',{type:'capacity',value:5})).rejects.toThrow('changed');
+  const fresh=await refreshGame(database,id);
+  expect(fresh.state.revision).toBe(old.revision+1);expect(fresh.state.capacity).toBe(4);
+  expect(replay(fresh.events)).toEqual(fresh.state);
+  expect(await append(database,'a',id,fresh.state,'a',{type:'capacity',value:5})).toBe(old.revision+2);
+ });
+ test('committed watcher revisions never regress through concurrent writes',async()=>{
+  const database=db('a'),id=await createGame(database,'a','A',3),revisions:number[]=[];
+  let resolveLatest:()=>void=()=>{};const latest=new Promise<void>(resolve=>resolveLatest=resolve);
+  let failure:Error|undefined;
+  const stop=watchGame(database,id,(s)=>{revisions.push(s.revision);if(s.revision===3)resolveLatest();},e=>{failure=e;resolveLatest();});
+  try{await Promise.all([joinGame(db('b'),'b',id,'B'),joinGame(db('c'),'c',id,'C')]);await latest;
+   expect(failure).toBeUndefined();expect(revisions.at(-1)).toBe(3);
+   expect(revisions).toEqual([...revisions].sort((a,b)=>a-b));
+  }finally{stop();}
+ });
  test('stale commands cannot overwrite newer moves',async()=>{const id=await createGame(db('a'),'a','A');const s=await state('a',id);await append(db('a'),'a',id,s,'a',{type:'capacity',value:5});await expect(append(db('a'),'a',id,s,'a',{type:'capacity',value:3})).rejects.toThrow('changed');expect((await state('a',id)).capacity).toBe(5);});
  test('simultaneous independent drafts and discards rebase without lost choices',async()=>{
   const id=await createGame(db('a'),'a','A',3);await joinGame(db('b'),'b',id,'B');await joinGame(db('c'),'c',id,'C');let s=await state('a',id);await append(db('a'),'a',id,s,'a',{type:'start'});s=await state('a',id);
