@@ -5,7 +5,7 @@
  import {fitRules} from './fitRules';
  import {cardCopy} from '$lib/data/card-copy';
  import {ranks} from '$lib/data/game';
- let {card,back=false}: {card:GameCard;back?:boolean}=$props();
+ let {card,back=false,eager=false}: {card:GameCard;back?:boolean;eager?:boolean}=$props();
  let pip=$derived(card.kind==='minor'&&card.rank<=10);
  let suit=$derived('suit' in card?card.suit.toLowerCase():'');
  let portrait=$derived(card.kind==='imp'?card.name.toLowerCase():card.kind==='arcana'?card.id:`court-${suit}-${ranks[(card.kind==='minor'?card.rank:1)-1].toLowerCase()}`);
@@ -21,7 +21,7 @@
  <div class="pips" class:ace={card.rank===1} aria-hidden="true">{#each Array(card.rank) as _,i}<img src={`${base}/art/cards/suit-${suit}.webp`} alt="" class:inverted={i>=Math.ceil(card.rank/2)}/>{/each}</div>
  <div class="playing-label">{ranks[card.rank-1]} of {card.suit}</div>
  {:else}
- <img class="illustration" src={`${base}/art/cards/${portrait}.webp`} alt={card.kind==='imp'?`${card.name}, ${card.power}`:card.name} loading="lazy" draggable="false"/>
+ <img class="illustration" src={`${base}/art/cards/${portrait}.webp`} alt={card.kind==='imp'?`${card.name}, ${card.power}`:card.name} loading={eager?'eager':'lazy'} draggable="false"/>
  <header class="title" class:court-title={card.kind==='minor'} data-fit="title">{#if card.kind==='minor'}<img class="title-suit" src={`${base}/art/cards/suit-${suit}.webp`} alt=""/>{/if}<h3>{card.kind==='minor'?ranks[card.rank-1]+' of '+card.suit:card.name}</h3></header>
  <div class="card-copy" data-fit="rules" use:fitRules={card.id}>
  {#if card.kind==='imp'}<p class="power">{card.power}</p><p class="effect">{cardCopy[card.id]}</p>
