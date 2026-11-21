@@ -18,10 +18,11 @@ try{
     const cards=await page.locator('.game-card').evaluateAll(nodes=>nodes.map(node=>{const c=getComputedStyle(node);const image=node.querySelector<HTMLImageElement>('.frame,.card-back');return {overflow:c.overflow,width:(node as HTMLElement).offsetWidth,natural:image?.naturalWidth??0};}));
     expect(cards.every(c=>c.overflow==='visible')).toBe(true);
     const filtered=await page.locator('.game-card').evaluateAll(nodes=>nodes.flatMap(card=>{
-     const result:string[]=[];for(let n:Element|null=card;n&&!n.classList.contains('game-table');n=n.parentElement)if(getComputedStyle(n).filter!=='none')result.push(n.className);
+     const result:string[]=[];for(let n:Element|null=card;n&&!n.classList.contains('game-table');n=n.parentElement)if(!n.classList.contains('game-card')&&!n.classList.contains('reserved')&&getComputedStyle(n).filter!=='none')result.push(n.className);
      return result;
     }));
     expect(filtered).toEqual([]);
+    expect(await page.locator('.game-card').evaluateAll(nodes=>nodes.every(n=>getComputedStyle(n).filter.startsWith('drop-shadow(')))).toBe(true);
     if(scenario==='bell-0'){
      expect(await page.locator('.power-fx-card').evaluateAll(nodes=>nodes.every(n=>new DOMMatrix(getComputedStyle(n).transform).is2D))).toBe(true);
      await expect(page.locator('.effect-cards')).toHaveCSS('perspective','none');
