@@ -2,7 +2,7 @@
 .game-card.pip:not(.back)::before{content:"";position:absolute;inset:8% 13%;background:#e8dcc3;z-index:0;pointer-events:none}
 .game-card img{display:block;pointer-events:none;user-select:none}
 .game-card .frame,.game-card .card-back{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:2}
-.game-card .illustration{position:absolute;z-index:1;left:8%;top:14.5%;width:84%;height:37%;object-fit:contain;background:#201a19}
+.game-card .illustration{position:absolute;z-index:1;left:8%;top:14.5%;width:84%;height:37%;object-fit:cover;object-position:center;background:#201a19}
 .game-card .title{position:absolute;z-index:3;left:12%;top:4.4%;width:76%;height:7.4%;display:flex;align-items:center;justify-content:center;text-align:center}
 .game-card .title h3{font:600 8.125cqw/1.02 'Cormorant Garamond',serif;color:#302418;margin:0;text-wrap:balance;letter-spacing:-.02em}
 .game-card .card-copy{position:absolute;z-index:3;left:11.5%;top:56.3%;width:77%;height:33%;display:flex;flex-direction:column;justify-content:center;gap:2cqw}
