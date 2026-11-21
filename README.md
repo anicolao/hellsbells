@@ -41,6 +41,8 @@ Production is served at https://anicolao.github.io/hellsbells/ after changes mer
 
 ## Play
 
+New games last 6 rounds with 3 players, 8 with 4 players, and 5 with 5 players. The dealer rotates clockwise after each round, so every player deals twice at 3–4 players or once at 5 players. Existing tables retain their original rules for deterministic replay.
+
 Open `/play/` to gather friends with an eight-character table code or practice against computer imps. Hosts can fill open seats in friends tables with the Easy Imp or Trained Imp cards. Easy and trained imps support three to five players. Trained imps use a model trained for the table’s player count. Cards and contract tokens are the controls: select discards, tap the discard pile, bid with a token, play or drag a card into the center, and tap your imp to arm its power. Tricks collect automatically when no decision remains. Read an imp’s card for its trigger. Trained Imps practice uses the count-specific league-trained opponent; see [training and validation](docs/rl-training.md).
 
 Firebase project `hellsbells-anicolao` uses anonymous authentication and shared `games/{id}/events/{sequence}` paths in every build. Public Firebase app configuration is versioned; no service-account credentials are included. The initial game is peer-replayed for trusted tables, with hidden information concealed in the interface but recoverable from the transcript. See `docs/architecture.md` for the trust boundary and versioning contract.

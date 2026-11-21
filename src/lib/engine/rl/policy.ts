@@ -1,16 +1,16 @@
-import {cards,player,trump,allowedBids} from '../engine';
+import {totalRounds,cards,player,trump,allowedBids} from '../engine';
 import {botCommand} from '../bot';
 import type {State,Command} from '../types';
 import {Network,Random} from './network';
 const suits=['Wands','Cups','Swords','Pentacles'];
 // Deliberately enumerate permitted observations; never encode RNG, reserve, or opponent hands.
-export function observeBid(s:State,id:string,dimensions=INPUTS):Float64Array{if(dimensions===MULTI_INPUTS)return observeMulti(s,id);const p=player(s,id),tr=trump(s),features:number[]=[1,s.round/5,s.physical/17,p.score/50,(p.score-Math.min(...s.players.map(q=>q.score)))/30,s.players.findIndex(q=>q.id===id)/2,s.dealer===id?1:0];
+export function observeBid(s:State,id:string,dimensions=INPUTS):Float64Array{if(dimensions===MULTI_INPUTS)return observeMulti(s,id);const p=player(s,id),tr=trump(s),features:number[]=[1,s.round/totalRounds(s),s.physical/17,p.score/50,(p.score-Math.min(...s.players.map(q=>q.score)))/30,s.players.findIndex(q=>q.id===id)/2,s.dealer===id?1:0];
  for(const suit of [tr,...suits.filter(x=>x!==tr)]){const hand=p.hand.map(c=>cards[c]).filter(c=>c.suit===suit);features.push(hand.length/17,hand.reduce((a,c)=>a+c.rank,0)/140,...[5,9,11,12,13,14].map(rank=>hand.filter(c=>c.rank>=rank).length/8),hand.some(c=>c.rank===14)?1:0);}
  for(let a=0;a<22;a++)features.push(s.arcana===a?1:0);for(let i=0;i<10;i++)features.push(p.imp===i?1:0);
  for(let offset=1;offset<3;offset++){const q=s.players[(s.players.indexOf(p)+offset)%3];features.push(s.arcana===18||q.bid===null?-1:q.bid/17,q.score/50,(q.score-p.score)/30);}
  if(dimensions===81)return Float64Array.from(features);
  for(const suit of [tr,...suits.filter(x=>x!==tr)])for(let rank=1;rank<=14;rank++)features.push(p.hand.some(c=>cards[c].suit===suit&&cards[c].rank===rank)?1:0);
- features.push(Math.max(0,...p.penalties)/25,p.reserved?1:0,s.history.filter(r=>r.bids[id]===r.won[id]).length/5,new Set(p.hand.map(c=>cards[c].suit)).size/4);
+ features.push(Math.max(0,...p.penalties)/25,p.reserved?1:0,s.history.filter(r=>r.bids[id]===r.won[id]).length/totalRounds(s),new Set(p.hand.map(c=>cards[c].suit)).size/4);
  if(dimensions!==features.length)throw Error('Unknown feature schema');return Float64Array.from(features);
 }
 export const INPUTS=141;

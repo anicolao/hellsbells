@@ -49,7 +49,8 @@
   "sources": [
     {
       "path": "src/lib/engine/engine.ts",
-      "sha256": "f36cbce62ee8e2991dab927897c5a798ce5a8f27a424284c7a8f071289ac9e2c"
+      "sha256": "f36cbce62ee8e2991dab927897c5a798ce5a8f27a424284c7a8f071289ac9e2c",
+      "archivePath": "models/evaluation-sources/f36cbce62ee8e2991dab927897c5a798ce5a8f27a424284c7a8f071289ac9e2c/engine.ts"
     },
     {
       "path": "src/lib/engine/bot.ts",
@@ -65,11 +66,13 @@
     },
     {
       "path": "src/lib/engine/rl/policy.ts",
-      "sha256": "7e079b7feefe3a1521cec22d3a39a4f15f9caa345f551cd891ccc0418c0401a7"
+      "sha256": "7e079b7feefe3a1521cec22d3a39a4f15f9caa345f551cd891ccc0418c0401a7",
+      "archivePath": "models/evaluation-sources/7e079b7feefe3a1521cec22d3a39a4f15f9caa345f551cd891ccc0418c0401a7/policy.ts"
     },
     {
       "path": "src/lib/engine/rl/search-v3.ts",
-      "sha256": "7465152435703142ec56b11c0e6e55f438b42093d1f7e7ccbb1a766402137365"
+      "sha256": "7465152435703142ec56b11c0e6e55f438b42093d1f7e7ccbb1a766402137365",
+      "archivePath": "models/evaluation-sources/7465152435703142ec56b11c0e6e55f438b42093d1f7e7ccbb1a766402137365/search-v3.ts"
     },
     {
       "path": "src/lib/engine/rl/tactics.ts",
