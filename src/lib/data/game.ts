@@ -13,3 +13,5 @@ export type GameCard = PlayingCard | ImpCard | ArcanaCard;
 export const allCards: GameCard[] = [...imps,...arcana,...minor];
 export function roundSetup(players:number,round:number) {const dealt=Math.floor((56-players)/players);return {dealt,reserve:56-dealt*players,discard:round,tricks:dealt-round};}
 export function penalty(round:number,bid:number,won:number){return round*Math.abs(won-bid);}
+
+export function roundsForPlayers(players:number){if(players===3)return 6;if(players===4)return 8;if(players===5)return 5;throw Error("Expected 3–5 players");}

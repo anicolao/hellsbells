@@ -1,4 +1,4 @@
-import {apply,eventFor,cards,player,allowedBids,hash} from '../engine';
+import {totalRounds,apply,eventFor,cards,player,allowedBids,hash} from '../engine';
 import {nextActor,botCommand} from '../bot';
 import type {State,Command} from '../types';
 import {weightedDiscard} from './discard';
@@ -24,7 +24,7 @@ export function searchBid(s:State,id:string,policy:MultiSearchPolicy,samples=12)
   for(const q of sampled.players)if(s.arcana!==18&&q.id!==id&&q.bid!==null){const mode=modes[rivals.findIndex(p=>p.id===q.id)],dealer=sampled.players.findIndex(p=>p.id===sampled.dealer),order=Array.from({length:sampled.players.length},(_,i)=>sampled.players[(dealer+i+1)%sampled.players.length].id),position=order.indexOf(q.id),beforeBid={...sampled,players:sampled.players.map(p=>({...p,bid:order.indexOf(p.id)<position?p.bid:null}))},estimate=rivalCommand(beforeBid,q.id,policy,mode).value!;quality*=Math.exp(-Math.abs(estimate-q.bid));}
   for(let a=0;a<actions.length;a++){if(!active.has(a))continue;let next=apply(sampled,eventFor(sampled,id,{type:'bid',value:actions[a]}));const history=s.history.length;
    for(let step=0;step<350&&next.history.length===history;step++){const actor=nextActor(next)!;const mode=modes[rivals.findIndex(p=>p.id===actor)];const command=actor===id?agent(next,actor):rivalCommand(next,actor,policy,mode);next=apply(next,eventFor(next,actor,command));}
-   if(next.history.length===history)throw Error('Search rollout failed');const mine=player(next,id).score-player(s,id).score,others=next.players.filter(p=>p.id!==id).map(p=>p.score-player(s,p.id).score);const mineFinal=player(next,id).score,bestOther=Math.min(...next.players.filter(p=>p.id!==id).map(p=>p.score));const utility=s.round===5?(mineFinal<bestOther?40:mineFinal===bestOther?8:0)+.1*(bestOther-mineFinal):-mine+.15*(bestOther-Math.min(...s.players.filter(p=>p.id!==id).map(p=>p.score)));totals[a]+=quality*utility;mass[a]+=quality;
+   if(next.history.length===history)throw Error('Search rollout failed');const mine=player(next,id).score-player(s,id).score,others=next.players.filter(p=>p.id!==id).map(p=>p.score-player(s,p.id).score);const mineFinal=player(next,id).score,bestOther=Math.min(...next.players.filter(p=>p.id!==id).map(p=>p.score));const utility=s.round===totalRounds(s)?(mineFinal<bestOther?40:mineFinal===bestOther?8:0)+.1*(bestOther-mineFinal):-mine+.15*(bestOther-Math.min(...s.players.filter(p=>p.id!==id).map(p=>p.score)));totals[a]+=quality*utility;mass[a]+=quality;
   }
   if(iteration===15||iteration===47){const ranked=[...active].sort((a,b)=>totals[b]/mass[b]-totals[a]/mass[a]);active.clear();for(const a of ranked.slice(0,iteration===15?6:4))active.add(a);}
  }
@@ -63,7 +63,7 @@ export function searchPlay(s:State,id:string,policy:MultiSearchPolicy,samples=20
    }
    if(next.history.length===s.history.length)throw Error('Endgame search did not finish');
    const mine=player(next,id).score,bestOther=Math.min(...next.players.filter(p=>p.id!==id).map(p=>p.score));
-   totals[a]+=s.round===5?(mine<bestOther?40:mine===bestOther?8:0)+.1*(bestOther-mine):-(mine-me.score)+.15*(bestOther-Math.min(...rivals.map(p=>p.score)));
+   totals[a]+=s.round===totalRounds(s)?(mine<bestOther?40:mine===bestOther?8:0)+.1*(bestOther-mine):-(mine-me.score)+.15*(bestOther-Math.min(...rivals.map(p=>p.score)));
   }
   completed++;
  }

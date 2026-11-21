@@ -297,7 +297,7 @@
       "number": "XXI",
       "name": "The World",
       "suit": "Cups",
-      "rule": "Each player making an exact contract erases their largest original round penalty from rounds 1–4. Earlier recoveries remain credited. Erase only one round; tied largest penalties allow a choice. Floor the final total at zero.",
+      "rule": "Each player making an exact contract erases their largest original round penalty from earlier rounds. Earlier recoveries remain credited. Erase only one round; tied largest penalties allow a choice. Floor the final total at zero.",
       "kind": "arcana",
       "pool": "Catch-up",
       "symbol": "◎"

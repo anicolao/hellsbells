@@ -29,7 +29,7 @@ export const scenarios=[
  {id:'seere',name:'Seere · play to keep the lead',hint:'After the decision appears, click a legal hand card to decline Seere’s power and lead it. The final-trick version never offers her power.'},
  {id:'balam',name:'Balam · before-bid decision',hint:'An eligible inspection pauses. Choose an opponent’s imp or tap the pile marked “Decline Balam’s power.”'},
  {id:'score-history',name:'Scores · round four history',hint:'Four scored rounds, with the current round highlighted. Each cell shows won / bid and the original penalty minus any recovery. Totals and readiness stay with each player.'},
- {id:'score-final',name:'Scores · completed game',hint:'The complete five-round ledger. Hover a round result to see its power and running total.'},
+ {id:'score-final',name:'Scores · completed game',hint:'The complete game ledger. Hover a round result to see its power and running total.'},
  {id:'score',name:'Round scoring · ready for next round',hint:'Tap the deck when you are ready. Each player’s seal appears as they ready; the next round starts when everyone is ready.'},
  {id:'round-ready',name:'Round scoring · readiness seal',hint:'Scrub the readiness seal arriving beside a player’s score. Use Ready another player to simulate the other seats.'},
  {id:'hand',name:'Full hand · 3–5 players',hint:'All cards fit in a fan. Hover or focus a card to lift it; tap or drag to play. Resize the viewport to test the fit.'},

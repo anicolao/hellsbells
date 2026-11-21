@@ -4,7 +4,7 @@ A game of exact bids and infernal interference for 3–5 players.
 
 ## Goal and components
 
-Finish five rounds with the fewest penalty points. Everyone starts at zero. Tied winners share victory.
+Finish 6 rounds with 3 players, 8 with 4 players, or 5 with 5 players with the fewest penalty points. Everyone starts at zero. Tied winners share victory.
 
 Use a tarot deck: **56 Minor Arcana** in Wands, Cups, Swords, and Pentacles, plus **22 Major Arcana**. Separate the Major Arcana into **regular cards (0–XIV)** and **catch-up cards (XV–XXI)**. You also need the ten imp descriptions, concealed-choice markers, and a score sheet.
 
@@ -16,21 +16,21 @@ Deal each player two distinct random imps. Each chooses one, face up, for the en
 
 Each round:
 
-1. Reveal a random regular Arcana without replacement in rounds 1–4; reveal a random catch-up Arcana in round 5. Its rule and trump apply for the round. Record standings at the start of round 5.
+1. Reveal a random regular Arcana without replacement in all rounds except the last; reveal a random catch-up Arcana in the final round. Its rule and trump apply for the round. Record standings at the start of the final round.
 2. Shuffle all 56 Minor Arcana. Set aside one random card per player, then deal evenly, adding any remainder to this face-down **undealt reserve**.
 3. Each player privately discards cards equal to the round number. Discards stay concealed, separate from the reserve, and unavailable for the round.
 4. Resolve pre-bid effects: Arcana first, then imps. Resolve players’ effects clockwise from the dealer’s left. The Magician acts before normal discards instead.
 5. Bid publicly clockwise from the dealer’s left, dealer last, except under The Moon. Record each bid.
 6. Resolve any post-bid adjustments, then play tricks. The dealer’s left leads first; each trick’s winner normally leads next.
-7. Score, gather all playing cards, and refresh imp powers. The next dealer is the player with the fewest cumulative penalties. Among tied candidates, take the first clockwise after the previous dealer; the previous dealer remains eligible after a full circuit.
+7. Score, gather all playing cards, and refresh imp powers. Pass the deal one player clockwise. Each player deals twice with 3 or 4 players, or once with 5 players.
 
 ### 3 players
 
-Deal 17 cards each; leave 5 in the undealt reserve. Play 16 / 15 / 14 / 13 / 12 tricks in rounds 1–5, respectively.
+Deal 17 cards each; leave 5 in the undealt reserve. Play 16 / 15 / 14 / 13 / 12 / 11 tricks in rounds 1–6, respectively.
 
 ### 4 players
 
-Deal 13 cards each; leave 4 in the undealt reserve. Play 12 / 11 / 10 / 9 / 8 tricks in rounds 1–5, respectively.
+Deal 13 cards each; leave 4 in the undealt reserve. Play 12 / 11 / 10 / 9 / 8 / 7 / 6 / 5 tricks in rounds 1–8, respectively.
 
 ### 5 players
 
@@ -44,7 +44,7 @@ Bid an integer from **zero through the number of tricks available**, inclusive. 
 
 **Round penalty = round number × |counted tricks won − final bid|.** Exact contracts score zero. Apply the Arcana’s penalty modifier, then its recovery.
 
-Record each round’s original penalty separately. Recoveries are separate negative-point entries; they do not reduce individual round penalties. After scoring each round, floor the cumulative total at zero; unused recovery does not carry forward. The World erases one original penalty from rounds 1–4 in addition to earlier recoveries, subject to the zero floor.
+Record each round’s original penalty separately. Recoveries are separate negative-point entries; they do not reduce individual round penalties. After scoring each round, floor the cumulative total at zero; unused recovery does not carry forward. The World erases one original penalty from earlier rounds in addition to earlier recoveries, subject to the zero floor.
 
 ## Tricks and powers
 
@@ -111,7 +111,7 @@ After every trick you win, you may expose one random, previously unexposed avail
 
 Each card fixes trump for its round. A round rule applies throughout the round unless its text gives a narrower timing.
 
-### Regular cards: rounds 1–4
+### Regular cards: before the final round
 
 #### 0 — The Fool
 
@@ -173,9 +173,9 @@ Each card fixes trump for its round. A round rule applies throughout the round u
 
 **Trump: Swords.** Once per player per round, immediately after winning a trick, adjust your bid up or down by one. This may be used after the final trick, before scoring.
 
-### Catch-up cards: round 5
+### Catch-up cards: final round
 
-Use standings recorded at the start of round 5 throughout the round. All tied first-place players receive first-place effects; all tied last-place players receive last-place effects. For The Star, select the highest-penalty **floor(player count ÷ 2)** players, including everyone tied at the cutoff. If everyone is tied, everyone qualifies.
+Use standings recorded at the start of the final round throughout the round. All tied first-place players receive first-place effects; all tied last-place players receive last-place effects. For The Star, select the highest-penalty **floor(player count ÷ 2)** players, including everyone tied at the cutoff. If everyone is tied, everyone qualifies.
 
 When tied-last players may adjust bids under The Moon or Judgement, each secretly records their final bid, including an unchanged bid if declining, and all reveal simultaneously.
 
@@ -205,4 +205,4 @@ When tied-last players may adjust bids under The Moon or Judgement, each secretl
 
 #### XXI — The World
 
-**Trump: Cups.** Each player making an exact contract erases their largest original round penalty from rounds 1–4. Earlier recoveries remain credited. Erase only one round; tied largest penalties allow a choice. Floor the final total at zero.
+**Trump: Cups.** Each player making an exact contract erases their largest original round penalty from earlier rounds. Earlier recoveries remain credited. Erase only one round; tied largest penalties allow a choice. Floor the final total at zero.

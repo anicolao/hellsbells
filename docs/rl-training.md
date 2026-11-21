@@ -2,7 +2,9 @@
 
 New trained seats use `rl-v3`, with separate bid networks, discard networks, and tactical weights for three, four, and five players. Both practice and friends tables support all three counts. The model is selected from the current table size, so hosts can resize a lobby containing bots.
 
-All versions use the same append-only Firestore paths. Registration values are zero/omitted for easy, one for v1, two for v2, and three for v3. Existing three-player v1/v2 seats retain their original decisions. If a lobby containing an older trained seat grows to four or five players, that seat uses the corresponding v3 model. Historical models and validation reports remain unchanged.
+All versions use the same append-only Firestore paths. Registration values are zero/omitted for easy, one for v1, two for v2, and three for v3. Existing three-player v1/v2 seats retain their original decisions. If a lobby containing an older trained seat grows to four or five players, that seat uses the corresponding v3 model. Historical model weights and reported results remain unchanged. Evaluation reports now link archived source snapshots where the live code has changed.
+
+The reported win rates were measured under the original five-round rules with score-based dealer selection. They have not been re-measured for the 6/8/5-round rules with clockwise dealer rotation. Current bots use the new final-round timing and normalized game progress, and complete-game tests cover all player counts.
 
 ## Decisions and information
 

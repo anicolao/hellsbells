@@ -31,5 +31,5 @@ export const cardCopy: Record<string, string> = {
   'arcana-18': 'Bid secretly and reveal together. No dealer’s hook. Last place may then adjust their bid by one.',
   'arcana-19': 'An exact contract recovers five points; last place recovers ten instead.',
   'arcana-20': 'After initial bids, last place may adjust their bid by up to two. Do not recheck the hook.',
-  'arcana-21': 'Make your contract exactly to erase your largest original penalty from rounds 1–4.'
+  'arcana-21': 'Make your contract exactly to erase your largest original penalty from earlier rounds.'
 };
