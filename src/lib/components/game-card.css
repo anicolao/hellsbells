@@ -1,4 +1,4 @@
-.game-card{position:relative;isolation:isolate;width:100%;aspect-ratio:992/1586;container-type:inline-size;color:#29231d;font-family:'Atkinson Hyperlegible',sans-serif;text-align:left;box-shadow:0 4px 7px #20130638;border-radius:2%;background:transparent;overflow:visible}
+.game-card{position:relative;isolation:isolate;width:100%;aspect-ratio:992/1586;container-type:inline-size;color:#29231d;font-family:'Atkinson Hyperlegible',sans-serif;text-align:left;filter:drop-shadow(0 4px 7px #20130638);border-radius:2%;background:transparent;overflow:visible}
 .game-card.pip:not(.back)::before{content:"";position:absolute;inset:8% 13%;background:#e8dcc3;z-index:0;pointer-events:none}
 .game-card img{display:block;pointer-events:none;user-select:none}
 .game-card .frame,.game-card .card-back{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:2}
@@ -30,7 +30,7 @@
 .game-card[data-suit='Cups'] .corner,.game-card[data-suit='Cups'] .playing-label{color:#28594f}
 .game-card[data-suit='Swords'] .corner,.game-card[data-suit='Swords'] .playing-label{color:#35445d}
 .game-card[data-suit='Pentacles'] .corner,.game-card[data-suit='Pentacles'] .playing-label{color:#79551d}
-@media print{.game-card{box-shadow:none;print-color-adjust:exact;-webkit-print-color-adjust:exact;break-inside:avoid}}
+@media print{.game-card{filter:none;box-shadow:none;print-color-adjust:exact;-webkit-print-color-adjust:exact;break-inside:avoid}}
 /* Registered wells and larger live symbols. */
 .game-card .card-copy{justify-content:flex-start;top:55.4%;height:34.2%;gap:2cqw;overflow:hidden}
 .game-card .power{font-size:5.1cqw;flex-shrink:0;white-space:nowrap;letter-spacing:0}
