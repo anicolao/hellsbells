@@ -50,7 +50,7 @@
 
 <main id="main" style:--page-width={`${dimensions.width}mm`} style:--page-height={`${dimensions.height}mm`}>
   <header class="controls">
-    <a href={`${base}/gallery/`}>← Component gallery</a>
+    <a href={`${base}/gallery/`}>Component gallery</a>
     <h1>Print & play</h1>
     <p class="intro">A tabletop-ready set, with matching fronts and backs.</p>
     <div class="side-options"><label><input type="checkbox" bind:checked={calibration} onchange={event => { if(event.currentTarget.checked)format='poker';preview = 0; }} disabled={!ready || preparing} />Lamination calibration sheet</label></div>
@@ -102,7 +102,7 @@
     </div>
     <div class="print-actions"><button class="primary" onclick={print} disabled={!ready || preparing || !count}>{preparing ? 'Preparing artwork…' : 'Print / save PDF'}</button><span role="status">{count} cards · {allSheets.length / 2} {allSheets.length===2?'sheet':'sheets'} · {sheets.length} PDF {sheets.length===1?'page':'pages'}</span></div>
     {#if error}<p role="alert">{error}</p>{/if}
-    {#if sheets.length}<nav aria-label="Print preview pages"><button disabled={pageIndex === 0} onclick={() => preview = pageIndex - 1}>← Previous</button><span>Page {pageIndex + 1} of {sheets.length} · {sheets[pageIndex]?.side === 'back' ? 'Backs' : 'Fronts'}</span><button disabled={pageIndex >= sheets.length - 1} onclick={() => preview = pageIndex + 1}>Next →</button></nav>{:else}<p>No cards selected. Choose all cards above or return to the gallery.</p>{/if}
+    {#if sheets.length}<nav aria-label="Print preview pages"><button disabled={pageIndex === 0} onclick={() => preview = pageIndex - 1}>Previous</button><span>Page {pageIndex + 1} of {sheets.length} · {sheets[pageIndex]?.side === 'back' ? 'Backs' : 'Fronts'}</span><button disabled={pageIndex >= sheets.length - 1} onclick={() => preview = pageIndex + 1}>Next</button></nav>{:else}<p>No cards selected. Choose all cards above or return to the gallery.</p>{/if}
   </header>
   <div class="preview" use:previewSize style:width={`${dimensions.width}mm`} style:height={`${dimensions.height * 96 / 25.4 * scale}px`}>
     <div class="sheets" class:preparing-print={printLayout} bind:this={sheetsElement} data-paper={paper} style:--page-width={`${dimensions.width}mm`} style:--page-height={`${dimensions.height}mm`} style:--preview-scale={scale}>

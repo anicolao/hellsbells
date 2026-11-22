@@ -9,7 +9,7 @@ try{
  await mkdir('tmp/qa/join',{recursive:true});
  console.log('Fresh room');await host.goto(root);await host.getByRole('textbox',{name:'Your name'}).fill('Alex');await host.getByRole('button',{name:'Create a table for friends'}).click();await host.locator('.game-table').waitFor();const invite=host.url();
  console.log('Fresh invitation');await guest.goto(invite);await expect(guest.getByRole('textbox',{name:'Your name'})).toHaveValue('');await expect(guest.locator('.game-table')).toHaveCount(0);
- await guest.getByRole('textbox',{name:'Your name'}).fill('Andrew');await guest.getByText('Take this seat ↗',{exact:true}).click();await guest.locator('.game-table').waitFor();
+ await guest.getByRole('textbox',{name:'Your name'}).fill('Andrew');await guest.getByText('Take this seat',{exact:true}).click();await guest.locator('.game-table').waitFor();
  expect(await guest.evaluate(()=>localStorage.getItem('hellsbells:name'))).toBe('Andrew');await guest.reload();await guest.locator('.game-table').waitFor();await expect(host.locator('.game-table')).toContainText('Andrew');
  await host.goto(root);await host.getByRole('button',{name:'Create a table for friends'}).click();await host.locator('.game-table').waitFor();await guest.goto(host.url());await guest.locator('.game-table').waitFor();await expect(host.locator('.game-table')).toContainText('Andrew');
  console.log('Gameroom launch');const table=crypto.randomUUID().slice(0,8).toUpperCase(),launch=(mode:string,name:string)=>`${root}?table=${table}&launch=${mode}&name=${encodeURIComponent(name)}`;
