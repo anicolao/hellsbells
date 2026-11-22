@@ -135,3 +135,10 @@ body:has(.animation-lab){overflow:hidden}.animation-lab{overflow:hidden}
 .game-table .table-topline{padding-left:52px;min-height:44px;gap:8px}
 .empty-seat .seat-bell{width:34px;height:34px;object-fit:contain;margin:0 auto 6px}.lead-space .lead-bell{width:45%;height:45%;object-fit:contain;opacity:.45}
 @media(max-height:600px){.game-table .table-topline{padding-left:42px;min-height:34px}}
+/* In short viewports, put the Shax decision caption beside its card so it
+   remains inside the play area instead of wrapping down into the hand. */
+@media(max-height:600px){
+ .game-table .forced-draw{display:flex;align-items:center;gap:6px;width:calc(var(--play-card-width) + 76px)}
+ .game-table .forced-draw>.card-control,.game-table .forced-draw>.game-card{width:var(--play-card-width);flex:0 0 var(--play-card-width)}
+ .game-table .forced-draw>span{flex:1;min-width:0;margin:0;text-align:left;line-height:1.2}
+}
