@@ -37,6 +37,7 @@
     "test:seating": "bun scripts/seating-browser.ts",
     "test:join": "bun scripts/join-browser.ts",
     "test:exposure": "bun scripts/exposure-browser.ts",
+    "test:thirds": "bun scripts/thirds-browser.ts",
     "test:menu": "bun scripts/menu-browser.ts",
     "test:artwork": "bun scripts/artwork-browser.ts",
     "test:print": "bun scripts/print-browser.ts",

@@ -26,7 +26,7 @@ export const cardPlayDuration=1000;
 export const flightEnd=.68;
 export const smooth=(value:number)=>{const t=Math.max(0,Math.min(1,value));return t*t*(3-2*t);};
 export function playStages(progress:number){return {flight:smooth(progress/flightEnd),reflow:smooth((progress-flightEnd)/(1-flightEnd))};}
-export function fanPose(index:number,count:number,width:number,cardWidth:number){const fraction=count<=1?0:index/(count-1)-.5;const span=Math.min(width-cardWidth-60,Math.max(0,count-1)*cardWidth*.43);return {x:fraction*span,angle:fraction*Math.min(22,count*1.7),dip:fraction*fraction*32};}
+export function fanPose(index:number,count:number,width:number,cardWidth:number){const fraction=count<=1?0:index/(count-1)-.5;const span=Math.min(width-cardWidth-Math.max(60,cardWidth*.62),Math.max(0,count-1)*cardWidth*.43);return {x:fraction*span,angle:fraction*Math.min(22,count*1.7),dip:fraction*fraction*32};}
 export type CardBox={x:number;y:number;width:number;height:number;angle:number};
 export function flightPose(from:CardBox,to:CardBox,progress:number):CardBox{const t=playStages(progress).flight;const lerp=(a:number,b:number)=>a+(b-a)*t;return {x:lerp(from.x,to.x),y:lerp(from.y,to.y)-Math.sin(t*Math.PI)*Math.min(45,Math.abs(to.y-from.y)*.15),width:lerp(from.width,to.width),height:lerp(from.height,to.height),angle:lerp(from.angle,to.angle)};}
 

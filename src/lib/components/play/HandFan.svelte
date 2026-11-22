@@ -4,11 +4,10 @@
  import CardControl from './CardControl.svelte';
  let {preview=true,hand,selection=[],reserved=null,disabled=()=>false,onpick,compact=false,previousHand=null,playProgress=1,cardSize=null}:{preview?:boolean;cardSize?:number|null;previousHand?:string[]|null;playProgress?:number;compact?:boolean;hand:string[];selection?:string[];reserved?:string|null;disabled?:(id:string)=>boolean;onpick:(id:string)=>void}=$props();
  let width=$state(900),height=$state(900),fanHeight=$state(0),active=$state('');
- const cardWidth=$derived(Math.min(cardSize??Math.min(compact?130:175,Math.max(80,width*.23),height*(height<600?.13:.19)),fanHeight>0?Math.max(18,(fanHeight-18)/1.6):Infinity));
- const fanTop=$derived(fanHeight>0?Math.max(0,Math.min(35,fanHeight-cardWidth*1.6-12)):35);
+ const cardWidth=$derived(cardSize??Math.min(compact?130:175,Math.max(80,width*.23),height*(height<600?.13:.19),fanHeight>0?Math.max(18,(fanHeight-18)/1.6):Infinity));
+ const fanTop=$derived(fanHeight>0?Math.max(0,Math.min(35,fanHeight-cardWidth*1.6-10-cardWidth*.1)):35);
  const shown=$derived(previousHand&&playProgress<1?[...previousHand,...hand.filter(c=>!previousHand.includes(c))]:hand);
  const reflow=$derived(playStages(playProgress).reflow);
- const span=$derived(Math.min(width-cardWidth-60,Math.max(0,hand.length-1)*cardWidth*.43));
 </script>
 <svelte:window bind:innerHeight={height}/>
 <div class="hand-fan" bind:clientWidth={width} bind:clientHeight={fanHeight} style:--fan-top={`${fanTop}px`} style:--card-width={`${cardWidth}px`} style:height={`${cardWidth*1.6+52}px`} role="group" aria-label="Your hand">
