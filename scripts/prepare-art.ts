@@ -12,3 +12,5 @@ for (const file of files) {
 }
 await writeFile('static/art/cards/manifest.json', JSON.stringify(manifest, null, 2) + '\n');
 console.log(`Prepared ${files.length} assets; aspect ratios preserved.`);
+
+await import('./prepare-artwork');

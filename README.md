@@ -25,7 +25,7 @@ The gallery includes all 88 cards, reversible faces, full-size inspection, searc
 
 ## Artwork and printing
 
-`static/art/v2/` contains individual generated source illustrations, two card frames with real alpha windows, the card back, suit emblems, court cards, and the power token. Exact imagegen prompts are recorded alongside them. `bun run art:prepare` converts the source assets to WebP while preserving aspect ratios. All artwork uses `object-fit: contain`; card frames and live text are separate layers.
+`static/art/v2/` contains individual generated source illustrations, two card frames with real alpha windows, the card back, suit emblems, court cards, and the power token. Exact imagegen prompts are recorded alongside them. `bun run art:prepare` converts the source assets to WebP while preserving aspect ratios. Illustrations uniformly cover their windows; card frames and live text are separate layers. The preparation command also generates lossless Lanczos3 thumbnails for small screen cards. Run `bun run art:responsive` to regenerate only those variants from the full-resolution WebP files. The shared card component selects a size from its measured width and device pixel density, while print media and print-and-play previews use the originals. Compare rendering at `/dev/rendering/`.
 
 The rulebook includes A4 print styles and a checked thirteen-page PDF at `/downloads/hells-bells-rulebook.pdf`. To refresh that PDF and run browser layout checks locally, use `bun run review`. The review script uses a locally cached Chromium installation and writes screenshots and reports under ignored `tmp/qa/`.
 
