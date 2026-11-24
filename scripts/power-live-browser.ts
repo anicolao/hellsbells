@@ -43,7 +43,11 @@ try{
  const cardId=await candidate.evaluate(n=>(n.closest('[data-fan-card]') as HTMLElement).dataset.fanCard!);
  const sources=await Promise.all(pages.map((p,i)=>p.locator(i===0?`[data-fan-card="${cardId}"] .game-card`:`.opponent[data-seat="${identities[0].uid}"] .opponent-portrait .game-card`).boundingBox()));
  const flights=pages.map(p=>p.evaluate(()=>new Promise<{x:number;y:number}>(resolve=>{
-  function watch(){const n=document.querySelector('.power-fx-card[data-power-card="play"]');if(n){const r=n.getBoundingClientRect();resolve({x:r.x+r.width/2,y:r.y+r.height/2});}else requestAnimationFrame(watch);}watch();
+  // Capture insertion immediately. A rAF poll may miss the first paint on a
+  // busy CI renderer and measure a card that has already travelled.
+  const observer=new MutationObserver(capture);
+  function capture(){const n=document.querySelector('.power-fx-card[data-power-card="play"]');if(n){observer.disconnect();const r=n.getBoundingClientRect();resolve({x:r.x+r.width/2,y:r.y+r.height/2});}}
+  observer.observe(document.querySelector('.game-presentation')!,{childList:true,subtree:true});capture();
  })));
  // A hovered spectator card must keep its pose throughout someone else's
  // flight. Capture every animation frame, rather than just its endpoints.
