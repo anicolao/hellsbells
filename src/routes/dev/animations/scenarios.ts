@@ -11,6 +11,8 @@ export const scenarios=[
  {id:'shax-power',name:'Shax · keep an eligible imp decision',hint:'An opponent has used Shax and led. Your card is random, but Bael is still available. Use your imp then draw, or draw without it. Hand cards are never choices.'},
  {id:'shax-recall',name:'Shax → Agares · replacement by choice',hint:'Agares has returned your random Shax card. Choose a different legal replacement; normal follow-suit restrictions apply.'},
  {id:'priestess',name:'High Priestess · inspect or explicitly decline',hint:'Choose an opponent’s imp to inspect. The pile explicitly declines the inspection; round artwork cannot pass it.'},
+ {id:'hermit-held',name:'Hermit · reserved card while following suit',hint:'The reserved 4 of Cups stays strongly greyed out, distinct from the other unplayable Cups while Pentacles are led.'},
+ {id:'hermit-final',name:'Hermit · final trick releases the card',hint:'The reservation treatment clears for the final trick and the 4 of Cups becomes playable.'},
  {id:'hermit',name:'Hermit · reserve or explicitly decline',hint:'Select a card to reserve, or explicitly decline the reservation. The pile names the action it will take.'},
  {id:'fool',name:'Fool · exchange or explicitly decline',hint:'Select a card to exchange, or explicitly decline. The round card never submits the choice.'},
  {id:'shax',name:'Shax · automatic random play',hint:'An opponent has used Shax and led; you have Balam, with no on-play power. The forced player has no hand input. Scrub the random draw, then advance to see the actual card fly into the trick. Add ?scenario=shax&realtime=1 for automatic playback.'},
@@ -40,6 +42,13 @@ export function fixture(kind:string,count=3):State{if(kind==='score-history'||ki
  const state=s!;state.players.forEach((p,i)=>{p.imp=i===0?2:0;p.used=false;});
  if(kind==='andromalius'){state.players.forEach((p,i)=>{p.imp=i===0?9:[3,1,4,8][i-1];p.hand=p.hand.slice(0,5);p.bid=1;});state.phase='after';state.winner='you';state.turn='you';state.afterRevealed=false;state.players[0].won=1;state.firstWin={you:false};state.exposed=[...state.players[0].hand.slice(0,2),...state.players[1].hand.slice(0,2),...state.players[2].hand];return state;}
  if(kind==='seating'||kind==='seating-later'){state.players.forEach((p,i)=>{p.imp=[7,6,3,4,0][i];p.name=['Alex','Andrew','Shelby','Charles','Morgan'][i];});if(kind==='seating-later'){for(let i=0;i<80&&s!.trickNumber<2;i++){const actor=nextActor(s!)!;step(actor,botCommand(s!,actor));}}return s!;}
+ if(kind==='hermit-held'||kind==='hermit-final'){
+  const final=kind==='hermit-final',excluded=['Cups-3','Cups-6','Pentacles-3','Pentacles-5'];
+  state.phase='play';state.arcana=9;state.physical=3;state.trickNumber=final?3:1;state.turn='you';state.leader=final?'you':'seat-1';state.led=final?null:'Pentacles';state.winner=null;state.pending=null;state.exposed=[];state.forced=[];
+  for(const p of state.players){p.hand=p.hand.filter(c=>!excluded.includes(c)).slice(0,final?1:p.id==='seat-1'?2:3);p.reserved=null;p.won=0;}
+  state.players[0].hand=final?['Cups-3']:['Cups-3','Cups-6','Pentacles-3'];state.players[0].reserved='Cups-3';
+  state.trick=final?[]:[{player:'seat-1',card:'Pentacles-5',concealed:false}];state.lastTrick=[];return state;
+ }
  if(['priestess','hermit','fool'].includes(kind)){state.phase='arcana';state.arcana=kind==='priestess'?2:kind==='hermit'?9:0;state.turn='you';state.players.forEach(p=>p.done=false);return state;}
  if(kind==='hand-wait'){state.phase='play';state.turn='seat-1';state.leader='seat-1';return state;}
  if(kind==='shax-recall'){state.phase='play';state.arcana=1;const shax=state.players.at(-1)!,agares=state.players[1];shax.imp=6;agares.imp=5;state.turn=shax.id;state.leader=shax.id;step(shax.id,{type:'shax',target:'you'});const lead=shax.hand.find(c=>state.players[0].hand.filter(x=>cards[x].suit===cards[c].suit).length>=2)!;step(shax.id,{type:'play',card:lead});step('you',{type:'play'});step(agares.id,{type:'recall',card:s!.trick.find(p=>p.player==='you')!.card});return s!;}
