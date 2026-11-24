@@ -1,4 +1,8 @@
 <script lang="ts">
+ import {useCardDesign,useCardEdge,type CardEdge} from './card-design';
+ const inheritedDesign=useCardDesign(),inheritedEdge=useCardEdge();
+ import BridgePowerCard from './cards/BridgePowerCard.svelte';
+ import IndexedMinorCard from './cards/IndexedMinorCard.svelte';
  import {responsiveArtwork} from '$lib/art/responsiveArtwork';
  import {base} from '$app/paths';
  import type {GameCard} from '$lib/data/game';
@@ -6,15 +10,16 @@
  import {fitRules} from './fitRules';
  import {cardCopy} from '$lib/data/card-copy';
  import {ranks} from '$lib/data/game';
- let {card,back=false,eager=false,fullResolution=false}: {card:GameCard;back?:boolean;eager?:boolean;fullResolution?:boolean}=$props();
+ let {card,back=false,eager=false,fullResolution=false,design=inheritedDesign,powerDesign,edge=inheritedEdge,indexStyle='traditional'}: {card:GameCard;back?:boolean;eager?:boolean;fullResolution?:boolean;design?:'classic'|'indexed';powerDesign?:'classic'|'bridge';edge?:CardEdge;indexStyle?:'numeric'|'traditional'}=$props();
  let pip=$derived(card.kind==='minor'&&card.rank<=10);
  let suit=$derived('suit' in card?card.suit.toLowerCase():'');
  let portrait=$derived(card.kind==='imp'?card.name.toLowerCase():card.kind==='arcana'?card.id:`court-${suit}-${ranks[(card.kind==='minor'?card.rank:1)-1].toLowerCase()}`);
  let rankLabel=$derived(card.kind==='minor'?(card.rank===1?'A':card.rank<=10?String(card.rank):ranks[card.rank-1]):'');
  let backArt=$derived(card.kind==='minor'?'back-minor':card.kind==='imp'?'back-imp':card.pool==='Catch-up'?'back-catchup':'back-regular');
 </script>
-<article class="game-card" class:back class:pip data-card-id={card.id} data-suit={'suit' in card?card.suit:undefined} aria-label={back?`${card.kind} card back`:card.name}>
- {#if back}<img class="card-back" src={`${base}/art/cards/${backArt}.webp`} alt="" draggable="false"/>
+{#if (powerDesign??(design==='classic'?'classic':'bridge'))==='bridge'&&card.kind!=='minor'&&!back}<BridgePowerCard {card} {edge} {eager} {fullResolution}/>{:else if design==='indexed'&&card.kind==='minor'&&!back}<IndexedMinorCard {edge} {card} {indexStyle} {eager} {fullResolution}/>{:else}
+<article class="game-card" class:back class:pip class:transparent-edge={edge==='transparent'} style:--back-surface={`url("${base}/art/alternate/backs/${backArt}-surface.webp")`} class:indexed-back={back&&design==='indexed'} data-card-id={card.id} data-suit={'suit' in card?card.suit:undefined} aria-label={back?`${card.kind} card back`:card.name}>
+ {#if back}<img class="card-back" src={design==='indexed'?`${base}/art/alternate/backs/${backArt}.webp`:`${base}/art/cards/${backArt}.webp`} alt="" draggable="false"/>
  {:else}
  <img class="frame" src={`${base}/art/cards/${pip?'playing-frame':'frame'}.webp`} alt="" aria-hidden="true" draggable="false"/>
  {#if pip&&card.kind==='minor'}
@@ -32,4 +37,12 @@
  <footer>{#if card.kind==='imp'}<span>{card.name==='Andromalius'?'AFTER EVERY WIN':'ONCE PER ROUND'}</span>{:else if card.kind==='arcana'}<span>{card.number} · {card.pool.toUpperCase()}</span>{:else}<span>MINOR ARCANA · RANK {card.rank}</span>{/if}<span>HELL’S BELLS</span></footer>
  {/if}{/if}
 </article>
+{/if}
 
+
+<style>
+.game-card.indexed-back{aspect-ratio:56/88;background:#080808;border-radius:4%}.game-card.indexed-back .card-back{object-fit:contain;clip-path:none;border-radius:4%}
+.game-card.indexed-back.transparent-edge{background:transparent}.game-card.indexed-back.transparent-edge .card-back{mask-image:var(--back-surface);mask-size:contain;mask-position:center;mask-repeat:no-repeat}
+.game-card.indexed-back.transparent-edge::after{inset:0;mask-image:var(--back-surface);mask-size:contain;mask-position:center;mask-repeat:no-repeat}
+
+</style>

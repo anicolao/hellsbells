@@ -4,13 +4,13 @@
  import PrintCard from '$lib/components/PrintCard.svelte';
  import {allCards as cards,imps} from '$lib/data/game';
  import {bleed,cropMarks,formats,paperSizes,printSheets,type Paper,type CardSize} from '$lib/print/layout';
- let paper=$state<Paper>('a4'),format=$state<CardSize>('tall');
+ let paper=$state<Paper>('a4'),format=$state<CardSize>('bridge');
  let colourProfile=$state('standard'),laminationStrength=$state(20),calibration=$state(false);
  const ramp=[0,5,10,15,20,25,30,40,50],sampleCard=imps[0];
  let printSide=$state<'both'|'front'|'back'>('both'),filteredIds=$state<string[]|null>(null),scope=$state('all'),preview=$state(0),viewportWidth=$state(0),ready=$state(false),preparing=$state(false),error=$state(''),backX=$state(0),backY=$state(0);
  let sheetsElement:HTMLDivElement;let printLayout=$state(false);
  const selected=$derived(scope==='filtered'&&filteredIds?cards.filter(c=>filteredIds!.includes(c.id)):cards);
- const allSheets=$derived(printSheets(calibration?ramp.map(()=>sampleCard):selected,calibration?'poker':format,paper,{x:backX||0,y:backY||0}));
+ const allSheets=$derived(printSheets(calibration?ramp.map(()=>sampleCard):selected,calibration?'bridge':format,paper,{x:backX||0,y:backY||0}));
  const sheets=$derived(allSheets.filter(s=>calibration?s.side==='front':printSide==='both'||s.side===printSide));
  const dimensions=$derived(paperSizes[paper]),pageIndex=$derived(Math.min(preview,Math.max(0,sheets.length-1)));
  const count=$derived(allSheets.filter(s=>s.side==='front').reduce((n,s)=>n+s.cards.length,0));
@@ -19,7 +19,7 @@
   let frame=0,last=-1;const observer=new ResizeObserver(()=>{const width=node.clientWidth;if(width===last)return;last=width;cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>viewportWidth=width);});
   observer.observe(node);return{destroy(){observer.disconnect();cancelAnimationFrame(frame);}};
  }
- onMount(()=>{const params=new URLSearchParams(location.search);if(params.has('cards')){filteredIds=params.get('cards')!.split(',');scope='filtered';}if(params.has('calibration')){calibration=true;paper='letter';format='poker';}ready=true;});
+ onMount(()=>{const params=new URLSearchParams(location.search);if(params.has('cards')){filteredIds=params.get('cards')!.split(',');scope='filtered';}if(params.has('calibration')){calibration=true;paper='letter';format='bridge';}ready=true;});
  async function print(){preparing=true;error='';try{await tick();await document.fonts.ready;
   const images=new Map<string,HTMLImageElement>();for(const image of sheetsElement.querySelectorAll('img')){image.loading='eager';images.set(image.src,image);}await Promise.all([...images.values()].map(image=>image.decode()));
   // Fit copy at the final physical page size before the browser freezes the print job.
@@ -53,11 +53,11 @@
     <a href={`${base}/gallery/`}>Component gallery</a>
     <h1>Print & play</h1>
     <p class="intro">A tabletop-ready set, with matching fronts and backs.</p>
-    <div class="side-options"><label><input type="checkbox" bind:checked={calibration} onchange={event => { if(event.currentTarget.checked)format='poker';preview = 0; }} disabled={!ready || preparing} />Lamination calibration sheet</label></div>
-    {#if calibration}<p>One single-sided sheet: nine poker-size cards, from Standard (0%) to 50% midtone lift. Each sample is labelled. Print and laminate the whole sheet to choose a strength.</p>{/if}
+    <div class="side-options"><label><input type="checkbox" bind:checked={calibration} onchange={event => { if(event.currentTarget.checked)format='bridge';preview = 0; }} disabled={!ready || preparing} />Lamination calibration sheet</label></div>
+    {#if calibration}<p>One single-sided sheet: nine bridge-size cards, from Standard (0%) to 50% midtone lift. Each sample is labelled. Print and laminate the whole sheet to choose a strength.</p>{/if}
     <div class="options">
       <label>Paper<select aria-label="Paper" bind:value={paper} disabled={!ready || preparing}><option value="a4">A4 · 210 × 297 mm</option><option value="letter">US Letter · 8½ × 11 in</option></select></label>
-      <label>Card size<select aria-label="Card size" bind:value={format} disabled={!ready || preparing || calibration}><option value="tall">Tall · 63 × 101 mm</option><option value="poker">Poker · 63 × 88 mm</option></select></label>
+      <label>Card size<select aria-label="Card size" bind:value={format} disabled={!ready || preparing || calibration}><option value="bridge">Bridge · 56 × 88 mm</option><option value="tall">Tall · 63 × 101 mm</option><option value="poker">Poker · 63 × 88 mm</option></select></label>
       {#if filteredIds}<label>Cards<select aria-label="Cards" bind:value={scope} disabled={!ready || preparing}><option value="filtered">Gallery selection ({filteredIds.length} types)</option><option value="all">All cards</option></select></label>{/if}
     </div>
     {#if !calibration}
@@ -84,7 +84,7 @@
       <button onclick={() => { backX = 0; backY = 0; }} disabled={preparing}>Reset alignment</button>
     </details>
     {/if}
-    <p class="sizes">The complete set is <b>88 cards</b>: 56 Minor Arcana, 22 Major Arcana and 10 imps, for every game of 3–5 players. Tall cards preserve the original proportions most closely; poker cards fit standard sleeves. Artwork keeps its proportions inside a black trim border in either size.</p>
+    <p class="sizes">The complete set is <b>88 cards</b>: 56 Minor Arcana, 22 Major Arcana and 10 imps, for every game of 3–5 players. Bridge · 56 × 88 mm is the native format for the complete deck. Optional tall and poker sheets retain the same bridge artwork without stretching it, inside a black trim border.</p>
     <div class="instructions">
       <h2>Print at actual size</h2>
       <ol>

@@ -1,0 +1,42 @@
+[
+  {
+    "asset": "suit-cups-source.png",
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: precise-object-edit. Edit the referenced isolated chalice suit symbol for a gothic card game. Preserve its complete familiar two-handled cup silhouette, large bowl, stem, foot and engraved ornate style. Rework its materials into rich polished SILVER, with dark engraved recesses and pearly silver highlights; remove teal and gold coloration. It must read clearly at small index size against dark blue-charcoal and pale paper. Bold readable silhouette with generous bowl, not tiny detail. Full object visible, centered, about88% of a square canvas, actual alpha transparency around it. No text, lettering, symbols beyond the engraved decoration, card frame, gradient backdrop, ground plane, outer glow, cast shadow or cropping. A single upright full-colour silver chalice."
+  },
+  {
+    "asset": "suit-swords-source.png",
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: precise-object-edit. Edit the referenced isolated gothic sword suit symbol. Preserve one complete upright point-down sword, recognizable ornate crossguard, grip, pommel and straight blade. Material direction: forged IRON, graphite and gunmetal, darker than polished silver, with bright clean steel cutting-edge highlights so the entire silhouette reads on near-black card paper. Remove the gold decoration; use restrained dark iron gothic engraving. Make the blade and crossguard robust enough to read at small card-index sizes. Center the complete sword on a square canvas, height88% with generous margins; true alpha transparency around it, including between guard details. No text, card border, backdrop, floor, outer glow, shadow or cropping. One upright point-down iron sword only."
+  },
+  {
+    "asset": "suit-wands-source.png",
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: precise-object-edit. Edit the referenced isolated ornate wand suit symbol for Hell's Bells. Preserve a single upright carved wand with recognizable spiral vine and small leaves. Make the central shaft thicker and clearer at tiny card-index sizes. New materials: rich velvety crimson/red lacquered wood, nearly black carved recesses, restrained warm gilded vine accents and a small red jewel at the tip. Luxurious gothic craftsmanship like a crimson-and-gold playing card back. Full object centered on a square canvas, height88%, with clear margins. Actual alpha transparent background; no floor, cast shadow, aura, glow, frame, text, lettering, symbols or cropping. One straight upright red wand only."
+  },
+  {
+    "asset": "../backs/back-minor-source.png",
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: precise-object-edit. Recompose this exact ornate Hell's Bells card back into TRUE BRIDGE proportions56:88: desired canvas1008x1584 pixels, tall rather than the reference's wider poker shape. Preserve its sumptuous crimson velvet ground, gold gothic engraved border, cream lilies, paired opposing ornate bells, balanced gold suit medallions and dense baroque foliage. Keep the complete outer gold frame and every rounded corner INSIDE the canvas, with only a very narrow black exterior. No cropping or stretching; rearrange the decorative spacing for the taller canvas. Maintain double-ended rotationally balanced design. No text, ranks, numbers, extra cards, mockup, perspective, hands or external shadows. One full production card-back image with the narrow black print edge."
+  },
+  {
+    "asset": "suit-wands-legible-source.png",
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: precise-object-edit. Improve this red-and-gold wand suit ICON for legibility on dark burgundy playing-card paper. Keep one recognizable upright richly carved crimson wand with gilded leaves and dark gothic wood. Change its silhouette to be MUCH MORE ROBUST and COMPACT: length-to-width about3:1 rather than a thin needle. A thick central red shaft and generous broad golden leaf/vine flourishes on BOTH sides, with a warm bright gold collar and red jewel tip; these are ornaments on ONE wand, not multiple wands. Strong light gold highlights and a clear bright silhouette edge. It must read at only24px total height on a near-black/red background. Full object upright centered at88% canvas height. Square image; genuine transparent alpha. No drop shadow or glow, background, letters, extra symbols, frame or cropping. Preserve sumptuous red-velvet-and-gold material language, not a flat glyph."
+  },
+  {
+    "asset": "suit-swords-legible-source.png",
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: precise-object-edit. Improve this point-down gothic IRON SWORD suit ICON for small-index legibility on near-black charcoal card paper. Keep exactly one complete sword with iron grip, ornate substantial crossguard and point-down blade. It must remain forged gunmetal/iron, clearly darker than polished silver, BUT use broad medium-light gray facets and BRIGHT clean cutting-edge highlights so the outline remains visible on black. Increase blade thickness and the solidity of the crossguard. Compact robust silhouette, total width roughly35% of total height, not a thin needle. Strong illumination from both sides, no black-on-black details as the main shape. At24px height it should be unmistakably a sword. Entire sword centered at88% of square canvas height, clear margins, actual transparent alpha. No glow, cast shadow, floor, backdrop, lettering, frame, extra objects or cropping."
+  },
+  {
+    "asset": "suit-wands-clean-source.png",
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: background-extraction. Edit this asset by removing ALL stray pixels, diagonal streaks, long dark-red/black geometric smears and background artifacts outside the single ornate red-and-gold wand. Preserve the actual compact thick central wand and gilded leaves unchanged. The output must be a CLEAN isolated object cutout, fully alpha-transparent everywhere except the wand itself. In particular, nothing should extend diagonally down/right from the object, and every image edge must be alpha zero. No shadow, aura, fog, streak, texture or backdrop. Clean crisp antialiased object contour, whole wand visible. One centered compact crimson-and-gold wand only, in the same square dimensions."
+  },
+  {
+    "asset": "suit-swords-clean-source.png",
+    "tool": "image_gen.imagegen",
+    "prompt": "Use case: background-extraction. Remove the unwanted gray/white cloud or noise across the top and every background artifact from this sword icon. Preserve only the complete central upright point-down ornate iron sword, its handle, pommel, crossguard and bright blade edges, unchanged. Output a CLEAN isolated sword cutout with true alpha transparency everywhere else, including all four corners, all image edges and the entire space beside/above the pommel. No clouds, gray noise, shadow, backdrop, aura, texture or floor. Sharp clean antialiased silhouette, whole sword visible with margin. One centered gunmetal sword only, same square dimensions."
+  }
+]

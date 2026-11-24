@@ -45,7 +45,7 @@ test('Andromalius never offers a decision when every opponent’s available card
 
 test('large full hands keep every rotated card corner inside the viewport',()=>{
  for(const [width,cardWidth] of [[390,80],[1024,220],[1440,280],[1920,350]])for(const count of [10,13,17])for(let index=0;index<count;index++){
-  const pose=fanPose(index,count,width,cardWidth),angle=pose.angle*Math.PI/180,height=cardWidth*1.6;
+  const pose=fanPose(index,count,width,cardWidth),angle=pose.angle*Math.PI/180,height=cardWidth*(88/56);
   for(const x of [0,cardWidth])for(const y of [0,height]){const edge=width/2+pose.x+(x-cardWidth/2)*Math.cos(angle)-(y-height)*Math.sin(angle);expect(edge).toBeGreaterThanOrEqual(0);expect(edge).toBeLessThanOrEqual(width);}
  }
 });

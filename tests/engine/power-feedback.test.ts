@@ -35,3 +35,11 @@ test('forced draws originate at the viewer’s hand and opponents’ imps',()=>{
  expect(own.box.x).toBe(hand.x);expect(own.box.y).toBe(hand.y);
  expect(peer.box.x).toBe(seat.x);expect(peer.box.y).toBe(seat.y);
 });
+test('exchanged cards retain one sprite identity through travel, pause, and return',()=>{
+ const d=makePowerScene(1,3),t=new PresentationTimeline(d.before);t.append(d.events);const f=t.frames[0];
+ for(const progress of [.1,.28,.3,.34,.4,.44,.5,.71]){
+  const sprites=powerSprites(f,progress,d.actor,anchors);
+  expect(sprites.map(s=>s.key).sort()).toEqual(['given','received']);
+  expect(new Set(sprites.map(s=>s.card)).size).toBe(2);
+ }
+});
