@@ -37,10 +37,15 @@ jobs:
             // Use the upload output directly: the artifact listing service can
             // return an empty list immediately after a successful upload.
             const oidcToken = await core.getIDToken();
+            // The dispatch runs on main, whose SHA can repeat for many PR
+            // previews. Identify the checked-out site, not the workflow ref,
+            // so Pages does not reuse an earlier deployment of main.
+            const pagesVersion = require('node:child_process')
+              .execFileSync('git', ['rev-parse', 'HEAD'], {encoding: 'utf8'}).trim();
             const {data: deployment} = await github.request('POST /repos/{owner}/{repo}/pages/deployments', {
               ...context.repo,
               artifact_id: artifactId,
-              pages_build_version: context.sha,
+              pages_build_version: pagesVersion,
               oidc_token: oidcToken
             });
             core.setOutput('page_url', deployment.page_url);
