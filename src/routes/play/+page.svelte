@@ -1,4 +1,6 @@
 <script lang="ts">
+ import {provideCardDesign} from '$lib/components/card-design';
+ provideCardDesign('indexed','transparent');
  import {onMount,onDestroy} from 'svelte';
  import {base} from '$app/paths';
  import {replaceState} from '$app/navigation';

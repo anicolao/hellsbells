@@ -17,7 +17,7 @@
  </div>
 {/if}
 <style>
-.revealed-hand{position:relative;width:100%;height:calc(var(--reveal-size)*1.6 + 12px);min-width:0;flex-shrink:0;isolation:isolate}
+.revealed-hand{position:relative;width:100%;height:calc(var(--reveal-size)*1.5714285714 + 12px);min-width:0;flex-shrink:0;isolation:isolate}
 .revealed-card{appearance:none;border:0;padding:0;background:transparent;color:inherit;cursor:zoom-in;position:absolute;top:5px;width:var(--reveal-size);transform:translateX(-50%);transform-origin:center top;border-radius:2%;box-shadow:0 0 3px #e0bc6d80;transition:width .18s,margin-left .18s,box-shadow .18s;animation:reveal .65s ease-out;outline:none}
 .revealed-card:hover,.revealed-card:focus{z-index:100!important;width:calc(var(--reveal-size)*2);margin-left:var(--zoom-shift);transform:translateX(-50%);box-shadow:0 4px 10px #000c}
 .revealed-card:focus-visible{outline:2px solid #e0bc6d;outline-offset:3px}

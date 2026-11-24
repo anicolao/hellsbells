@@ -4,7 +4,7 @@ const engine=process.env.BROWSER??'webkit',browser=engine==='webkit'?await webki
 const context=await browser.newContext({viewport:{width:1024,height:1366},deviceScaleFactor:2,isMobile:true,hasTouch:true});
 const page=await context.newPage(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
 const root=process.env.LAB_URL??'http://127.0.0.1:5201/dev/animations',label=process.env.RENDER_LABEL??'after';
-async function settled(){await page.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.images].filter(i=>i.classList.contains('frame')||i.classList.contains('card-back')).map(i=>i.decode()));});}
+async function settled(){await page.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.images].filter(i=>i.matches('.frame,.card-back,.engraving,.power-engraving')).map(i=>i.decode()));});}
 try{
  await mkdir('tmp/qa/card-rendering',{recursive:true});
  for(const viewport of [{width:1024,height:1366},{width:1366,height:1024}]){
@@ -15,7 +15,7 @@ try{
    if(await slider.isEnabled())for(const p of ['1','0','1','0','.5']){await slider.fill(p);await page.evaluate(()=>new Promise(requestAnimationFrame));}
    await settled();await page.screenshot({path:`tmp/qa/card-rendering/${label}-${engine}-${viewport.width}-${scenario}.png`});
    if(label!=='before'){
-    const cards=await page.locator('.game-card').evaluateAll(nodes=>nodes.map(node=>{const c=getComputedStyle(node);const image=node.querySelector<HTMLImageElement>('.frame,.card-back');return {overflow:c.overflow,width:(node as HTMLElement).offsetWidth,natural:image?.naturalWidth??0};}));
+    const cards=await page.locator('.game-card').evaluateAll(nodes=>nodes.map(node=>{const c=getComputedStyle(node);const image=node.querySelector<HTMLImageElement>('.frame,.card-back,.engraving,.power-engraving');return {overflow:c.overflow,width:(node as HTMLElement).offsetWidth,natural:image?.naturalWidth??0};}));
     expect(cards.every(c=>c.overflow==='visible')).toBe(true);
     const filtered=await page.locator('.game-card').evaluateAll(nodes=>nodes.flatMap(card=>{
      const result:string[]=[];for(let n:Element|null=card;n&&!n.classList.contains('game-table');n=n.parentElement)if(!n.classList.contains('game-card')&&!n.classList.contains('reserved')&&getComputedStyle(n).filter!=='none')result.push(n.className);

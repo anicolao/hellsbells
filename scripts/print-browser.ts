@@ -8,7 +8,7 @@ async function ready(){await expect(page.getByRole('button',{name:'Print / save 
 async function decode(){await page.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.images].map(i=>i.decode()));window.dispatchEvent(new Event('beforeprint'));await new Promise(requestAnimationFrame);});}
 try{
  await mkdir('tmp/qa/print',{recursive:true});await page.goto(root);await ready();
- await expect(page.getByRole('status')).toHaveText('88 cards · 15 sheets · 30 PDF pages');
+ await expect(page.getByRole('status')).toHaveText('88 cards · 10 sheets · 20 PDF pages');
  await page.getByLabel('Card size',{exact:true}).selectOption('poker');await expect(page.getByRole('status')).toHaveText('88 cards · 10 sheets · 20 PDF pages');
  const all=await page.locator('.print-sheet[data-side=front] .print-card').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('data-card-id')));expect(new Set(all).size).toBe(88);
  await page.getByLabel('One-sided — fronts only').check();await expect(page.locator('.print-sheet')).toHaveCount(10);
@@ -16,14 +16,14 @@ try{
  await page.getByLabel('One-sided — backs only').check();await expect(page.getByLabel('One-sided — fronts only')).not.toBeChecked();await expect(page.locator('.print-sheet')).toHaveCount(10);
  const first=await page.locator('.print-card').first().evaluate(n=>({x:(n as HTMLElement).style.left,y:(n as HTMLElement).style.top}));expect(first).toEqual({x:'135.5mm',y:'18.5mm'});
  await page.getByRole('button',{name:'Reset alignment'}).click();await page.getByLabel('One-sided — backs only').uncheck();
- for(const paper of ['a4','letter'])for(const format of ['tall','poker']){
+ for(const paper of ['a4','letter'])for(const format of ['bridge','tall','poker']){
   stage=`${paper}-${format}`;await page.emulateMedia({media:'screen'});await page.getByLabel('Paper',{exact:true}).selectOption(paper);await page.getByLabel('Card size',{exact:true}).selectOption(format);
   await page.emulateMedia({media:'print'});await decode();
   const geometry=await page.locator('.print-sheet').evaluateAll(sheets=>sheets.map(s=>{const r=s.getBoundingClientRect();return {w:r.width,h:r.height,cards:[...s.querySelectorAll<HTMLElement>('.print-card')].map(c=>{const b=c.getBoundingClientRect();return {id:c.dataset.cardId,x:b.x-r.x,y:b.y-r.y,w:b.width,h:b.height};})};}));
   const mm=96/25.4;for(let i=0;i<geometry.length;i+=2){const a=geometry[i],b=geometry[i+1];expect(a.w/mm).toBeCloseTo(paper==='a4'?210:215.9,1);expect(a.h/mm).toBeCloseTo(paper==='a4'?297:279.4,1);
-   for(let c=0;c<a.cards.length;c++){const f=a.cards[c],back=b.cards[c];expect(f.w/mm).toBeCloseTo(63,1);expect(f.h/mm).toBeCloseTo(format==='tall'?101:88,1);expect(f.x+back.x+f.w).toBeCloseTo(a.w,1);expect(f.y).toBeCloseTo(back.y,1);expect(f.id).toBe(back.id);}
+   for(let c=0;c<a.cards.length;c++){const f=a.cards[c],back=b.cards[c];expect(f.w/mm).toBeCloseTo(format==='bridge'?56:63,1);expect(f.h/mm).toBeCloseTo(format==='tall'?101:88,1);expect(f.x+back.x+f.w).toBeCloseTo(a.w,1);expect(f.y).toBeCloseTo(back.y,1);expect(f.id).toBe(back.id);}
   }
-  const clipped=await page.locator('.print-sheet .card-copy').evaluateAll(nodes=>nodes.filter(n=>n.scrollHeight>n.clientHeight+1).map(n=>n.closest('[data-card-id]')?.getAttribute('data-card-id')));expect(clipped).toEqual([]);
+  const clipped=await page.locator('.print-sheet .card-copy,.print-sheet .power-copy').evaluateAll(nodes=>nodes.filter(n=>n.scrollHeight>n.clientHeight+1).map(n=>n.closest('[data-card-id]')?.getAttribute('data-card-id')));expect(clipped).toEqual([]);
   expect(await page.locator('.print-sheet[data-side=front] .effect').evaluateAll(nodes=>nodes.every(n=>parseFloat(getComputedStyle(n).fontSize)>=10))).toBe(true);
   if(engine==='chromium'){
   const path=`tmp/qa/print/hellsbells-${paper}-${format}.pdf`;await page.pdf({path,preferCSSPageSize:true,printBackground:true});

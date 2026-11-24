@@ -1,4 +1,6 @@
 <script lang="ts">
+ import {provideCardDesign} from '$lib/components/card-design';
+ provideCardDesign('indexed','transparent');
  import GamePresentation from '$lib/components/play/GamePresentation.svelte';
  import {makePowerScene} from './powers/scenes';
  import {PresentationTimeline} from '$lib/components/play/powers/transitions';

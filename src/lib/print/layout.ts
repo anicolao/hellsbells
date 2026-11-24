@@ -1,13 +1,13 @@
 import type {GameCard} from '$lib/data/game';
 export type Paper='a4'|'letter';
-export type CardSize='tall'|'poker';
+export type CardSize='bridge'|'tall'|'poker';
 export const paperSizes={a4:{width:210,height:297,label:'A4'},letter:{width:215.9,height:279.4,label:'US Letter'}} as const;
-export const formats={tall:{width:63,height:101,columns:3,rows:2,label:'Tall · 63 × 101 mm'},poker:{width:63,height:88,columns:3,rows:3,label:'Poker · 63 × 88 mm'}} as const;
+export const formats={bridge:{width:56,height:88,columns:3,rows:3,label:'Bridge · 56 × 88 mm'},tall:{width:63,height:101,columns:3,rows:2,label:'Tall · 63 × 101 mm'},poker:{width:63,height:88,columns:3,rows:3,label:'Poker · 63 × 88 mm'}} as const;
 export const bleed=1,trimBorder=1;
 export type PrintCard={card:GameCard;copy:number;x:number;y:number};
 export type PrintSheet={format:CardSize;side:'front'|'back';sheet:number;cards:PrintCard[];x:number;y:number;width:number;height:number};
 /** Fit the production artwork without stretching it, inside a black trim border. */
-export function artworkSize(format:CardSize){const f=formats[format],ratio=992/1586,width=Math.min(f.width-2*trimBorder,(f.height-2*trimBorder)*ratio);return {width,height:width/ratio};}
+export function artworkSize(format:CardSize){const f=formats[format],ratio=56/88,width=Math.min(f.width-2*trimBorder,(f.height-2*trimBorder)*ratio);return {width,height:width/ratio};}
 export function printSheets(cards:GameCard[],format:CardSize,paper:Paper,backOffset={x:0,y:0}):PrintSheet[]{
  const result:PrintSheet[]=[],f=formats[format],p=paperSizes[paper],width=f.columns*f.width,height=f.rows*f.height,x=(p.width-width)/2,y=(p.height-height)/2,capacity=f.columns*f.rows;
  for(let offset=0;offset<cards.length;offset+=capacity){
