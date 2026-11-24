@@ -9,8 +9,8 @@ export const CARD_INDEXES=['A','2','3','4','5','6','7','8','9','10','P','N','Q',
 export type CardTheme={material:string;frame:string;paper:string;ink:string};
 export const SUIT_THEMES:Record<Suit,CardTheme>={
  Wands:{material:'Red leather',frame:'#971e35',paper:'#3b141e',ink:'#ffe4ce'},
- Cups:{material:'Silver',frame:'#b9c6d0',paper:'#23313a',ink:'#eef4f5'},
- Swords:{material:'Iron',frame:'#626c77',paper:'#20232b',ink:'#e9e9e5'},
+ Cups:{material:'Silver',frame:'#b9c6d0',paper:'#d0d0ce',ink:'#242423'},
+ Swords:{material:'Iron',frame:'#626c77',paper:'#171719',ink:'#eeece6'},
  Pentacles:{material:'Gold',frame:'#c69a38',paper:'#34250f',ink:'#ffe7a8'}
 };
 export const IMP_THEME:CardTheme={material:'Copper',frame:'#b5784f',paper:'#30201c',ink:'#f7e2c6'};
