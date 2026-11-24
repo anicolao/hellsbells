@@ -33,7 +33,7 @@
     "rl:evaluate:multi": "bun scripts/rl/evaluate-multi.ts",
     "rl:verify:v3": "bun scripts/rl/verify-multi.ts",
     "rl:report:v3": "bun scripts/rl/report-multi.ts",
-    "test:interactions": "bun scripts/interaction-browser.ts && bun scripts/empress-browser.ts",
+    "test:interactions": "bun scripts/interaction-browser.ts && bun scripts/empress-browser.ts && bun scripts/reservation-browser.ts",
     "test:seating": "bun scripts/seating-browser.ts",
     "test:join": "bun scripts/join-browser.ts",
     "test:exposure": "bun scripts/exposure-browser.ts",
