@@ -12,7 +12,7 @@ try{
   const phase=await host.locator('.game-table').getAttribute('data-phase');
   for(const p of pages){try{if(await p.locator('.table-error').count())throw Error(await p.locator('.table-error').innerText());
    const keep=p.locator('.decision-pile button');if(await keep.count()&&await keep.isEnabled())await keep.click();
-   if(phase==='discard'){const selection=p.locator('.hand-card .card-control:not(.selected):not(.disabled)').first();if(await selection.count()){await selection.hover({position:{x:15,y:80}});await selection.locator('button').click();const discard=p.getByRole('button',{name:'Discard selected cards'});if(await discard.count()&&await discard.isEnabled())await discard.click();}}
+   if(phase==='discard'){const selection=p.locator('.hand-card .card-control:not(.selected):not(.disabled)').first();if(await selection.count()){await selection.locator('button').focus();await selection.locator('button').press('Enter');const discard=p.getByRole('button',{name:'Discard selected cards'});if(await discard.count()&&await discard.isEnabled())await discard.click();}}
    const bid=p.locator('.bid-tray button');if(await bid.count())try{await bid.first().click({timeout:1000});}catch(error){if(!(error instanceof Error)||error.name!=='TimeoutError')throw error;}
    if(phase==='arcana'){const target=p.locator('.opponent-portrait button').first();if(await p.locator('.target-cue').count())await target.click();}
   }catch(error){if(!(error instanceof Error)||error.name!=='TimeoutError')throw error;}
