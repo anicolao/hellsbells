@@ -14,10 +14,11 @@
  import {BellAudio,listenForBellUnlock} from './powers/bell';
  let {game,events,uid,busy,roomId,send,initial,time=null,playing=true,sound=true,presenting=$bindable(false)}:{game:State;events:Event[];uid:string;busy:boolean;roomId:string;send:(c:Command)=>void;initial?:State;time?:number|null;playing?:boolean;sound?:boolean;presenting?:boolean}=$props();
  let timeline:PresentationTimeline|undefined,root:HTMLDivElement;
+ let mounted=$state(false),clockOrigin=0;
  let clock=$state(0),version=$state(0),anchors=$state<Anchors>({}),oldHand=$state<string[]|null>(null);
  const audio=new BellAudio();let previousTime=-1;
  export async function unlockAudio(){await audio.unlock();}
- $effect(()=>{const log=events,latest=game,seed=initial;untrack(()=>{if(!timeline||seed&&timeline.seed!==seed&&time!==null){timeline=new PresentationTimeline(seed??latest);if(seed)timeline.append(log);version++;}else{if(root&&log.some(event=>event.sequence>timeline!.latest.revision))settledAnchors=measure();timeline.append(log,clock);version++;}});});
+ $effect(()=>{const log=events,latest=game,seed=initial;untrack(()=>{if(!timeline||seed&&timeline.seed!==seed&&time!==null||!log.length&&latest.revision>timeline.latest.revision){timeline=new PresentationTimeline(seed??latest);if(seed)timeline.append(log);version++;}else{if(root&&log.some(event=>event.sequence>timeline!.latest.revision))settledAnchors=measure();if(log.length){clock=time??performance.now()-clockOrigin;timeline.append(log,clock);version++;}}});});
  const sample=$derived.by(()=>{void version;return timeline?.sample(time??clock)??{game,frame:null,elapsed:0,progress:1,effect:1,busy:false};});
  // Keep the table's state identity stable between event transitions. A ticking
  // presentation clock must not restart the table's automatic phase timers.
@@ -45,25 +46,51 @@
   for(const c of sample.game.exposed)a[`public:${c}`]=box(`[data-exposed-card="${c}"] .game-card`);
   return a;
  }
+ function placeAnchors(source:Anchors,after:Anchors,m:NonNullable<typeof motion>){
+  const seat=(id:string|undefined)=>source[`seat:${id}`]??after[`seat:${id}`]??after.centre;
+  const hand=(id:string|undefined,c:string|undefined,a:Anchors)=>a[`hand:${id}:${c}`]??seat(id);
+  anchors={...source,...after,'actor-seat':seat(m.actor),'target-seat':seat(m.target),'actor-hand':source['actor-hand']??hand(m.actor,m.given??m.played,source),'target-hand':source['target-hand']??hand(m.target,m.received??m.played,source),'received-hand':hand(m.actor,m.received,after),'given-target':hand(m.target,m.given,after),'returned-hand':hand(m.target,m.returned,after),'trick-original':source[`trick:${m.returned}`]??after.centre,'trick-slot':after[`trick:${m.played}`]??after.centre,'new-public':after[`public:${m.revealed[0]}`]??seat(m.target)};
+  m.inspected.forEach((_,i)=>anchors[`inspection-${i}`]={...after.centre,x:root.clientWidth/2+(i-(m.inspected.length-1)/2)*(after.centre.width+10)-after.centre.width/2});
+ }
  // Capture the existing DOM before the reducer's new state is painted; measure destinations after it.
  let measuredKey='',settledAnchors:Anchors={};
- $effect.pre(()=>{const key=frame?.key??'',captureKey=`${uid}:${key}`,revision=sample.game.revision;if(!root)return;untrack(()=>{
+ $effect.pre(()=>{const key=frame?.key??'',captureKey=`${uid}:${key}`,revision=displayedGame.revision;if(!root)return;untrack(()=>{
   if(!frame&&captureKey!==measuredKey){settledAnchors=measure();}
   if(captureKey!==measuredKey){anchors={...settledAnchors,...measure()};const before=frame?.before.players.find(p=>p.id===uid)?.hand,after=frame?.after.players.find(p=>p.id===uid)?.hand;
    const changed=before&&after&&(before.length!==after.length||before.some(card=>!after.includes(card)));
    oldHand=changed?[...before].sort((a,b)=>cards[a].suit.localeCompare(cards[b].suit)||cards[a].rank-cards[b].rank):null;measuredKey=captureKey;}
-  void tick().then(()=>{if(!frame||frame.key!==key)return;const after=measure(),m=frame.motion,source=anchors;const seat=(id:string|undefined)=>source[`seat:${id}`]??after[`seat:${id}`]??after.centre;const hand=(id:string|undefined,c:string|undefined,a:Anchors)=>a[`hand:${id}:${c}`]??seat(id);
-   anchors={...source,...after,'actor-seat':seat(m.actor),'target-seat':seat(m.target),'actor-hand':source['actor-hand']??hand(m.actor,m.given??m.played,source),'target-hand':source['target-hand']??hand(m.target,m.received??m.played,source),'received-hand':hand(m.actor,m.received,after),'given-target':hand(m.target,m.given,after),'returned-hand':hand(m.target,m.returned,after),'trick-original':source[`trick:${m.returned}`]??after.centre,'trick-slot':after[`trick:${m.played}`]??after.centre,'new-public':after[`public:${m.revealed[0]}`]??seat(m.target)};
-   m.inspected.forEach((_,i)=>anchors[`inspection-${i}`]={...after.centre,x:root.clientWidth/2+(i-(m.inspected.length-1)/2)*(after.centre.width+10)-after.centre.width/2});
+  void tick().then(()=>{if(!frame||frame.key!==key)return;const after=measure(),m=frame.motion,source=anchors;
+   placeAnchors(source,after,m);
   });void revision;
  });});
- $effect(()=>{const now=time??clock;void version;if(!playing||!sound){audio.silence();previousTime=now;return;}if(timeline&&now>=previousTime)for(const f of timeline.frames)if(f.motion.bell&&previousTime<f.start+bellTime&&now>=f.start+bellTime)audio.ring();previousTime=now;});
- $effect(()=>{if(!root)return;const active=frame&&sample.elapsed>=(motion?.bell?bellDuration:0),f=sample.effect;for(const n of root.querySelectorAll('[data-power-hidden]'))n.removeAttribute('data-power-hidden');if(!active||!motion)return;
-  const landing=motion.imp===1?.76:motion.imp===5?.72:motion.imp===9?.78:motion.kind==='draw'?.75:.69;
-  const hidden=motion.kind==='reveal'?motion.revealed:f<landing?[motion.played,motion.given,motion.received,motion.returned,...motion.revealed].filter(Boolean):[];
+ $effect(()=>{const now=time??clock;void version;if(!playing||!sound){audio.silence();previousTime=now;return;}if(frame?.motion.bell&&now>=previousTime&&previousTime<frame.start+bellTime&&now>=frame.start+bellTime)audio.ring();previousTime=now;});
+ const hidingCards=$derived(!!frame&&sample.elapsed>=(motion?.bell?bellDuration:0)&&(motion?.kind==='reveal'||sample.effect<(motion?.imp===1?.76:motion?.imp===5?.72:motion?.imp===9?.78:motion?.kind==='draw'?.75:.69)));
+ $effect(()=>{
+  if(!root)return;
+  const active=hidingCards,current=motion;
+  for(const n of root.querySelectorAll('[data-power-hidden]'))n.removeAttribute('data-power-hidden');
+  if(!active||!current)return;
+  const hidden=current.kind==='reveal'?current.revealed:[current.played,current.given,current.received,current.returned,...current.revealed].filter(Boolean);
   for(const c of hidden)for(const n of root.querySelectorAll(`[data-fan-card="${c}"],[data-trick-card="${c}"],[data-exposed-card="${c}"]`))n.setAttribute('data-power-hidden','');
  });
- onMount(()=>{let raf=0;const start=performance.now();function step(now:number){clock=now-start;raf=requestAnimationFrame(step);}raf=requestAnimationFrame(step);const stopUnlock=listenForBellUnlock(audio,document);return()=>{cancelAnimationFrame(raf);audio.dispose();stopUnlock();};});
+ onMount(()=>{
+  clockOrigin=performance.now();mounted=true;let resizing=0,disposed=false;
+  const observer=new ResizeObserver(()=>{
+   cancelAnimationFrame(resizing);resizing=requestAnimationFrame(()=>{void tick().then(()=>{
+    if(disposed||!root)return;const current=measure();
+    if(frame)placeAnchors(current,current,frame.motion);else settledAnchors=current;
+   });});
+  });observer.observe(root);
+  const stopUnlock=listenForBellUnlock(audio,document);
+  return()=>{disposed=true;observer.disconnect();cancelAnimationFrame(resizing);audio.dispose();stopUnlock();};
+ });
+ $effect(()=>{
+  void version;
+  if(!mounted||time!==null||!timeline?.pending)return;
+  const current=timeline;let raf=0;
+  function step(now:number){clock=now-clockOrigin;current.prune(clock);if(current.pending)raf=requestAnimationFrame(step);}
+  raf=requestAnimationFrame(step);return()=>cancelAnimationFrame(raf);
+ });
 </script>
 <div class="game-presentation" bind:this={root} data-power={motion?.imp} data-animation={motion?.kind} data-presenting={sample.busy}>
  <Table game={displayedGame} {uid} {roomId} busy={tableBusy} send={dispatch} {feedbackActive} feedbackHand={sample.busy?oldHand:null} feedbackProgress={sample.effect} concealedCards={frame?.mask??[]}/>
@@ -76,5 +103,5 @@
  {/if}
 </div>
 <style>
-.game-presentation{position:relative;isolation:isolate}.game-presentation :global([data-power-hidden]){visibility:hidden}.game-presentation[data-presenting='true'] :global(.vision),.game-presentation[data-presenting='true'] :global(.decision-followup),.game-presentation[data-presenting='true'] :global(.power-cue){visibility:hidden}.bell-announcement{position:absolute;inset:0;z-index:260;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;background:radial-gradient(ellipse,#080d0bc9,transparent 70%);color:#ffe4a6;text-shadow:0 2px 8px #000}.bell-announcement img{width:clamp(100px,19vw,200px);transform-origin:50% 14%;border-radius:50%;box-shadow:0 0 20px #d9ad6755}.bell-announcement strong{font:600 clamp(2rem,5vw,3.8rem)/1.1 'Cormorant Garamond',serif}.bell-announcement span{font-size:1rem;color:#e5c78a}.effect-cards{position:absolute;inset:0;z-index:180;pointer-events:none}.effect-cards.flipping{perspective:1000px}.power-fx-card{position:absolute;left:0;top:0;border-radius:2%;box-shadow:0 8px 12px #0009;transform-origin:0 0}.power-fx-card :global(.game-card){width:100%;height:100%}.suit-effect{position:absolute;left:50%;top:35%;transform:translateX(-50%);display:flex;align-items:center;gap:22px;z-index:190;pointer-events:none;color:#edc578}.suit-effect img{width:60px;height:70px;object-fit:contain}.suit-effect>div{position:relative}.suit-effect i{position:absolute;left:-15%;top:48%;width:130%;height:5px;background:#cd7055;transform:rotate(-35deg)}.lead-flight,.shax-mark{position:absolute;z-index:190;pointer-events:none}.shax-mark{border-radius:50%;box-shadow:0 0 18px #edc578}
+.game-presentation{position:relative;isolation:isolate}.game-presentation :global([data-power-hidden]){visibility:hidden}.game-presentation[data-presenting='true'] :global(.vision),.game-presentation[data-presenting='true'] :global(.decision-followup),.game-presentation[data-presenting='true'] :global(.power-cue){visibility:hidden}.bell-announcement{position:absolute;inset:0;z-index:260;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;background:radial-gradient(ellipse,#080d0bc9,transparent 70%);color:#ffe4a6;text-shadow:0 2px 8px #000}.bell-announcement img{width:clamp(100px,19vw,200px);transform-origin:50% 14%;border-radius:50%;box-shadow:0 0 20px #d9ad6755}.bell-announcement strong{font:600 clamp(2rem,5vw,3.8rem)/1.1 'Cormorant Garamond',serif}.bell-announcement span{font-size:1rem;color:#e5c78a}.effect-cards{position:absolute;inset:0;overflow:clip;z-index:180;pointer-events:none}.effect-cards.flipping{perspective:1000px}.power-fx-card{position:absolute;left:0;top:0;border-radius:2%;box-shadow:0 8px 12px #0009;transform-origin:0 0}.power-fx-card :global(.game-card){width:100%;height:100%}.suit-effect{position:absolute;left:50%;top:35%;transform:translateX(-50%);display:flex;align-items:center;gap:22px;z-index:190;pointer-events:none;color:#edc578}.suit-effect img{width:60px;height:70px;object-fit:contain}.suit-effect>div{position:relative}.suit-effect i{position:absolute;left:-15%;top:48%;width:130%;height:5px;background:#cd7055;transform:rotate(-35deg)}.lead-flight,.shax-mark{position:absolute;z-index:190;pointer-events:none}.shax-mark{border-radius:50%;box-shadow:0 0 18px #edc578}
 </style>
