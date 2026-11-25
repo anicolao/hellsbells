@@ -34,7 +34,8 @@ export function describeEvent(before:State,event:Event){
 export type PresentationSample={game:State;frame:PresentationFrame|null;elapsed:number;progress:number;effect:number;busy:boolean};
 /** Both live delivery and the lab's controllable clock feed this same append-only presentation timeline. */
 export class PresentationTimeline{
- latest:State;seed:State;frames:PresentationFrame[]=[];end=0;
+ latest:State;seed:State;frames:PresentationFrame[]=[];end=0;private firstFrame=0;
+ get pending(){return this.firstFrame<this.frames.length;}
  constructor(seed:State){this.latest=seed;this.seed=seed;}
  append(events:Event[],now=0){
   for(const event of events){if(event.sequence<=this.latest.revision)continue;const before=this.latest,{after,motions}=describeEvent(before,event);this.latest=after;
@@ -45,12 +46,17 @@ export class PresentationTimeline{
  }
  sample(time:number):PresentationSample{
   let game=this.seed;
-  for(const frame of this.frames){if(time<frame.start)return {game,frame:null,elapsed:0,progress:0,effect:0,busy:true};
+  for(let i=this.firstFrame;i<this.frames.length;i++){const frame=this.frames[i];if(time<frame.start)return {game,frame:null,elapsed:0,progress:0,effect:0,busy:true};
    if(frame.duration&&time<frame.start+frame.duration){const elapsed=Math.max(0,time-frame.start),effect=effectProgress(frame,elapsed),bell=frame.motion.bell&&elapsed<bellDuration;return {game:bell?frame.before:frame.after,frame,elapsed,progress:elapsed/frame.duration,effect,busy:true};}
    game=frame.after;
   }
   return {game,frame:null,elapsed:0,progress:1,effect:1,busy:false};
  }
- prune(time:number){let count=0;for(const frame of this.frames){if(frame.start+frame.duration>time)break;this.seed=frame.after;count++;}if(count)this.frames.splice(0,count);}
- skip(){this.seed=this.latest;this.frames=[];this.end=0;}
+ prune(time:number){
+  while(this.firstFrame<this.frames.length){const frame=this.frames[this.firstFrame];if(frame.start+frame.duration>time)break;this.seed=frame.after;this.firstFrame++;}
+  // Compact occasionally, not one array shift for every completed animation.
+  if(this.firstFrame===this.frames.length){this.frames=[];this.firstFrame=0;}
+  else if(this.firstFrame>128&&this.firstFrame>this.frames.length/2){this.frames=this.frames.slice(this.firstFrame);this.firstFrame=0;}
+ }
+ skip(){this.seed=this.latest;this.frames=[];this.firstFrame=0;this.end=0;}
 }

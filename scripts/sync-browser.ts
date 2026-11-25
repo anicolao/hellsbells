@@ -5,10 +5,10 @@ const page=await browser.newPage(safari?{userAgent:'Mozilla/5.0 (Macintosh) Appl
 try{
  // Delay only delivery of real Firestore snapshots to reproduce a write being
  // acknowledged well before the table's listener catches up.
- await page.route('**/src/lib/backend/repository.ts',async route=>{
+ await page.route('**/src/lib/backend/repository.ts*',async route=>{
   const response=await route.fetch(),source=await response.text();
-  if(!source.includes('update(state, events);'))throw Error('Watcher injection point changed');
-  await route.fulfill({response,body:source.replace('update(state, events);','setTimeout(() => update(state, events), 1200);')});
+  if(!source.includes('update(state, events, synced);'))throw Error('Watcher injection point changed');
+  await route.fulfill({response,body:source.replace('update(state, events, synced);','setTimeout(() => update(state, events, synced), 1200);')});
  });
  await page.goto(process.env.PLAY_URL??'http://127.0.0.1:5201/play/');
  const demo=await page.evaluate(async()=>{const path='/src/lib/backend/firebase.ts';const {connectFirebase}=await import(path);const {db}=await connectFirebase();return {project:db.app.options.projectId,streams:(db as any)._settings.useFetchStreams};});

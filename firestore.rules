@@ -17,7 +17,7 @@ service cloud.firestore {
       || (getAfter(event(id,request.resource.data.revision)).data.command.type!='bot' && request.resource.data.members==resource.data.members && request.resource.data.bots==resource.data.bots && (request.resource.data.capacity==resource.data.capacity || (request.auth.uid==resource.data.owner && getAfter(event(id,request.resource.data.revision)).data.command.type in ['capacity','start'])))
     )));
    match /events/{seq} {
-    allow read: if signed() && request.auth.uid in get(room(id)).data.members;
+    allow read: if signed();
     allow update,delete: if false;
     allow create: if signed() && request.resource.data.keys().hasOnly(['version','sequence','actor','id','command','createdAt']) && request.resource.data.version==1 && request.resource.data.id is string && request.resource.data.id.size()>0 && request.resource.data.id.size()<=64 && request.resource.data.command is map && request.resource.data.command.keys().hasOnly(['type','card','cards','target','value','power','royal','low','name','seed','capacity']) && request.resource.data.command.type in ['create','join','bot','capacity','start','choose','discard','arcana','prebid','bid','adjust','play','shax','recall','power','continue'] && request.resource.data.createdAt==request.time && seq==string(request.resource.data.sequence) && request.resource.data.sequence==getAfter(room(id)).data.revision && controls(getAfter(room(id)).data,request.resource.data.actor) && request.auth.uid in getAfter(room(id)).data.members && (
       (!exists(room(id)) && request.resource.data.sequence==1 && request.resource.data.command.type=='create' && request.resource.data.actor==request.auth.uid)
